@@ -65,8 +65,8 @@ export default function TextVideoMask({ text, videoSrc, className = '' }: TextVi
                 >
                     <source src="/feature-reel.mp4" type="video/mp4" />
                 </video>
-                {/* Fallback Gradient if video fails or loads slow - Dark/Black for premium feel (No Red) */}
-                <div className="absolute inset-0 bg-[#050505] -z-10" />
+                {/* Fallback Gradient - Vivid (Restored by Request) */}
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-600 via-red-500 to-pink-500 animate-gradient-xy -z-10" />
             </div>
 
             {/* Ghost Text for Layout / Height */}
