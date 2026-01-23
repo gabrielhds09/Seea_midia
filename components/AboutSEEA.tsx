@@ -141,11 +141,11 @@ export default function AboutSEEA() {
                             {VALUES.map((value, index) => (
                                 <motion.div
                                     key={index}
-                                    initial={{ opacity: 0, x: -30 }}
+                                    initial={{ opacity: 0, x: -20 }}
                                     whileInView={{ opacity: 1, x: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ delay: 0.3 + index * 0.1 }}
-                                    className="group flex items-start gap-4 p-5 rounded-2xl bg-white/[0.02] border border-white/[0.05] hover:border-[#ed1c24]/30 hover:bg-white/[0.04] transition-all duration-300 cursor-default"
+                                    className="group flex items-start gap-4 p-5 rounded-2xl bg-white/[0.02] border border-white/[0.05] active:bg-white/[0.05] transition-colors duration-300"
                                 >
                                     <span className="text-2xl text-[#ed1c24]/60 group-hover:text-[#ed1c24] transition-colors">
                                         {value.icon}
@@ -183,15 +183,10 @@ export default function AboutSEEA() {
                                     {/* Number */}
                                     <div className="relative flex items-baseline gap-1 mb-4">
                                         <motion.span
-                                            className="text-6xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-white/60"
-                                            whileInView={{
-                                                backgroundImage: [
-                                                    'linear-gradient(to right, rgba(255,255,255,0.3), rgba(255,255,255,0.1))',
-                                                    'linear-gradient(to right, #ed1c24, #431846)',
-                                                    'linear-gradient(to right, #ed1c24, #431846)'
-                                                ]
-                                            }}
-                                            transition={{ duration: 1, delay: 0.6 + index * 0.2 }}
+                                            className="text-6xl md:text-7xl font-black text-white"
+                                            initial={{ opacity: 0, y: 20 }}
+                                            whileInView={{ opacity: 1, y: 0 }}
+                                            transition={{ duration: 0.8, delay: 0.6 + index * 0.2 }}
                                         >
                                             {stat.value}
                                         </motion.span>

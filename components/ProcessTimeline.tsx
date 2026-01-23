@@ -39,8 +39,8 @@ export default function ProcessTimeline() {
                     key={step.id}
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    viewport={{ once: true, margin: "-10%" }}
+                    transition={{ duration: 0.7, delay: index * 0.15, ease: "easeOut" }}
                     className="relative group"
                 >
                     {/* Timeline Dot */}

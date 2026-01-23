@@ -19,7 +19,7 @@ export default function FloatingRecButton({
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 group"
+            className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[9999] group"
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 2.5, duration: 0.4, type: "spring", stiffness: 300 }}

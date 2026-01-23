@@ -95,12 +95,12 @@ function ServiceCard({ service, index }: { service: typeof SERVICES[0], index: n
                 <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-8">
 
                     {/* Left Side */}
-                    <div className="flex items-start gap-6 lg:w-3/5">
+                    <div className="flex items-start gap-4 lg:gap-6 lg:w-3/5 w-full relative">
                         {/* Number + Icon */}
-                        <div className="flex flex-col items-center gap-3">
-                            <span className="text-xs font-mono text-white/20">{service.id}</span>
+                        <div className="flex flex-col items-center gap-3 shrink-0">
+                            <span className="text-[10px] lg:text-xs font-mono text-white/20">{service.id}</span>
                             <motion.div
-                                className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${service.gradient} flex items-center justify-center shadow-lg`}
+                                className={`w-10 h-10 lg:w-14 lg:h-14 rounded-xl lg:rounded-2xl bg-gradient-to-br ${service.gradient} flex items-center justify-center shadow-lg`}
                                 style={{
                                     boxShadow: isHovered ? `0 20px 40px -10px ${service.accentColor}40` : 'none'
                                 }}
@@ -110,39 +110,39 @@ function ServiceCard({ service, index }: { service: typeof SERVICES[0], index: n
                                 }}
                                 transition={{ duration: 0.3 }}
                             >
-                                <service.icon className="w-6 h-6 text-white" />
+                                <service.icon className="w-5 h-5 lg:w-6 lg:h-6 text-white" />
                             </motion.div>
                         </div>
 
                         {/* Title + Description */}
-                        <div className="flex-1">
-                            <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-white mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-white/60 transition-all duration-300">
+                        <div className="flex-1 pr-2"> {/* Added padding right to avoid overlap with tags on very small screens if needed, though tags are top right */}
+
+                            {/* Tags - Absolute Top Right on Mobile with Shine */}
+                            <div className="absolute -top-1 -right-1 lg:static lg:flex lg:flex-wrap lg:gap-2 mb-2 lg:mb-4 flex flex-col items-end gap-1">
+                                {service.tags.map((tag, i) => (
+                                    <motion.span
+                                        key={tag}
+                                        initial={{ opacity: 0 }}
+                                        whileInView={{ opacity: 1 }}
+                                        viewport={{ once: true }}
+                                        transition={{ delay: index * 0.1 + i * 0.05 }}
+                                        className="relative overflow-hidden text-[9px] lg:text-[10px] uppercase tracking-[0.1em] px-2 py-1 lg:px-3 lg:py-1.5 rounded-full border border-white/10 bg-white/5 text-white/40"
+                                    >
+                                        <span className="relative z-10">{tag}</span>
+                                        {/* Shine Effect */}
+                                        <div className="absolute inset-0 z-0 w-full h-full -skew-x-12 opacity-0 animate-shine"
+                                            style={{ background: `linear-gradient(90deg, transparent, ${service.accentColor}40, transparent)` }} />
+                                    </motion.span>
+                                ))}
+                            </div>
+
+                            <h3 className="text-xl md:text-3xl font-bold tracking-tight text-white mb-2 lg:mb-4 mt-8 lg:mt-0 leading-tight">
                                 {service.title}
                             </h3>
 
                             {/* Description - Always visible, no layout shifts */}
-                            <div className="mt-2 text-base text-white/60 leading-relaxed pb-4">
+                            <div className="mt-2 text-sm lg:text-base text-white/60 leading-relaxed pb-2 lg:pb-4">
                                 {service.description}
-                            </div>
-
-                            {/* Tags */}
-                            <div className="flex flex-wrap gap-2">
-                                {service.tags.map((tag, i) => (
-                                    <motion.span
-                                        key={tag}
-                                        initial={{ opacity: 0, scale: 0.8 }}
-                                        whileInView={{ opacity: 1, scale: 1 }}
-                                        transition={{ delay: index * 0.1 + i * 0.05 }}
-                                        className="text-[10px] uppercase tracking-[0.15em] px-3 py-1.5 rounded-full border transition-all duration-300"
-                                        style={{
-                                            borderColor: isHovered ? `${service.accentColor}50` : 'rgba(255,255,255,0.1)',
-                                            color: isHovered ? service.accentColor : 'rgba(255,255,255,0.4)',
-                                            backgroundColor: isHovered ? `${service.accentColor}10` : 'transparent'
-                                        }}
-                                    >
-                                        {tag}
-                                    </motion.span>
-                                ))}
                             </div>
                         </div>
                     </div>

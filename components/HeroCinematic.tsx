@@ -13,8 +13,11 @@ export default function HeroCinematic() {
     const opacityHero = useTransform(scrollY, [0, 500], [1, 0])
     const yText = useTransform(scrollY, [0, 500], [0, 100])
 
-    // Loading Simulation
+    // Loading Simulation & Scroll Reset
     useEffect(() => {
+        // Force scroll to top on refresh/load
+        window.scrollTo(0, 0)
+
         const timer = setTimeout(() => {
             setIsLoading(false)
         }, 2200) // Tempo para apreciar o logo

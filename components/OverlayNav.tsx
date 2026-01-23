@@ -27,7 +27,7 @@ export default function OverlayNav() {
     return (
         <>
             {/* Valid for all pages - Fixed Header */}
-            <header className={`fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 md:px-12 py-6 transition-all duration-300 ${scrolled ? 'bg-black/50 backdrop-blur-md py-4' : 'bg-transparent'}`}>
+            <header className={`fixed top-0 left-0 w-full z-[9999] flex justify-between items-center px-6 md:px-12 py-6 transition-all duration-300 ${scrolled ? 'bg-black/50 backdrop-blur-md py-4' : 'bg-transparent'}`}>
 
                 {/* Logo Area */}
                 <div className="text-xl font-bold tracking-tighter text-white z-50 mix-blend-difference">
@@ -54,7 +54,7 @@ export default function OverlayNav() {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.5 }}
-                        className="fixed inset-0 z-[60] bg-[#0a0a0a] flex flex-col items-center justify-center text-white"
+                        className="fixed inset-0 z-[10000] bg-[#0a0a0a] flex flex-col items-center justify-center text-white"
                     >
                         {/* Close Button */}
                         <button

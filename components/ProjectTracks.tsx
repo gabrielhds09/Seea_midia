@@ -240,14 +240,14 @@ export default function ProjectTracks() {
             </div>
 
             {/* Track 1 */}
-            <div ref={row1Ref} className="flex whitespace-nowrap mb-16 w-max pl-[15vw]">
+            <div ref={row1Ref} className="flex whitespace-nowrap mb-16 w-max pl-[15vw]" style={{ willChange: 'transform' }}>
                 {[...PROJECTS, ...PROJECTS].map((item, i) => (
                     <ProjectCard key={`r1-${i}`} item={item} index={i % PROJECTS.length} />
                 ))}
             </div>
 
             {/* Track 2 */}
-            <div ref={row2Ref} className="flex whitespace-nowrap w-max">
+            <div ref={row2Ref} className="flex whitespace-nowrap w-max" style={{ willChange: 'transform' }}>
                 {[...PROJECTS].reverse().concat([...PROJECTS].reverse()).map((item, i) => (
                     <ProjectCard key={`r2-${i}`} item={item} index={(PROJECTS.length - 1) - (i % PROJECTS.length)} />
                 ))}

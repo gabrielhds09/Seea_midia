@@ -21,7 +21,12 @@ export default function TextVideoMask({ text, videoSrc, className = '' }: TextVi
     return (
         <div ref={containerRef} className={`relative overflow-hidden ${className}`}>
             {/* The Text acting as a Mask */}
-            <h2 className="relative z-10 text-[12vw] leading-[0.85] font-black uppercase tracking-tighter text-transparent bg-clip-text select-none"
+            <motion.h2
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1, ease: "easeOut" }}
+                className="relative z-10 text-[12vw] leading-[0.85] font-black uppercase tracking-tighter text-transparent bg-clip-text select-none"
                 style={{
                     backgroundImage: 'url(/noise.png), linear-gradient(to bottom, #fff, #888)',
                     WebkitBackgroundClip: 'text',
@@ -31,7 +36,7 @@ export default function TextVideoMask({ text, videoSrc, className = '' }: TextVi
                 }}
             >
                 {text}
-            </h2>
+            </motion.h2>
 
             {/* Video Background Layer - Only visible where text overlays if we use screen/multiply logic, 
                 OR we can use strictly SVG masking for better browser support. 
@@ -128,7 +133,7 @@ export default function TextVideoMask({ text, videoSrc, className = '' }: TextVi
             {/* Actual Visible Video masked by the text */}
             <div className="absolute inset-0 z-10" style={{ mask: `url(#mask-${text.replace(/\s/g, '')})`, WebkitMask: `url(#mask-${text.replace(/\s/g, '')})` }}>
                 {/* Fallback Gradient if video missing - Replacing the video tag with a nice animated gradient */}
-                <div className="w-full h-full bg-gradient-to-br from-[#431846] via-[#ed1c24] to-[#2a1535] animate-pulse" />
+                <div className="w-full h-full bg-gradient-to-br from-[#431846] via-[#ed1c24] to-[#2a1535] animate-gradient-xy" />
             </div>
 
             {/* Ghost Text for Layout / Height */}
