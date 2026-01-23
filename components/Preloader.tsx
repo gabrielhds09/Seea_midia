@@ -34,30 +34,19 @@ export default function Preloader() {
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.8, ease: "easeInOut" }}
                 >
+                    {/* NO LOGO - Just Progress Bar */}
                     <motion.div
-                        className="flex flex-col items-center justify-between h-[80vh] relative"
+                        className="flex flex-col items-center justify-center"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                     >
-                        {/* Center Logo - Static (No Pulse) */}
-                        <div className="flex-1 flex items-center justify-center">
+                        {/* Progress Bar Only */}
+                        <div className="w-64 h-[3px] bg-white/10 rounded-full overflow-hidden">
                             <motion.div
-                                className="text-5xl md:text-7xl font-black uppercase tracking-tighter text-white"
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ duration: 1, ease: "easeOut" }}
-                            >
-                                SEEA
-                            </motion.div>
-                        </div>
-
-                        {/* Progress Bar - Restored by Request */}
-                        <div className="w-48 h-[2px] bg-white/10 rounded-full overflow-hidden mb-10">
-                            <motion.div
-                                className="h-full bg-red-500"
+                                className="h-full bg-gradient-to-r from-red-500 via-purple-500 to-pink-500"
                                 initial={{ width: "0%" }}
                                 animate={{ width: "100%" }}
-                                transition={{ duration: 1.8, ease: "easeInOut" }}
+                                transition={{ duration: 2, ease: "easeInOut" }}
                             />
                         </div>
                     </motion.div>

@@ -21,8 +21,8 @@ export default function TextVideoMask({ text, videoSrc, className = '' }: TextVi
     return (
         <div ref={containerRef} className={`relative overflow-hidden flex items-center justify-center min-h-[40vh] md:min-h-[60vh] lg:min-h-auto ${className}`}>
 
-            {/* Layer 1: Vivid Gradient Background (Visible behind everything) */}
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-900/40 via-red-900/40 to-black z-0" />
+            {/* Layer 1: Vivid Gradient Background (INTENSE - Purple/Pink) */}
+            <div className="absolute inset-0 bg-gradient-to-br from-purple-600 via-pink-500 to-purple-800 z-0" />
 
             {/* Layer 2: The "Ghost" SEEA (White/Silver Backing) */}
             <motion.h2
