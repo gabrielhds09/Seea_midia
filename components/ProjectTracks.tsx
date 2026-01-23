@@ -25,61 +25,8 @@ export default function ProjectTracks() {
     const row1Ref = useRef<HTMLDivElement>(null)
     const row2Ref = useRef<HTMLDivElement>(null)
 
-    useLayoutEffect(() => {
-        const ctx = gsap.context(() => {
-
-            // Row 1: Moves Left with subtle rotation
-            gsap.to(row1Ref.current, {
-                xPercent: -25,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: containerRef.current,
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: 1.5
-                }
-            })
-
-            // Row 2: Moves Right
-            gsap.fromTo(row2Ref.current,
-                { xPercent: -25 },
-                {
-                    xPercent: 0,
-                    ease: "none",
-                    scrollTrigger: {
-                        trigger: containerRef.current,
-                        start: "top bottom",
-                        end: "bottom top",
-                        scrub: 1.5
-                    }
-                }
-            )
-
-            // Parallax depth effect on cards
-            gsap.utils.toArray<HTMLElement>('.project-card').forEach((card, i) => {
-                gsap.fromTo(card,
-                    {
-                        y: (i % 2 === 0) ? 30 : -30,
-                        rotateX: 5
-                    },
-                    {
-                        y: (i % 2 === 0) ? -30 : 30,
-                        rotateX: -5,
-                        ease: "none",
-                        scrollTrigger: {
-                            trigger: card,
-                            start: "top bottom",
-                            end: "bottom top",
-                            scrub: 2
-                        }
-                    }
-                )
-            })
-
-        }, containerRef)
-
-        return () => ctx.revert()
-    }, [])
+    // Simplified: No GSAP scroll triggers for better mobile performance
+    // Just simple infinite marquee
 
     const ProjectCard = ({ item, index }: { item: typeof PROJECTS[0], index: number }) => {
         const [isHovered, setIsHovered] = useState(false)
@@ -239,18 +186,30 @@ export default function ProjectTracks() {
                 </motion.div>
             </div>
 
-            {/* Track 1 */}
-            <div ref={row1Ref} className="flex whitespace-nowrap mb-16 w-max pl-[15vw]" style={{ willChange: 'transform' }}>
-                {[...PROJECTS, ...PROJECTS].map((item, i) => (
-                    <ProjectCard key={`r1-${i}`} item={item} index={i % PROJECTS.length} />
-                ))}
+            {/* Track 1 - Infinite Marquee Left */}
+            <div className="flex whitespace-nowrap mb-12 w-full overflow-hidden">
+                <motion.div
+                    className="flex gap-6 pl-4"
+                    animate={{ x: ["0%", "-50%"] }}
+                    transition={{ duration: 40, ease: "linear", repeat: Infinity }}
+                >
+                    {[...PROJECTS, ...PROJECTS, ...PROJECTS].map((item, i) => ( // Tripled for seamless loop
+                        <ProjectCard key={`r1-${i}`} item={item} index={i % PROJECTS.length} />
+                    ))}
+                </motion.div>
             </div>
 
-            {/* Track 2 */}
-            <div ref={row2Ref} className="flex whitespace-nowrap w-max" style={{ willChange: 'transform' }}>
-                {[...PROJECTS].reverse().concat([...PROJECTS].reverse()).map((item, i) => (
-                    <ProjectCard key={`r2-${i}`} item={item} index={(PROJECTS.length - 1) - (i % PROJECTS.length)} />
-                ))}
+            {/* Track 2 - Infinite Marquee Right */}
+            <div className="flex whitespace-nowrap w-full overflow-hidden">
+                <motion.div
+                    className="flex gap-6 pl-4"
+                    animate={{ x: ["-50%", "0%"] }}
+                    transition={{ duration: 45, ease: "linear", repeat: Infinity }}
+                >
+                    {[...PROJECTS].reverse().concat([...PROJECTS].reverse()).concat([...PROJECTS].reverse()).map((item, i) => (
+                        <ProjectCard key={`r2-${i}`} item={item} index={(PROJECTS.length - 1) - (i % PROJECTS.length)} />
+                    ))}
+                </motion.div>
             </div>
 
         </section>
