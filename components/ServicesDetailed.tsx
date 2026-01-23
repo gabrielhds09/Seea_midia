@@ -69,14 +69,14 @@ function ServiceCard({ service, index }: { service: typeof SERVICES[0], index: n
     return (
         <motion.div
             ref={cardRef}
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ delay: index * 0.1, duration: 0.6 }}
+            viewport={{ once: true, margin: "-10%" }}
+            transition={{ delay: index * 0.1, duration: 0.5, ease: "easeOut" }}
             onMouseMove={handleMouseMove}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:border-white/10 transition-all duration-500"
+            className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:border-white/10 transition-colors duration-300"
         >
             {/* Mouse Follow Gradient */}
             <motion.div
@@ -120,29 +120,10 @@ function ServiceCard({ service, index }: { service: typeof SERVICES[0], index: n
                                 {service.title}
                             </h3>
 
-                            {/* Description - Visible on Mobile, Animated on Desktop Hover */}
-                            <motion.div
-                                className="overflow-hidden"
-                                initial={false}
-                                animate={{
-                                    height: 'auto', // Always auto, controlled via class for desktop hover if needed
-                                    opacity: 1
-                                }}
-                            >
-                                <p className="text-base text-white/60 leading-relaxed pb-4 block lg:hidden">
-                                    {service.description}
-                                </p>
-                                <motion.p
-                                    className="text-base text-white/60 leading-relaxed pb-4 hidden lg:block"
-                                    animate={{
-                                        height: isHovered ? 'auto' : 0,
-                                        opacity: isHovered ? 1 : 0,
-                                        display: isHovered ? 'block' : 'none'
-                                    }}
-                                >
-                                    {service.description}
-                                </motion.p>
-                            </motion.div>
+                            {/* Description - Always visible, no layout shifts */}
+                            <div className="mt-2 text-base text-white/60 leading-relaxed pb-4">
+                                {service.description}
+                            </div>
 
                             {/* Tags */}
                             <div className="flex flex-wrap gap-2">

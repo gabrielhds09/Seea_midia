@@ -164,18 +164,17 @@ export default function HeroCinematic() {
                                 <div className="relative px-2">
                                     <motion.span
                                         className="block text-4xl md:text-6xl lg:text-7xl font-bold italic text-transparent bg-clip-text bg-gradient-to-r from-[#ed1c24] to-[#ff4d4d]"
-                                        initial={{ opacity: 0, x: -20 }}
-                                        animate={!isLoading ? { opacity: 1, x: 0 } : {}}
-                                        transition={{ duration: 0.8, delay: 1, ease: "easeOut" }}
+                                        initial={{ opacity: 0 }}
+                                        animate={!isLoading ? { opacity: 1 } : {}}
+                                        transition={{ duration: 1.2, delay: 0.5 }}
                                     >
                                         além do óbvio
                                     </motion.span>
-                                    {/* Linha decorativa animada - Simplified */}
                                     <motion.div
                                         className="absolute -bottom-2 left-0 h-[1px] bg-[#ed1c24]"
-                                        initial={{ width: 0 }}
-                                        animate={!isLoading ? { width: "100%" } : {}}
-                                        transition={{ duration: 0.8, delay: 1.2, ease: "easeOut" }}
+                                        initial={{ opacity: 0, width: "100%" }}
+                                        animate={!isLoading ? { opacity: 1 } : {}}
+                                        transition={{ duration: 0.8, delay: 0.8 }}
                                     />
                                 </div>
                             </div>
