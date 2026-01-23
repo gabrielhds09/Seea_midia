@@ -151,33 +151,33 @@ export default function HeroCinematic() {
                             </div>
 
                             {/* LINHA 3: Quem quer ir além */}
-                            <div className="overflow-hidden flex flex-wrap justify-center items-baseline gap-3 md:gap-6 mt-2">
+                            <div className="overflow-hidden flex flex-wrap justify-center items-baseline gap-2 md:gap-6 mt-2">
                                 <motion.span
                                     initial={{ y: "100%", opacity: 0 }}
                                     animate={!isLoading ? { y: 0, opacity: 1 } : {}}
-                                    transition={{ duration: 1, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                                    transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
                                     className="block text-4xl md:text-6xl lg:text-7xl font-light text-white/90"
                                 >
                                     quem quer ir
                                 </motion.span>
 
-                                <motion.div
-                                    initial={{ scaleX: 0, opacity: 0 }}
-                                    animate={!isLoading ? { scaleX: 1, opacity: 1 } : {}}
-                                    transition={{ duration: 1, delay: 1, ease: "easeOut" }}
-                                    className="relative px-2"
-                                >
-                                    <span className="block text-4xl md:text-6xl lg:text-7xl font-bold italic text-transparent bg-clip-text bg-gradient-to-r from-[#ed1c24] to-[#ff4d4d]">
+                                <div className="relative px-2">
+                                    <motion.span
+                                        className="block text-4xl md:text-6xl lg:text-7xl font-bold italic text-transparent bg-clip-text bg-gradient-to-r from-[#ed1c24] to-[#ff4d4d]"
+                                        initial={{ opacity: 0, x: -20 }}
+                                        animate={!isLoading ? { opacity: 1, x: 0 } : {}}
+                                        transition={{ duration: 0.8, delay: 1, ease: "easeOut" }}
+                                    >
                                         além do óbvio
-                                    </span>
-                                    {/* Linha decorativa animada */}
+                                    </motion.span>
+                                    {/* Linha decorativa animada - Simplified */}
                                     <motion.div
-                                        className="absolute -bottom-2 left-0 w-full h-[1px] bg-[#ed1c24]"
+                                        className="absolute -bottom-2 left-0 h-[1px] bg-[#ed1c24]"
                                         initial={{ width: 0 }}
                                         animate={!isLoading ? { width: "100%" } : {}}
-                                        transition={{ duration: 1, delay: 1.2 }}
+                                        transition={{ duration: 0.8, delay: 1.2, ease: "easeOut" }}
                                     />
-                                </motion.div>
+                                </div>
                             </div>
                         </h1>
 

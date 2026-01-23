@@ -127,18 +127,8 @@ export default function TextVideoMask({ text, videoSrc, className = '' }: TextVi
 
             {/* Actual Visible Video masked by the text */}
             <div className="absolute inset-0 z-10" style={{ mask: `url(#mask-${text.replace(/\s/g, '')})`, WebkitMask: `url(#mask-${text.replace(/\s/g, '')})` }}>
-                <video
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    className="w-full h-full object-cover"
-                >
-                    {/* We need a real video source for this to shine. Using a placeholder color for now if src missing */}
-                    <source src={videoSrc || "/videos/texture.mp4"} type="video/mp4" />
-                </video>
-                {/* Video Fallback Gradient */}
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 mix-blend-overlay" />
+                {/* Fallback Gradient if video missing - Replacing the video tag with a nice animated gradient */}
+                <div className="w-full h-full bg-gradient-to-br from-[#431846] via-[#ed1c24] to-[#2a1535] animate-pulse" />
             </div>
 
             {/* Ghost Text for Layout / Height */}

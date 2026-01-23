@@ -120,19 +120,28 @@ function ServiceCard({ service, index }: { service: typeof SERVICES[0], index: n
                                 {service.title}
                             </h3>
 
-                            {/* Description - Animated Reveal */}
+                            {/* Description - Visible on Mobile, Animated on Desktop Hover */}
                             <motion.div
+                                className="overflow-hidden"
                                 initial={false}
                                 animate={{
-                                    height: isHovered ? 'auto' : 0,
-                                    opacity: isHovered ? 1 : 0
+                                    height: 'auto', // Always auto, controlled via class for desktop hover if needed
+                                    opacity: 1
                                 }}
-                                transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-                                className="overflow-hidden"
                             >
-                                <p className="text-base text-white/60 leading-relaxed pb-4">
+                                <p className="text-base text-white/60 leading-relaxed pb-4 block lg:hidden">
                                     {service.description}
                                 </p>
+                                <motion.p
+                                    className="text-base text-white/60 leading-relaxed pb-4 hidden lg:block"
+                                    animate={{
+                                        height: isHovered ? 'auto' : 0,
+                                        opacity: isHovered ? 1 : 0,
+                                        display: isHovered ? 'block' : 'none'
+                                    }}
+                                >
+                                    {service.description}
+                                </motion.p>
                             </motion.div>
 
                             {/* Tags */}
