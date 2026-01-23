@@ -16,56 +16,99 @@ export default function TextVideoMask({ text, videoSrc, className = '' }: TextVi
         offset: ["start end", "end start"]
     })
 
-    const y = useTransform(scrollYProgress, [0, 1], ["0%", "20%"])
+    const y = useTransform(scrollYProgress, [0, 1], ["0%", "10%"])
 
     return (
         <div
             ref={containerRef}
-            className={`relative overflow-hidden flex items-center justify-center min-h-[50vh] md:min-h-[70vh] py-20 ${className}`}
+            className={`relative overflow-hidden flex items-center justify-center min-h-[50vh] md:min-h-[60vh] py-16 md:py-20 ${className}`}
         >
+            {/* Background Gradient - Vivid Purple/Pink/Blue */}
+            <div className="absolute inset-0 bg-gradient-to-br from-purple-600 via-pink-500 to-blue-500 z-0" />
 
-            {/* Layer 1: Vivid Gradient Background - BRIGHT and VISIBLE */}
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-600 via-pink-500 to-purple-800 z-0" />
+            <div className="relative w-full max-w-7xl mx-auto px-6">
+                <div className="relative overflow-hidden">
 
-            {/* Layer 2: White/Silver "Ghost" SEEA - CLEARLY VISIBLE */}
-            <motion.h2
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1, ease: "easeOut" }}
-                className="absolute z-10 text-[15vw] sm:text-[13vw] md:text-[12vw] leading-[0.85] font-black uppercase tracking-tighter text-white/30 select-none"
-                style={{
-                    textShadow: '0 0 40px rgba(255,255,255,0.3)'
-                }}
-            >
-                {text}
-            </motion.h2>
+                    {/* Main Text with Noise Texture Gradient */}
+                    <h2
+                        className="relative z-10 text-[12vw] md:text-[10vw] lg:text-[8vw] leading-[0.85] font-black uppercase tracking-tighter text-transparent bg-clip-text select-none text-center"
+                        style={{
+                            backgroundImage: 'url(/noise.png), linear-gradient(to bottom, #fff, #888)',
+                            WebkitBackgroundClip: 'text',
+                            backgroundClip: 'text',
+                            color: 'transparent'
+                        }}
+                    >
+                        {text}
+                    </h2>
 
-            {/* Layer 3: Red "Main" SEEA - SOLID and CLEAR */}
-            <motion.h2
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1, ease: "easeOut", delay: 0.1 }}
-                className="relative z-20 text-[14vw] sm:text-[12vw] md:text-[11vw] leading-[0.85] font-black uppercase tracking-tighter text-center"
-                style={{
-                    color: '#ed1c24',
-                    textShadow: '0 4px 20px rgba(237, 28, 36, 0.4), 0 0 60px rgba(237, 28, 36, 0.2)'
-                }}
-            >
-                {text}
-            </motion.h2>
+                    {/* Video Background Layer with Blend Mode */}
+                    <div className="absolute inset-0 z-0 pointer-events-none mix-blend-screen opacity-100">
+                        <motion.div
+                            className="w-full h-[120%] -mt-[10%] relative"
+                            style={{ y }}
+                        >
+                            <video
+                                autoPlay
+                                muted
+                                loop
+                                playsInline
+                                className="w-full h-full object-cover opacity-80"
+                            >
+                                <source src="/feature-reel.mp4" type="video/mp4" />
+                            </video>
+                            <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500 mix-blend-multiply" />
+                        </motion.div>
+                    </div>
 
-            {/* Subtle tagline below */}
-            <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1, delay: 0.3 }}
-                className="absolute bottom-8 left-1/2 -translate-x-1/2 text-sm md:text-base text-white/60 uppercase tracking-[0.3em] z-30"
-            >
-                Vem de <em className="italic font-serif">see</em>, enxergar.
-            </motion.p>
+                    {/* SVG Mask Definition */}
+                    <svg className="absolute inset-0 w-full h-full pointer-events-none">
+                        <defs>
+                            <mask id={`mask-${text.replace(/\s/g, '')}`}>
+                                <rect x="0" y="0" width="100%" height="100%" fill="black" />
+                                <text
+                                    x="50%"
+                                    y="50%"
+                                    textAnchor="middle"
+                                    dominantBaseline="middle"
+                                    fill="white"
+                                    className="text-[12vw] md:text-[10vw] lg:text-[8vw] font-black uppercase tracking-tighter"
+                                    style={{ fontFamily: 'var(--font-inter)' }}
+                                >
+                                    {text}
+                                </text>
+                            </mask>
+                        </defs>
+                    </svg>
+
+                    {/* Animated Gradient with Mask Applied */}
+                    <div
+                        className="absolute inset-0 z-10"
+                        style={{
+                            mask: `url(#mask-${text.replace(/\s/g, '')})`,
+                            WebkitMask: `url(#mask-${text.replace(/\s/g, '')})`
+                        }}
+                    >
+                        <div className="w-full h-full bg-gradient-to-br from-[#431846] via-[#ed1c24] to-[#2a1535] animate-pulse" />
+                    </div>
+
+                    {/* Ghost Text for Layout Spacing */}
+                    <h2 className="opacity-0 relative z-0 text-[12vw] md:text-[10vw] lg:text-[8vw] leading-[0.85] font-black uppercase tracking-tighter w-full text-center">
+                        {text}
+                    </h2>
+                </div>
+
+                {/* Tagline */}
+                <motion.p
+                    className="mt-4 text-base md:text-xl tracking-[0.2em] uppercase text-white/60 font-medium text-center md:text-left md:ml-4"
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.3 }}
+                >
+                    Vem de <i className="italic not-italic">see</i>, enxergar.
+                </motion.p>
+            </div>
         </div>
     )
 }
