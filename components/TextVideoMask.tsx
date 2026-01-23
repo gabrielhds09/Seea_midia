@@ -20,18 +20,15 @@ export default function TextVideoMask({ text, videoSrc, className = '' }: TextVi
 
     return (
         <div ref={containerRef} className={`relative overflow-hidden ${className}`}>
-            {/* The Text acting as a Mask */}
+            {/* The Text acting as a Mask - Now purely transparent reference or simplified */}
             <motion.h2
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1, ease: "easeOut" }}
-                className="relative z-10 text-[12vw] leading-[0.85] font-black uppercase tracking-tighter text-transparent bg-clip-text select-none"
+                className="relative z-10 text-[12vw] leading-[0.85] font-black uppercase tracking-tighter text-transparent select-none pointer-events-none"
                 style={{
-                    backgroundImage: 'url(/noise.png), linear-gradient(to bottom, #fff, #888)',
-                    WebkitBackgroundClip: 'text',
-                    backgroundClip: 'text',
-                    // Fallback color
+                    // Removed background clips that might cause artifacts on mobile
                     color: 'transparent'
                 }}
             >
@@ -77,6 +74,6 @@ export default function TextVideoMask({ text, videoSrc, className = '' }: TextVi
                 {text}
             </h2>
 
-        </div>
+        </div >
     )
 }

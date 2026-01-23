@@ -121,14 +121,14 @@ function ServiceCard({ service, index }: { service: typeof SERVICES[0], index: n
                             <div className="flex flex-col gap-3">
 
                                 {/* Header Group: Title + Tags */}
-                                <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4">
-                                    {/* Title */}
-                                    <h3 className="text-xl md:text-3xl font-bold tracking-tight text-white leading-snug lg:max-w-[70%]">
+                                <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4 w-full">
+                                    {/* Title - Fixed width to prevent squishing */}
+                                    <h3 className="text-xl md:text-3xl font-bold tracking-tight text-white leading-snug w-full lg:w-[65%]">
                                         {service.title}
                                     </h3>
 
-                                    {/* Tags - Flow Layout: Horizontal on Mobile, Vertical Right on Desktop */}
-                                    <div className="flex flex-wrap gap-2 lg:flex-col lg:items-end lg:gap-1 shrink-0">
+                                    {/* Tags - Always Vertical on Desktop, Horizontal Flow on Mobile */}
+                                    <div className="flex flex-wrap gap-2 lg:flex-col lg:items-end lg:gap-1 lg:w-[35%] shrink-0">
                                         {service.tags.map((tag, i) => (
                                             <motion.span
                                                 key={tag}
@@ -136,7 +136,7 @@ function ServiceCard({ service, index }: { service: typeof SERVICES[0], index: n
                                                 whileInView={{ opacity: 1 }}
                                                 viewport={{ once: true }}
                                                 transition={{ delay: index * 0.1 + i * 0.05 }}
-                                                className="relative overflow-hidden text-[9px] lg:text-[10px] uppercase tracking-[0.1em] px-3 py-1.5 lg:px-3 lg:py-1.5 rounded-full border border-white/10 bg-white/5 text-white/50 whitespace-nowrap"
+                                                className="relative overflow-hidden text-[9px] lg:text-[10px] uppercase tracking-[0.1em] px-3 py-1.5 lg:px-3 lg:py-1.5 rounded-full border border-white/10 bg-white/5 text-white/50 whitespace-nowrap text-center"
                                             >
                                                 <span className="relative z-10">{tag}</span>
                                                 {/* Shine Effect */}
