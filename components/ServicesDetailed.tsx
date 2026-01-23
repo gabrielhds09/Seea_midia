@@ -115,33 +115,36 @@ function ServiceCard({ service, index }: { service: typeof SERVICES[0], index: n
                         </div>
 
                         {/* Title + Description + Tags */}
-                        <div className="flex-1 min-w-0">
+                        <div className="flex-1 min-w-0 w-full">
 
-                            {/* Mobile Layout: Vertical Stack */}
+                            {/* Layout: Vertical Stack Global, with Flex Row for Header on Desktop */}
                             <div className="flex flex-col gap-3">
 
-                                {/* Header Group: Title */}
-                                <h3 className="text-xl md:text-3xl font-bold tracking-tight text-white leading-snug pr-0 lg:pr-32">
-                                    {service.title}
-                                </h3>
+                                {/* Header Group: Title + Tags */}
+                                <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4">
+                                    {/* Title */}
+                                    <h3 className="text-xl md:text-3xl font-bold tracking-tight text-white leading-snug lg:max-w-[70%]">
+                                        {service.title}
+                                    </h3>
 
-                                {/* Tags - Flow Layout for Mobile, Absolute for Desktop */}
-                                <div className="flex flex-wrap gap-2 w-full lg:absolute lg:top-0 lg:right-0 lg:flex-col lg:items-end lg:w-auto lg:gap-1">
-                                    {service.tags.map((tag, i) => (
-                                        <motion.span
-                                            key={tag}
-                                            initial={{ opacity: 0 }}
-                                            whileInView={{ opacity: 1 }}
-                                            viewport={{ once: true }}
-                                            transition={{ delay: index * 0.1 + i * 0.05 }}
-                                            className="relative overflow-hidden text-[9px] lg:text-[10px] uppercase tracking-[0.1em] px-2 py-1 lg:px-3 lg:py-1.5 rounded-full border border-white/10 bg-white/5 text-white/40 whitespace-nowrap"
-                                        >
-                                            <span className="relative z-10">{tag}</span>
-                                            {/* Shine Effect */}
-                                            <div className="absolute inset-0 z-0 w-full h-full -skew-x-12 opacity-0 animate-shine"
-                                                style={{ background: `linear-gradient(90deg, transparent, ${service.accentColor}40, transparent)` }} />
-                                        </motion.span>
-                                    ))}
+                                    {/* Tags - Flow Layout: Horizontal on Mobile, Vertical Right on Desktop */}
+                                    <div className="flex flex-wrap gap-2 lg:flex-col lg:items-end lg:gap-1 shrink-0">
+                                        {service.tags.map((tag, i) => (
+                                            <motion.span
+                                                key={tag}
+                                                initial={{ opacity: 0 }}
+                                                whileInView={{ opacity: 1 }}
+                                                viewport={{ once: true }}
+                                                transition={{ delay: index * 0.1 + i * 0.05 }}
+                                                className="relative overflow-hidden text-[9px] lg:text-[10px] uppercase tracking-[0.1em] px-3 py-1.5 lg:px-3 lg:py-1.5 rounded-full border border-white/10 bg-white/5 text-white/50 whitespace-nowrap"
+                                            >
+                                                <span className="relative z-10">{tag}</span>
+                                                {/* Shine Effect */}
+                                                <div className="absolute inset-0 z-0 w-full h-full -skew-x-12 opacity-0 animate-shine"
+                                                    style={{ background: `linear-gradient(90deg, transparent, ${service.accentColor}40, transparent)` }} />
+                                            </motion.span>
+                                        ))}
+                                    </div>
                                 </div>
 
                                 {/* Description */}

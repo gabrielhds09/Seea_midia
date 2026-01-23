@@ -132,8 +132,17 @@ export default function TextVideoMask({ text, videoSrc, className = '' }: TextVi
 
             {/* Actual Visible Video masked by the text */}
             <div className="absolute inset-0 z-10" style={{ mask: `url(#mask-${text.replace(/\s/g, '')})`, WebkitMask: `url(#mask-${text.replace(/\s/g, '')})` }}>
-                {/* Fallback Gradient if video missing - Replacing the video tag with a nice animated gradient */}
-                <div className="w-full h-full bg-gradient-to-br from-[#431846] via-[#ed1c24] to-[#2a1535] animate-gradient-xy" />
+                <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="w-full h-full object-cover"
+                >
+                    <source src="/feature-reel.mp4" type="video/mp4" />
+                </video>
+                {/* Fallback Gradient if video fails or loads slow */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[#431846] via-[#ed1c24] to-[#2a1535] animate-gradient-xy -z-10" />
             </div>
 
             {/* Ghost Text for Layout / Height */}
