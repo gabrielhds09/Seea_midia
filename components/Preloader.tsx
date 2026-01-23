@@ -39,26 +39,27 @@ export default function Preloader() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                     >
-                        {/* Center Logo */}
+                        {/* Center Logo - Static (No Pulse) */}
                         <div className="flex-1 flex items-center justify-center">
                             <motion.div
                                 className="text-5xl md:text-7xl font-black uppercase tracking-tighter text-white"
-                                animate={{ opacity: [0.5, 1, 0.5] }}
-                                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 1, ease: "easeOut" }}
                             >
                                 SEEA
                             </motion.div>
                         </div>
 
-                        {/* Bottom Text */}
-                        <motion.div
-                            className="text-white/40 text-xs tracking-[0.2em] uppercase mb-10"
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.5 }}
-                        >
-                            Carregando experiência SEEA
-                        </motion.div>
+                        {/* Progress Bar - Restored by Request */}
+                        <div className="w-48 h-[2px] bg-white/10 rounded-full overflow-hidden mb-10">
+                            <motion.div
+                                className="h-full bg-red-500"
+                                initial={{ width: "0%" }}
+                                animate={{ width: "100%" }}
+                                transition={{ duration: 1.8, ease: "easeInOut" }}
+                            />
+                        </div>
                     </motion.div>
                 </motion.div>
             )}
