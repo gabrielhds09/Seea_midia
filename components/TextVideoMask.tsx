@@ -1,11 +1,11 @@
 'use client'
 
-import React, { useRef, useEffect } from 'react'
+import React, { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 
 interface TextVideoMaskProps {
     text: string
-    videoSrc?: string // Optional, defaults to a texture if not provided
+    videoSrc?: string
     className?: string
 }
 
@@ -19,70 +19,53 @@ export default function TextVideoMask({ text, videoSrc, className = '' }: TextVi
     const y = useTransform(scrollYProgress, [0, 1], ["0%", "20%"])
 
     return (
-        <div ref={containerRef} className={`relative overflow-hidden flex items-center justify-center min-h-[40vh] md:min-h-[60vh] lg:min-h-auto ${className}`}>
+        <div
+            ref={containerRef}
+            className={`relative overflow-hidden flex items-center justify-center min-h-[50vh] md:min-h-[70vh] py-20 ${className}`}
+        >
 
-            {/* Layer 1: Vivid Gradient Background (INTENSE - Purple/Pink) */}
+            {/* Layer 1: Vivid Gradient Background - BRIGHT and VISIBLE */}
             <div className="absolute inset-0 bg-gradient-to-br from-purple-600 via-pink-500 to-purple-800 z-0" />
 
-            {/* Layer 2: The "Ghost" SEEA (White/Silver Backing) */}
+            {/* Layer 2: White/Silver "Ghost" SEEA - CLEARLY VISIBLE */}
             <motion.h2
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1, ease: "easeOut" }}
-                className="absolute z-10 text-[13vw] leading-[0.85] font-black uppercase tracking-tighter text-white/10 select-none blur-[1px] transform -translate-y-2 translate-x-2"
-                style={{ filter: 'blur(2px)' }}
+                className="absolute z-10 text-[15vw] sm:text-[13vw] md:text-[12vw] leading-[0.85] font-black uppercase tracking-tighter text-white/30 select-none"
+                style={{
+                    textShadow: '0 0 40px rgba(255,255,255,0.3)'
+                }}
             >
                 {text}
             </motion.h2>
 
-            {/* Layer 3: The Main Masked Video/Text (Front) */}
-            <div className="relative z-20 w-full">
-                <motion.h2
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1, ease: "easeOut" }}
-                    className="relative text-[12vw] leading-[0.85] font-black uppercase tracking-tighter text-transparent select-none pointer-events-none w-full text-center"
-                >
-                    {text}
-                </motion.h2>
+            {/* Layer 3: Red "Main" SEEA - SOLID and CLEAR */}
+            <motion.h2
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1, ease: "easeOut", delay: 0.1 }}
+                className="relative z-20 text-[14vw] sm:text-[12vw] md:text-[11vw] leading-[0.85] font-black uppercase tracking-tighter text-center"
+                style={{
+                    color: '#ed1c24',
+                    textShadow: '0 4px 20px rgba(237, 28, 36, 0.4), 0 0 60px rgba(237, 28, 36, 0.2)'
+                }}
+            >
+                {text}
+            </motion.h2>
 
-                {/* SVG Mask Definition */}
-                <svg className="absolute inset-0 w-full h-full pointer-events-none">
-                    <defs>
-                        <mask id={`mask-${text.replace(/\s/g, '')}`}>
-                            <rect x="0" y="0" width="100%" height="100%" fill="black" />
-                            <text
-                                x="50%"
-                                y="50%"
-                                textAnchor="middle"
-                                dominantBaseline="middle"
-                                fill="white"
-                                className="text-[12vw] font-black uppercase tracking-tighter"
-                                style={{ fontFamily: 'var(--font-inter)' }}
-                            >
-                                {text}
-                            </text>
-                        </mask>
-                    </defs>
-                </svg>
-
-                {/* Actual Visible Video masked by the text */}
-                <div className="absolute inset-0 z-30" style={{ mask: `url(#mask-${text.replace(/\s/g, '')})`, WebkitMask: `url(#mask-${text.replace(/\s/g, '')})` }}>
-                    <video
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        className="w-full h-full object-cover"
-                    >
-                        <source src="/feature-reel.mp4" type="video/mp4" />
-                    </video>
-                    {/* Fallback Gradient - Vivid Red/Purple for the "Red SEEA" look if video loads slow */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#ed1c24] via-[#a855f7] to-[#431846] animate-gradient-xy -z-10" />
-                </div>
-            </div>
-        </div >
+            {/* Subtle tagline below */}
+            <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1, delay: 0.3 }}
+                className="absolute bottom-8 left-1/2 -translate-x-1/2 text-sm md:text-base text-white/60 uppercase tracking-[0.3em] z-30"
+            >
+                Vem de <em className="italic font-serif">see</em>, enxergar.
+            </motion.p>
+        </div>
     )
 }
