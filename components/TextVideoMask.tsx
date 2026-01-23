@@ -1,7 +1,6 @@
 'use client'
 
-import React, { useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import React from 'react'
 
 interface TextVideoMaskProps {
     text: string
@@ -10,41 +9,34 @@ interface TextVideoMaskProps {
 }
 
 export default function TextVideoMask({ text, videoSrc, className = '' }: TextVideoMaskProps) {
-    const containerRef = useRef<HTMLDivElement>(null)
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start end", "end start"]
-    })
-
-    const y = useTransform(scrollYProgress, [0, 1], ["0%", "7%"])
-
     return (
         <div
-            ref={containerRef}
-            className={`relative overflow-hidden flex items-center justify-center py-12 md:py-16 ${className}`}
+            className={`relative overflow-hidden flex items-center justify-center py-8 md:py-12 ${className}`}
         >
-            {/* ONLY Background Gradient - Vivid Purple/Pink/Blue */}
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-600 via-pink-500 to-blue-500 z-0" />
+            {/* Background Gradient - Purple/Pink/Blue */}
+            <div className="absolute inset-0 bg-gradient-to-br from-purple-600 via-pink-500 to-blue-500" />
 
-            <div className="relative w-full flex items-center justify-center">
-                <div className="relative">
+            <div className="relative w-full flex items-center justify-center px-4">
+                <div className="relative inline-block">
 
                     {/* White/Gray Gradient Text (Background SEEA) */}
                     <h2
-                        className="relative z-10 text-[18vw] sm:text-[14vw] md:text-[12vw] lg:text-[10vw] leading-[0.85] font-black uppercase tracking-tighter text-transparent bg-clip-text select-none"
+                        className="relative text-[16vw] sm:text-[12vw] md:text-[10vw] lg:text-[8vw] leading-[0.85] font-black uppercase tracking-tighter select-none"
                         style={{
-                            backgroundImage: 'linear-gradient(to bottom, rgba(255,255,255,0.4), rgba(136,136,136,0.3))',
+                            color: 'transparent',
+                            backgroundImage: 'linear-gradient(to bottom, rgba(255,255,255,0.35), rgba(180,180,180,0.25))',
                             WebkitBackgroundClip: 'text',
                             backgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent'
                         }}
                     >
                         {text}
                     </h2>
 
-                    {/* SVG Mask for Red Animated Gradient */}
-                    <svg className="absolute inset-0 w-full h-full pointer-events-none">
+                    {/* SVG Mask Definition */}
+                    <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 100 }}>
                         <defs>
-                            <mask id={`mask-${text.replace(/\s/g, '')}`}>
+                            <mask id="textMask">
                                 <rect x="0" y="0" width="100%" height="100%" fill="black" />
                                 <text
                                     x="50%"
@@ -52,7 +44,8 @@ export default function TextVideoMask({ text, videoSrc, className = '' }: TextVi
                                     textAnchor="middle"
                                     dominantBaseline="middle"
                                     fill="white"
-                                    className="text-[18vw] sm:text-[14vw] md:text-[12vw] lg:text-[10vw] font-black uppercase tracking-tighter"
+                                    fontSize="16vw"
+                                    className="font-black uppercase tracking-tighter sm:text-[12vw] md:text-[10vw] lg:text-[8vw]"
                                     style={{ fontFamily: 'var(--font-inter)' }}
                                 >
                                     {text}
@@ -61,21 +54,22 @@ export default function TextVideoMask({ text, videoSrc, className = '' }: TextVi
                         </defs>
                     </svg>
 
-                    {/* Red Animated Gradient (Front SEEA) */}
+                    {/* Red Gradient (Front SEEA) - MUST BE VISIBLE */}
                     <div
-                        className="absolute inset-0 z-20"
+                        className="absolute inset-0 pointer-events-none"
                         style={{
-                            mask: `url(#mask-${text.replace(/\s/g, '')})`,
-                            WebkitMask: `url(#mask-${text.replace(/\s/g, '')})`
+                            zIndex: 50,
+                            mask: 'url(#textMask)',
+                            WebkitMask: 'url(#textMask)',
+                            maskSize: 'cover',
+                            WebkitMaskSize: 'cover'
                         }}
                     >
-                        <div className="w-full h-full bg-gradient-to-br from-[#ed1c24] via-[#ff4d4d] to-[#ed1c24] animate-pulse" />
+                        <div
+                            className="w-full h-full bg-gradient-to-br from-[#ed1c24] via-[#ff4d4d] to-[#c41e3a] animate-pulse"
+                            style={{ animation: 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite' }}
+                        />
                     </div>
-
-                    {/* Ghost Text for Spacing */}
-                    <h2 className="opacity-0 relative z-0 text-[18vw] sm:text-[14vw] md:text-[12vw] lg:text-[10vw] leading-[0.85] font-black uppercase tracking-tighter">
-                        {text}
-                    </h2>
                 </div>
             </div>
         </div>
