@@ -19,7 +19,7 @@ export default function TextVideoMask({ text, videoSrc, className = '' }: TextVi
             <div className="relative w-full flex items-center justify-center px-4">
                 <div className="relative inline-block">
 
-                    {/* White/Gray Gradient Text (Background SEEA) */}
+                    {/* White/Gray SEEA (Background Layer) */}
                     <h2
                         className="relative text-[16vw] sm:text-[12vw] md:text-[10vw] lg:text-[8vw] leading-[0.85] font-black uppercase tracking-tighter select-none"
                         style={{
@@ -27,49 +27,27 @@ export default function TextVideoMask({ text, videoSrc, className = '' }: TextVi
                             backgroundImage: 'linear-gradient(to bottom, rgba(255,255,255,0.35), rgba(180,180,180,0.25))',
                             WebkitBackgroundClip: 'text',
                             backgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent'
+                            WebkitTextFillColor: 'transparent',
+                            textShadow: '0 0 30px rgba(255,255,255,0.1)'
                         }}
                     >
                         {text}
                     </h2>
 
-                    {/* SVG Mask Definition */}
-                    <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 100 }}>
-                        <defs>
-                            <mask id="textMask">
-                                <rect x="0" y="0" width="100%" height="100%" fill="black" />
-                                <text
-                                    x="50%"
-                                    y="50%"
-                                    textAnchor="middle"
-                                    dominantBaseline="middle"
-                                    fill="white"
-                                    fontSize="16vw"
-                                    className="font-black uppercase tracking-tighter sm:text-[12vw] md:text-[10vw] lg:text-[8vw]"
-                                    style={{ fontFamily: 'var(--font-inter)' }}
-                                >
-                                    {text}
-                                </text>
-                            </mask>
-                        </defs>
-                    </svg>
-
-                    {/* Red Gradient (Front SEEA) - MUST BE VISIBLE */}
-                    <div
-                        className="absolute inset-0 pointer-events-none"
+                    {/* Red SEEA (Front Layer) - Using CSS background-clip instead of SVG mask */}
+                    <h2
+                        className="absolute inset-0 text-[16vw] sm:text-[12vw] md:text-[10vw] lg:text-[8vw] leading-[0.85] font-black uppercase tracking-tighter select-none animate-pulse"
                         style={{
-                            zIndex: 50,
-                            mask: 'url(#textMask)',
-                            WebkitMask: 'url(#textMask)',
-                            maskSize: 'cover',
-                            WebkitMaskSize: 'cover'
+                            color: 'transparent',
+                            backgroundImage: 'linear-gradient(135deg, #ed1c24 0%, #ff4d4d 50%, #c41e3a 100%)',
+                            WebkitBackgroundClip: 'text',
+                            backgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            textShadow: '0 4px 20px rgba(237, 28, 36, 0.4)'
                         }}
                     >
-                        <div
-                            className="w-full h-full bg-gradient-to-br from-[#ed1c24] via-[#ff4d4d] to-[#c41e3a] animate-pulse"
-                            style={{ animation: 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite' }}
-                        />
-                    </div>
+                        {text}
+                    </h2>
                 </div>
             </div>
         </div>
