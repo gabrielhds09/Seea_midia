@@ -25,8 +25,40 @@ export default function ProjectTracks() {
     const row1Ref = useRef<HTMLDivElement>(null)
     const row2Ref = useRef<HTMLDivElement>(null)
 
-    // Simplified: No GSAP scroll triggers for better mobile performance
-    // Just simple infinite marquee
+    useLayoutEffect(() => {
+        const ctx = gsap.context(() => {
+
+            // Optimized ScrollTrigger - 2D Transforms Only
+            // Row 1: Moves Left
+            gsap.to(row1Ref.current, {
+                xPercent: -20, // Less movement distance for smoothness
+                ease: "none",
+                scrollTrigger: {
+                    trigger: containerRef.current,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 1 // Smooth scrubbing
+                }
+            })
+
+            // Row 2: Moves Right
+            gsap.fromTo(row2Ref.current,
+                { xPercent: -20 },
+                {
+                    xPercent: 0,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: containerRef.current,
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: 1
+                    }
+                }
+            )
+
+        }, containerRef)
+        return () => ctx.revert()
+    }, [])
 
     const ProjectCard = ({ item, index }: { item: typeof PROJECTS[0], index: number }) => {
         const [isHovered, setIsHovered] = useState(false)
@@ -35,15 +67,14 @@ export default function ProjectTracks() {
             <motion.div
                 className="project-card group relative flex-shrink-0 w-[280px] h-[180px] sm:w-[360px] sm:h-[240px] md:w-[520px] md:h-[320px] rounded-2xl sm:rounded-3xl overflow-hidden mx-3 sm:mx-5 cursor-pointer"
                 style={{
-                    perspective: '1000px',
-                    transformStyle: 'preserve-3d'
+                    // Removed 3D perspective for performance
                 }}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
                 whileHover={{
-                    scale: 1.03,
-                    rotateY: 2,
-                    transition: { duration: 0.4, ease: [0.4, 0, 0.2, 1] }
+                    scale: 1.05,
+                    // rotateY: 2, // Removed 3D rotation
+                    transition: { duration: 0.3, ease: "easeOut" }
                 }}
             >
                 {/* Glowing border on hover */}
@@ -186,30 +217,18 @@ export default function ProjectTracks() {
                 </motion.div>
             </div>
 
-            {/* Track 1 - Infinite Marquee Left */}
-            <div className="flex whitespace-nowrap mb-12 w-full overflow-hidden">
-                <motion.div
-                    className="flex gap-6 pl-4"
-                    animate={{ x: ["0%", "-50%"] }}
-                    transition={{ duration: 40, ease: "linear", repeat: Infinity }}
-                >
-                    {[...PROJECTS, ...PROJECTS, ...PROJECTS].map((item, i) => ( // Tripled for seamless loop
-                        <ProjectCard key={`r1-${i}`} item={item} index={i % PROJECTS.length} />
-                    ))}
-                </motion.div>
+            {/* Track 1 - Scroll Controlled (Optimized 2D) */}
+            <div ref={row1Ref} className="flex whitespace-nowrap mb-16 w-max pl-[15vw] will-change-transform">
+                {[...PROJECTS, ...PROJECTS].map((item, i) => (
+                    <ProjectCard key={`r1-${i}`} item={item} index={i % PROJECTS.length} />
+                ))}
             </div>
 
-            {/* Track 2 - Infinite Marquee Right */}
-            <div className="flex whitespace-nowrap w-full overflow-hidden">
-                <motion.div
-                    className="flex gap-6 pl-4"
-                    animate={{ x: ["-50%", "0%"] }}
-                    transition={{ duration: 45, ease: "linear", repeat: Infinity }}
-                >
-                    {[...PROJECTS].reverse().concat([...PROJECTS].reverse()).concat([...PROJECTS].reverse()).map((item, i) => (
-                        <ProjectCard key={`r2-${i}`} item={item} index={(PROJECTS.length - 1) - (i % PROJECTS.length)} />
-                    ))}
-                </motion.div>
+            {/* Track 2 - Scroll Controlled (Optimized 2D) */}
+            <div ref={row2Ref} className="flex whitespace-nowrap w-max will-change-transform">
+                {[...PROJECTS].reverse().concat([...PROJECTS].reverse()).map((item, i) => (
+                    <ProjectCard key={`r2-${i}`} item={item} index={(PROJECTS.length - 1) - (i % PROJECTS.length)} />
+                ))}
             </div>
 
         </section>
