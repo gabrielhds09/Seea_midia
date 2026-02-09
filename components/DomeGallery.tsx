@@ -157,6 +157,7 @@ export default function DomeGallery({
             const cr = entries[0].contentRect;
             const w = Math.max(1, cr.width),
                 h = Math.max(1, cr.height);
+            const isMobile = w < 768;
             const minDim = Math.min(w, h),
                 maxDim = Math.max(w, h),
                 aspect = w / h;
@@ -180,7 +181,24 @@ export default function DomeGallery({
             let radius = basis * fit;
             const heightGuard = h * 1.35;
             radius = Math.min(radius, heightGuard);
-            radius = clamp(radius, minRadius, maxRadius);
+
+            // MOBILE OPTIMIZATION: Force smaller radius and spacing
+            if (isMobile) {
+                // Determine radius based on screen width to prevent "tightness"
+                // A smaller radius brings items closer in 3D space, but we need to balance with item size
+                // actually, smaller radius = more curvature. Larger radius = flatter.
+                // If it feels "tight", items might be overlapping or too close to camera.
+                // We actually want to START the camera further back or reduce items scale.
+                // But specifically for the user request "apertado" (tight/cramped), 
+                // we likely want to reduce the radius so they fit better or adjust opacity.
+                // Let's force a smaller minRadius for mobile dynamically.
+                const mobileMinRadius = w * 0.8;
+                radius = Math.max(radius, mobileMinRadius);
+                radius = clamp(radius, mobileMinRadius, maxRadius);
+            } else {
+                radius = clamp(radius, minRadius, maxRadius);
+            }
+
             lockedRadiusRef.current = Math.round(radius);
 
             const viewerPad = Math.max(8, Math.round(minDim * padFactor));
@@ -305,9 +323,9 @@ export default function DomeGallery({
             const overlay = viewerRef.current?.querySelector('.enlarge') as HTMLElement;
             if (!overlay) return;
 
-            // Remove any previously created close buttons
-            const existingCloseBtns = viewerRef.current?.querySelectorAll('button[aria-label="Close"]');
-            existingCloseBtns?.forEach(btn => btn.remove());
+            // Remove any previously created close buttons FROM BODY
+            const bodyCloseBtns = document.body.querySelectorAll('.dome-close-btn-fixed');
+            bodyCloseBtns.forEach(btn => btn.remove());
 
             const refDiv = parent.querySelector('.item__image--reference');
             const originalPos = originalTilePositionRef.current;
@@ -407,10 +425,9 @@ export default function DomeGallery({
             const sy = tileR.height / frameR.height;
             overlay.style.transform = `translate(${tx}px, ${ty}px) scale(${sx}, ${sy})`;
 
-            // Close Button - Improved for easier exit
-            // Close Button - Improved PROMINENT exit
+            // Close Button - FIXED TO BODY to avoid stacking issues
             const closeBtn = document.createElement('button');
-            closeBtn.className = 'dome-close-btn'; // We'll add styles in CSS or inline for safety here since we are in JS land
+            closeBtn.className = 'dome-close-btn-fixed';
             closeBtn.innerHTML = `
                 <span style="font-weight: 700; letter-spacing: 0.1em; font-size: 14px;">VOLTAR</span>
                 <div style="background: rgba(255,255,255,0.2); border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; margin-left: 12px;">
@@ -420,20 +437,20 @@ export default function DomeGallery({
 
             // Inline styles for guaranteed visibility override
             Object.assign(closeBtn.style, {
-                position: 'fixed', // Fixed to viewport
-                top: '24px',
+                position: 'fixed',
+                top: 'max(24px, env(safe-area-inset-top, 24px))',
                 right: '24px',
                 height: '48px',
-                padding: '0 24px 0 24px',
+                padding: '0 24px',
                 borderRadius: '100px',
-                background: '#ed1c24', // Brand red for visibility
+                background: '#ed1c24',
                 color: 'white',
                 border: 'none',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                zIndex: '99999', // Maximum priority
+                zIndex: '2147483647', // Max z-index
                 boxShadow: '0 10px 30px rgba(0,0,0,0.5)',
                 pointerEvents: 'auto',
                 transition: 'transform 0.2s',
@@ -445,12 +462,13 @@ export default function DomeGallery({
             closeBtn.setAttribute('aria-label', 'Close');
 
             closeBtn.onclick = (e) => {
+                e.preventDefault();
                 e.stopPropagation();
                 scrimRef.current?.click();
             };
 
-            // We append closeBtn to viewerRef so it stays fixed relative to screen/container, not scaled with content
-            viewerRef.current.appendChild(closeBtn);
+            // Append to BODY
+            document.body.appendChild(closeBtn);
 
             if (videoSrc) {
                 const videoContainer = document.createElement('div');
