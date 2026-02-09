@@ -182,22 +182,7 @@ export default function DomeGallery({
             const heightGuard = h * 1.35;
             radius = Math.min(radius, heightGuard);
 
-            // MOBILE OPTIMIZATION: Force smaller radius and spacing
-            if (isMobile) {
-                // Determine radius based on screen width to prevent "tightness"
-                // A smaller radius brings items closer in 3D space, but we need to balance with item size
-                // actually, smaller radius = more curvature. Larger radius = flatter.
-                // If it feels "tight", items might be overlapping or too close to camera.
-                // We actually want to START the camera further back or reduce items scale.
-                // But specifically for the user request "apertado" (tight/cramped), 
-                // we likely want to reduce the radius so they fit better or adjust opacity.
-                // Let's force a smaller minRadius for mobile dynamically.
-                const mobileMinRadius = w * 0.8;
-                radius = Math.max(radius, mobileMinRadius);
-                radius = clamp(radius, mobileMinRadius, maxRadius);
-            } else {
-                radius = clamp(radius, minRadius, maxRadius);
-            }
+            radius = clamp(radius, minRadius, maxRadius);
 
             lockedRadiusRef.current = Math.round(radius);
 

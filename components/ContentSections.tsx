@@ -151,22 +151,25 @@ export default function ContentSections() {
             <WhatWeDo />
 
             {/* 4.5. NOSSO PORTFÓLIO (Dome Gallery) */}
-            <section className="relative w-full h-screen bg-[#050505] overflow-hidden flex flex-col">
-                <div className="absolute top-0 left-0 w-full z-10 pt-16 px-6 text-center pointer-events-none">
-                    <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4">
+            <section className="relative w-full min-h-screen bg-[#050505] overflow-hidden flex flex-col py-16 md:py-0">
+                <div className="absolute top-0 left-0 w-full z-10 pt-8 md:pt-16 px-6 text-center pointer-events-none">
+                    <h2 className="text-3xl md:text-6xl font-black uppercase tracking-tighter mb-2 md:mb-4">
                         <span className="text-white">NOSSO</span>{' '}
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ed1c24] to-[#431846]">PORTFÓLIO</span>
                     </h2>
-                    <p className="text-white/60 text-lg md:text-xl font-light">Explore nossas produções em 360°</p>
+                    <p className="text-white/60 text-base md:text-xl font-light">Explore nossas produções em 360°</p>
                 </div>
-                <div className="flex-1 w-full h-full relative z-0">
+                <div className="flex-1 w-full h-full relative z-0 min-h-[600px] md:min-h-screen">
                     <DomeGallery
                         images={PORTFOLIO_ITEMS}
-                        fit={0.85} // Optimized fit
-                        minRadius={500}
-                        maxRadius={1000}
-                        openedImageWidth="90vw"
-                        openedImageHeight="85vh"
+                        fit={0.95} // Increased for fuller viewport usage
+                        minRadius={400} // Reduced for better mobile adaptation
+                        maxRadius={1200} // Increased for larger desktop displays
+                        openedImageWidth="95vw" // Increased for full-screen feel
+                        openedImageHeight="90vh" // Increased for immersive viewing
+                        imageBorderRadius="16px" // Larger radius for premium look
+                        openedImageBorderRadius="24px"
+                        grayscale={true}
                     />
                 </div>
             </section>

@@ -97,11 +97,6 @@ export default function WhatWeDo() {
                             {/* Gradient overlay on hover */}
                             <div className={`absolute inset-0 bg-gradient-to-r ${service.color} opacity-0 group-hover:opacity-5 rounded-2xl transition-opacity duration-300`} />
 
-                            {/* Watermark Number - stylized */}
-                            <div className="absolute -top-4 -right-4 md:-top-6 md:-right-6 text-8xl md:text-9xl font-black text-white/[0.03] group-hover:text-white/[0.05] transition-colors duration-500 select-none pointer-events-none z-0">
-                                {service.number}
-                            </div>
-
                             <div className="relative flex flex-col md:flex-row gap-6 md:gap-8 items-start z-10">
                                 {/* Left: Icon */}
                                 <div className="flex-shrink-0">
@@ -112,7 +107,7 @@ export default function WhatWeDo() {
 
                                 {/* Right: Content */}
                                 <div className="flex-1">
-                                    <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 group-hover:text-[#ed1c24] transition-colors duration-300 drop-shadow-[0_0_15px_rgba(237,28,36,0.5)]">
+                                    <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 group-hover:text-[#ed1c24] transition-colors duration-300" style={{ textShadow: '0 0 20px rgba(237, 28, 36, 0.5)' }}>
                                         {service.title}
                                     </h3>
 
