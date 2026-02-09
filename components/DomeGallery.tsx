@@ -187,7 +187,9 @@ export default function DomeGallery({
             const heightGuard = h * 1.35;
             radius = Math.min(radius, heightGuard);
 
-            radius = clamp(radius, minRadius, maxRadius);
+            // Mobile optimization: use smaller radius for better viewport fit
+            const effectiveMinRadius = isMobile ? 350 : minRadius;
+            radius = clamp(radius, effectiveMinRadius, maxRadius);
 
             lockedRadiusRef.current = Math.round(radius);
 
