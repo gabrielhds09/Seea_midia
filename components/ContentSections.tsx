@@ -162,12 +162,10 @@ export default function ContentSections() {
                 <div className="flex-1 w-full h-full relative z-0 min-h-[600px] md:min-h-screen">
                     <DomeGallery
                         images={PORTFOLIO_ITEMS}
-                        fit={0.5}
-                        fitBasis="auto"
-                        minRadius={700}
-                        maxRadius={1000}
-                        segments={30}
-                        maxVerticalRotationDeg={8}
+                        fit={0.55}
+                        minRadius={500}
+                        maxVerticalRotationDeg={0}
+                        segments={22}
                         dragDampening={2}
                         openedImageWidth="90vw"
                         openedImageHeight="85vh"
