@@ -23,8 +23,7 @@
     transform-style: preserve-3d;
 
     /* The core positioning logic */
-    transform:
-        rotateY(calc(var(--offset-x) * var(--angle-unit))) rotateX(calc(var(--offset-y) * var(--angle-unit))) translateZ(var(--radius));
+    transform: rotateY(calc(var(--offset-x) * var(--angle-unit))) rotateX(calc(var(--offset-y) * var(--angle-unit))) translateZ(var(--radius));
 }
 
 /* Tablet Optimization */
