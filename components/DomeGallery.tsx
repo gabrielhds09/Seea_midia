@@ -70,7 +70,7 @@ function buildItems(pool: (string | ImageItem)[], seg: number) {
 
     const normalizedImages = pool.map(image => {
         if (typeof image === 'string') {
-            return { src: image, alt: '' };
+            return { src: image, alt: '', video: undefined };
         }
         return { src: image.src || '', alt: image.alt || '', video: image.video };
     });
