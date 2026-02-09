@@ -160,20 +160,7 @@ export default function ContentSections() {
                     <p className="text-white/60 text-base md:text-xl font-light">Explore nossas produções em 360°</p>
                 </div>
                 <div className="flex-1 w-full h-full relative z-0 min-h-[600px] md:min-h-screen">
-                    <DomeGallery
-                        images={PORTFOLIO_ITEMS}
-                        fit={0.65}
-                        minRadius={600}
-                        maxRadius={1200}
-                        maxVerticalRotationDeg={10}
-                        segments={20}
-                        dragDampening={2}
-                        openedImageWidth="90vw"
-                        openedImageHeight="85vh"
-                        imageBorderRadius="16px"
-                        openedImageBorderRadius="24px"
-                        grayscale={true}
-                    />
+                    <DomeGallery images={PORTFOLIO_ITEMS} />
                 </div>
             </section>
 
