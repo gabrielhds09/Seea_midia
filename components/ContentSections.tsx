@@ -13,6 +13,7 @@ import TestimonialsMinimalist from './TestimonialsMinimalist'
 import AboutSEEA from './AboutSEEA'
 import MegaFooter from './MegaFooter'
 import DomeGallery from './DomeGallery'
+import DomeGalleryTest from './DomeGalleryTest'
 
 // Dados do Portfólio (Edite aqui)
 const PORTFOLIO_ITEMS = [

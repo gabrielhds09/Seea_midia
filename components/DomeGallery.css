@@ -1,6 +1,6 @@
 .sphere-root {
-    perspective: 2000px;
-    overflow: hidden;
+    perspective: 3000px;
+    overflow: visible;
     --angle-unit: calc(360deg / var(--segments-x) / 2);
 }
 
