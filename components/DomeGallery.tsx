@@ -162,10 +162,13 @@ export default function DomeGallery({
                 maxDim = Math.max(w, h),
                 aspect = w / h;
 
-            let basis;
+            let basis = aspect >= 1.3 ? w : minDim;
+            let radius;
+
             if (isMobile) {
-                // No mobile, usamos a largura como base principal para manter os itens visíveis
-                basis = w;
+                // No mobile, ignoramos o fitBasis e usamos um raio bem maior (largura x 1.8) 
+                // para que as imagens se espalhem na esfera e não fiquem sobrepostas.
+                radius = w * 1.8;
             } else {
                 switch (fitBasis) {
                     case 'min': basis = minDim; break;
@@ -174,15 +177,14 @@ export default function DomeGallery({
                     case 'height': basis = h; break;
                     default: basis = aspect >= 1.3 ? w : minDim;
                 }
+                radius = basis * fit;
             }
-
-            let radius = basis * (isMobile ? fit * 1.2 : fit); // Aumentamos levemente o fit no mobile para compensar a largura menor
 
             const heightGuard = h * 1.5;
             radius = Math.min(radius, heightGuard);
 
-            // Ajuste fino do raio mínimo para mobile vs desktop
-            const finalMinRadius = isMobile ? w * 0.8 : minRadius;
+            // No mobile, o raio mínimo deve ser generoso (ex: 600px) para manter a curvatura 3D bonita
+            const finalMinRadius = isMobile ? 600 : minRadius;
             radius = clamp(radius, finalMinRadius, maxRadius);
 
             lockedRadiusRef.current = Math.round(radius);

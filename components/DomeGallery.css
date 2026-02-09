@@ -29,16 +29,14 @@
 
 @media (max-width: 768px) {
     .sphere-root {
-        perspective: 1200px;
-        /* Reduzimos um pouco a perspectiva no mobile para "trazer" os itens mais para perto */
+        perspective: 1000px;
     }
 
     .item {
-        width: 180px;
-        /* Um pouco maior que os 160px anteriores para melhor legibilidade */
-        height: 180px;
-        margin-left: -90px;
-        margin-top: -90px;
+        width: 130px;
+        height: 130px;
+        margin-left: -65px;
+        margin-top: -30px;
     }
 }
 
