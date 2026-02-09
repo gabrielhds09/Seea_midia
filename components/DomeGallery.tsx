@@ -183,13 +183,15 @@ export default function DomeGallery({
                 default:
                     basis = aspect >= 1.3 ? w : minDim;
             }
-            let radius = basis * fit;
+
+            // Mobile-specific fit adjustment for proper sphere sizing
+            const effectiveFit = isMobile ? 1.5 : fit;
+            let radius = basis * effectiveFit;
             const heightGuard = h * 1.35;
             radius = Math.min(radius, heightGuard);
 
-            // Mobile optimization: ensure radius is large enough to keep items visible
-            // With perspective: 2000px, items need minimum distance to avoid being behind camera
-            const effectiveMinRadius = isMobile ? 500 : minRadius;
+            // Ensure minimum radius for visibility
+            const effectiveMinRadius = isMobile ? 450 : minRadius;
             radius = clamp(radius, effectiveMinRadius, maxRadius);
 
             lockedRadiusRef.current = Math.round(radius);
