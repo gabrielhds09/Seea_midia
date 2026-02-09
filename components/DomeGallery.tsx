@@ -190,15 +190,6 @@ export default function DomeGallery({
             radius = clamp(radius, minRadius, maxRadius);
 
             lockedRadiusRef.current = Math.round(radius);
-            console.log('[DomeGallery] Radius calculation:', {
-                viewport: `${w}x${h}`,
-                basis,
-                fit,
-                calculatedRadius: radius,
-                finalRadius: lockedRadiusRef.current,
-                minRadius,
-                maxRadius
-            });
 
             const viewerPad = Math.max(8, Math.round(minDim * padFactor));
             root.style.setProperty('--radius', `${lockedRadiusRef.current}px`);
