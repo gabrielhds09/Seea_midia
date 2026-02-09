@@ -50,7 +50,11 @@ interface DomeGalleryProps {
 }
 
 function buildItems(pool: (string | ImageItem)[], seg: number) {
-    const xCols = Array.from({ length: seg }, (_, i) => -37 + i * 2);
+    // Calculate start offset to center the grid: -(seg - 1)
+    // For seg=38, -(37) = -37 (matches original hardcode)
+    // For seg=20, -(19) = -19 (centers properly)
+    const startOffset = -(seg - 1);
+    const xCols = Array.from({ length: seg }, (_, i) => startOffset + i * 2);
     const evenYs = [-4, -2, 0, 2, 4];
     const oddYs = [-3, -1, 1, 3, 5];
 
