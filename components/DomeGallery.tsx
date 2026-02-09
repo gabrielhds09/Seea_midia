@@ -92,7 +92,7 @@ export default function DomeGallery({
     images = [], // Default handled in component usage or via fallback if needed, but props usually passed
     fit = 0.6,
     fitBasis = 'auto',
-    minRadius = 600,
+    minRadius = 900,
     maxRadius = Infinity,
     padFactor = 0.25,
     overlayBlurColor = '#050505',
@@ -190,6 +190,15 @@ export default function DomeGallery({
             radius = clamp(radius, minRadius, maxRadius);
 
             lockedRadiusRef.current = Math.round(radius);
+            console.log('[DomeGallery] Radius calculation:', {
+                viewport: `${w}x${h}`,
+                basis,
+                fit,
+                calculatedRadius: radius,
+                finalRadius: lockedRadiusRef.current,
+                minRadius,
+                maxRadius
+            });
 
             const viewerPad = Math.max(8, Math.round(minDim * padFactor));
             root.style.setProperty('--radius', `${lockedRadiusRef.current}px`);

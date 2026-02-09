@@ -163,8 +163,8 @@ export default function ContentSections() {
                     <DomeGallery
                         images={PORTFOLIO_ITEMS}
                         fit={0.7}
-                        minRadius={550}
-                        maxRadius={900}
+                        minRadius={800}
+                        maxRadius={1200}
                         openedImageWidth="90vw"
                         openedImageHeight="85vh"
                         imageBorderRadius="16px"
