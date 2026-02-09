@@ -50,13 +50,14 @@ interface DomeGalleryProps {
 }
 
 function buildItems(pool: (string | ImageItem)[], seg: number) {
-    const xCols = Array.from({ length: seg }, (_, i) => -37 + i * 2);
+    const xCols = Array.from({ length: seg }, (_, i) => i - Math.floor(seg / 2));
     const evenYs = [-4, -2, 0, 2, 4];
     const oddYs = [-3, -1, 1, 3, 5];
 
     const coords = xCols.flatMap((x, c) => {
         const ys = c % 2 === 0 ? evenYs : oddYs;
-        return ys.map(y => ({ x, y, sizeX: 2, sizeY: 2 }));
+        // Aumentamos o multiplicador de Y para dar mais respiro vertical
+        return ys.map(y => ({ x: x * 2, y: y * 2.2, sizeX: 2, sizeY: 2 }));
     });
 
     const totalSlots = coords.length;
@@ -166,9 +167,8 @@ export default function DomeGallery({
             let radius;
 
             if (isMobile) {
-                // No mobile, ignoramos o fitBasis e usamos um raio bem maior (largura x 1.8) 
-                // para que as imagens se espalhem na esfera e não fiquem sobrepostas.
-                radius = w * 1.8;
+                // Aumentamos o raio para 2.5w para que a frente da esfera pareça mais plana e organizada no celular
+                radius = w * 2.5;
             } else {
                 switch (fitBasis) {
                     case 'min': basis = minDim; break;
@@ -183,8 +183,8 @@ export default function DomeGallery({
             const heightGuard = h * 1.5;
             radius = Math.min(radius, heightGuard);
 
-            // No mobile, o raio mínimo deve ser generoso (ex: 600px) para manter a curvatura 3D bonita
-            const finalMinRadius = isMobile ? 600 : minRadius;
+            // No mobile, o raio mínimo agora é maior para suportar a nova escala
+            const finalMinRadius = isMobile ? 800 : minRadius;
             radius = clamp(radius, finalMinRadius, maxRadius);
 
             lockedRadiusRef.current = Math.round(radius);
