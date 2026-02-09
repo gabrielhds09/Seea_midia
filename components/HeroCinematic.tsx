@@ -9,9 +9,8 @@ export default function HeroCinematic() {
     const { scrollY } = useScroll()
 
     // Parallax Effects
+    // Parallax Effects
     const yLogo = useTransform(scrollY, [0, 800], [0, 150])
-    const opacityHero = useTransform(scrollY, [0, 500], [1, 0])
-    const yText = useTransform(scrollY, [0, 500], [0, 100])
 
     // Loading Simulation & Scroll Reset
     useEffect(() => {
@@ -123,8 +122,7 @@ export default function HeroCinematic() {
                     </motion.div>
 
                     {/* TEXTO EDITORIAL */}
-                    <motion.div
-                        style={{ opacity: opacityHero, y: yText }}
+                    <div
                         className="flex flex-col items-center gap-10 w-full"
                     >
                         <h1 className="flex flex-col items-center font-light text-white leading-[1.2] tracking-wide">
@@ -135,38 +133,38 @@ export default function HeroCinematic() {
                                     initial={{ y: "100%" }}
                                     animate={!isLoading ? { y: 0 } : {}}
                                     transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                                    className="block text-2xl md:text-3xl lg:text-4xl text-white/50 uppercase tracking-[0.3em] mb-4"
+                                    className="block text-xl md:text-2xl lg:text-3xl text-white/50 uppercase tracking-[0.2em] mb-2"
                                 >
-                                    Gestão de Carreira
+                                    Gestão de carreira
                                 </motion.span>
                             </div>
 
                             {/* LINHA 2: Power Headline */}
-                            <div className="overflow-hidden py-2">
+                            <div className="overflow-hidden py-1">
                                 <motion.div
                                     initial={{ y: "100%", opacity: 0 }}
                                     animate={!isLoading ? { y: 0, opacity: 1 } : {}}
                                     transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                                    className="block text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-normal text-white"
+                                    className="block text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-normal text-white"
                                 >
-                                    e Imagem <span className="font-serif italic text-white/80">para</span>
+                                    e imagem <span className="font-serif italic text-white/80">para</span>
                                 </motion.div>
                             </div>
 
                             {/* LINHA 3: Quem quer ir além */}
-                            <div className="overflow-hidden flex flex-wrap justify-center items-baseline gap-2 md:gap-6 mt-2">
+                            <div className="overflow-hidden flex flex-wrap justify-center items-baseline gap-2 md:gap-4 mt-2">
                                 <motion.span
                                     initial={{ y: "100%", opacity: 0 }}
                                     animate={!isLoading ? { y: 0, opacity: 1 } : {}}
                                     transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
-                                    className="block text-4xl md:text-6xl lg:text-7xl font-light text-white/90"
+                                    className="block text-3xl md:text-5xl lg:text-7xl font-light text-white/90"
                                 >
                                     quem quer ir
                                 </motion.span>
 
                                 <div className="relative px-2">
                                     <motion.span
-                                        className="block text-4xl md:text-6xl lg:text-7xl font-bold italic text-transparent bg-clip-text bg-gradient-to-r from-[#ed1c24] to-[#ff4d4d]"
+                                        className="block text-3xl md:text-5xl lg:text-7xl font-bold italic text-transparent bg-clip-text bg-gradient-to-r from-[#ed1c24] to-[#ff4d4d]"
                                         initial={{ opacity: 0 }}
                                         animate={!isLoading ? { opacity: 1 } : {}}
                                         transition={{ duration: 1.2, delay: 0.5 }}
@@ -197,25 +195,20 @@ export default function HeroCinematic() {
                             transition={{ delay: 1.6, duration: 1 }}
                             className="text-base md:text-lg text-white/60 max-w-2xl font-light leading-relaxed tracking-wide"
                         >
-                            Estratégias audiovisuais que transformam sua rotina em <strong className="text-white font-medium">posicionamento</strong> e sua presença em <strong className="text-white font-medium">autoridade</strong>.
+                            Transformamos sua rotina em <strong className="text-white font-medium">posicionamento</strong> e sua presença em <strong className="text-white font-medium">autoridade</strong>. Estratégia audiovisual para quem não pode ser ignorado.
                         </motion.p>
 
-                        {/* CTA - Minimalist Luxury */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={!isLoading ? { opacity: 1, y: 0 } : {}}
-                            transition={{ delay: 1.8, duration: 1 }}
-                            className="mt-6"
-                        >
+                        {/* CTA - Minimalist Luxury - STATIC */}
+                        <div className="mt-12 mb-8">
                             <button className="group relative flex items-center gap-4 px-10 py-5 bg-transparent border border-white/20 rounded-full hover:bg-white/5 transition-all duration-500">
                                 <span className="text-xs uppercase tracking-[0.2em] font-medium text-white group-hover:text-[#ed1c24] transition-colors">
-                                    Agendar Conversa Estratégica
+                                    Agendar conversa estratégica
                                 </span>
                                 <div className="w-2 h-2 rounded-full bg-[#ed1c24] group-hover:scale-150 transition-transform duration-500" />
                             </button>
-                        </motion.div>
+                        </div>
 
-                    </motion.div>
+                    </div>
                 </div>
 
                 {/* SCROLL INDICATOR */}

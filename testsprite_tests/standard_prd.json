@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "project": "SEEA Web",
+    "date": "2026-01-21",
+    "prepared_by": "SEEA Mídia"
+  },
+  "product_overview": "SEEA Web is a premium institutional website for SEEA, a company specializing in Career and Image Management tailored for professionals seeking strategic positioning and digital authority. The website offers a cinematic, engaging visual experience that reflects the quality and exclusivity of SEEA's services.",
+  "core_goals": [
+    "Generate qualified leads through WhatsApp CTA conversions.",
+    "Communicate authority by maintaining average time on page above 2 minutes.",
+    "Showcase portfolio through featured project views.",
+    "Build trust via client testimonials engagement.",
+    "Deliver a premium first impression with cinematic animations.",
+    "Ensure smooth navigation with fluid transitions.",
+    "Support full responsiveness across desktop, tablet, and mobile devices.",
+    "Optimize performance to meet Core Web Vitals standards."
+  ],
+  "key_features": [
+    "Cinematic Hero Section with text reveal animations and video background.",
+    "Infinite scrolling marquee displaying strategic keywords.",
+    "Detailed Services Section presenting SEEA's five ecosystem pillars.",
+    "3D Carousel showcasing featured projects with flip effects.",
+    "Looping image gallery with animated grid presentation.",
+    "About Section telling SEEA's story and founder's vision.",
+    "Client Testimonials integrated with Google Reviews (Trustindex).",
+    "FAQ section with expandable accordion cards and animations.",
+    "Overlay navigation menu with smooth fullscreen transitions.",
+    "Floating WhatsApp CTA button with pre-defined message.",
+    "Mega Footer with contact details, social links, and integrated Google Map.",
+    "Global smooth scrolling powered by Lenis.",
+    "Multiple animated UI components including text reveals and shimmering text effects.",
+    "Preloader screen with brand identity animation for initial loading."
+  ],
+  "user_flow_summary": [
+    "User lands on a cinematic hero section with engaging text animations and video background.",
+    "User scrolls through marquee keywords showcasing core values.",
+    "User explores detailed services explaining SEEA’s five pillars.",
+    "User views featured project carousel highlighting portfolio quality.",
+    "User navigates the looping gallery demonstrating visual quality.",
+    "User reads about SEEA's history and company vision.",
+    "User reviews client testimonials to build trust.",
+    "User accesses FAQ section to clarify common questions with expandable answers.",
+    "User engages with floating WhatsApp CTA button to initiate contact.",
+    "User navigates through overlay menu to explore website sections.",
+    "User reaches footer containing contact info, social connections, and integrated map."
+  ],
+  "validation_criteria": [
+    "All sections render correctly with animations and responsiveness on desktop, tablet, and mobile.",
+    "WhatsApp CTA floating button triggers correct pre-defined message and link.",
+    "Portfolio carousels and galleries scroll smoothly with 3D and loop animations.",
+    "SEO metadata configured and present in page headers with correct titles and descriptions.",
+    "Performance metrics meet Lighthouse scores above 90 and Core Web Vitals thresholds (FCP < 1.5s, LCP < 2.5s, CLS < 0.1).",
+    "Testimonials integrate properly with Trustindex Google Reviews widget.",
+    "FAQ accordions expand and collapse with smooth animations on user interaction.",
+    "Navigation overlay menu opens and closes with fluid transitions and accessibility.",
+    "Google Maps iframe in footer loads correctly and displays the location.",
+    "Preloader animates correctly during page load and disappears after load completes."
+  ],
+  "code_summary": {
+    "tech_stack": [
+      "TypeScript",
+      "Next.js 16",
+      "React 19",
+      "Tailwind CSS 4",
+      "Framer Motion",
+      "GSAP",
+      "Lenis Smooth Scroll",
+      "Lucide Icons"
+    ],
+    "features": [
+      {
+        "name": "Hero Section",
+        "description": "Cinematic hero section with text reveal animations and video background",
+        "files": [
+          "components/HeroCinematic.tsx"
+        ]
+      },
+      {
+        "name": "About Section",
+        "description": "About SEEA section with company information and visual presentation",
+        "files": [
+          "components/AboutSEEA.tsx"
+        ]
+      },
+      {
+        "name": "Services Section",
+        "description": "Detailed services presentation with interactive cards and animations",
+        "files": [
+          "components/ServicesDetailed.tsx",
+          "components/WhatWeDo.tsx"
+        ]
+      },
+      {
+        "name": "Project Gallery",
+        "description": "Looping image gallery with scroll-based animations and project tracks",
+        "files": [
+          "components/LoopingGallery.tsx",
+          "components/ProjectTracks.tsx",
+          "components/FeaturedWork.tsx",
+          "components/BentoGridWork.tsx"
+        ]
+      },
+      {
+        "name": "Team Section",
+        "description": "Team member showcase with multiple carousel variants and 3D effects",
+        "files": [
+          "components/TeamMinimalist.tsx",
+          "components/TeamCarousel.tsx",
+          "components/TeamCarousel3D.tsx",
+          "components/TeamCarouselFluid.tsx",
+          "components/TeamSection.tsx"
+        ]
+      },
+      {
+        "name": "Testimonials",
+        "description": "Client testimonials with minimalist design and animations",
+        "files": [
+          "components/TestimonialsMinimalist.tsx",
+          "components/Testimonials.tsx"
+        ]
+      },
+      {
+        "name": "FAQ Section",
+        "description": "Frequently asked questions with expandable accordion cards",
+        "files": [
+          "components/FAQMinimalist.tsx",
+          "components/FAQSection.tsx"
+        ]
+      },
+      {
+        "name": "Navigation",
+        "description": "Overlay navigation menu with smooth transitions",
+        "files": [
+          "components/OverlayNav.tsx"
+        ]
+      },
+      {
+        "name": "Footer",
+        "description": "Mega footer with contact information, social links, and site map",
+        "files": [
+          "components/MegaFooter.tsx"
+        ]
+      },
+      {
+        "name": "Client Logos",
+        "description": "Client logo showcase with marquee animation",
+        "files": [
+          "components/ClientLogos.tsx"
+        ]
+      },
+      {
+        "name": "Process Timeline",
+        "description": "Visual timeline showing the company's work process",
+        "files": [
+          "components/ProcessTimeline.tsx"
+        ]
+      },
+      {
+        "name": "Content Sections",
+        "description": "Various content blocks with scroll-triggered animations",
+        "files": [
+          "components/ContentSections.tsx"
+        ]
+      },
+      {
+        "name": "Preloader",
+        "description": "Page loading animation with brand identity",
+        "files": [
+          "components/Preloader.tsx"
+        ]
+      },
+      {
+        "name": "Floating REC Button",
+        "description": "Floating call-to-action button with WhatsApp link",
+        "files": [
+          "components/FloatingRecButton.tsx"
+        ]
+      },
+      {
+        "name": "Text Animations",
+        "description": "Various text animation effects including marquee and video mask",
+        "files": [
+          "components/TextMarquee.tsx",
+          "components/TextVideoMask.tsx"
+        ]
+      },
+      {
+        "name": "UI Components",
+        "description": "Reusable UI components including gradual blur, text reveal, and shimmering text",
+        "files": [
+          "components/ui/GradualBlur.tsx",
+          "components/ui/HeroTextReveal.tsx",
+          "components/ui/ShimmeringText.tsx",
+          "components/ui/VariableProximity.tsx"
+        ]
+      },
+      {
+        "name": "GSAP Components",
+        "description": "GSAP-powered animation components for horizontal scroll and text reveal",
+        "files": [
+          "components/gsap/GSAPShowcase.tsx",
+          "components/gsap/HorizontalScrollText.tsx",
+          "components/gsap/SplitTextReveal.tsx",
+          "components/GSAPWrapper.tsx"
+        ]
+      },
+      {
+        "name": "Smooth Scroll",
+        "description": "Lenis-based smooth scrolling implementation",
+        "files": [
+          "components/SmoothScroll.tsx"
+        ]
+      },
+      {
+        "name": "Main Layout",
+        "description": "Root layout with font configuration and global providers",
+        "files": [
+          "app/layout.tsx"
+        ]
+      },
+      {
+        "name": "Home Page",
+        "description": "Main landing page composing all major sections",
+        "files": [
+          "app/page.tsx"
+        ]
+      },
+      {
+        "name": "GSAP Demo Page",
+        "description": "Demo page showcasing GSAP animation capabilities",
+        "files": [
+          "app/gsap-demo/page.tsx"
+        ]
+      },
+      {
+        "name": "Global Styles",
+        "description": "Global CSS with Tailwind configuration and custom animations",
+        "files": [
+          "app/globals.css"
+        ]
+      }
+    ]
+  }
+}

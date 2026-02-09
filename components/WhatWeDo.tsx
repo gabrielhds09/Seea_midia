@@ -7,48 +7,40 @@ const SERVICES = [
     {
         icon: Target,
         number: "01",
-        title: "Estratégia & Diagnóstico",
-        description: "Definimos posicionamento, arquétipos e planejamento estratégico. Entendemos seus objetivos, valores e próximos passos para que o conteúdo acompanhe sua evolução profissional.",
-        tags: ["Posicionamento", "Arquétipos", "Planejamento"],
+        title: "Gestão de carreira e posicionamento",
+        description: "Cuidamos da sua imagem de forma estratégica. Entendemos seus objetivos, seus valores e seus próximos passos para que o conteúdo acompanhe sua evolução profissional e pessoal.",
+        tags: ["Gestão de Imagem", "Estratégia", "Evolução"],
         color: "from-[#431846] to-[#5a1f5e]"
     },
     {
-        icon: Clapperboard,
+        icon: Users,
         number: "02",
-        title: "Branding Audiovisual",
-        description: "Criamos identidade visual completa, direção de arte consistente e sound design marcante. Cada elemento é pensado para fortalecer sua marca.",
-        tags: ["Identidade Visual", "Direção de Arte", "Sound Design"],
+        title: "Conteúdo pensado a partir da sua rotina",
+        description: "Acompanhamos o cliente presencialmente e extraímos da própria rotina conteúdos que comunicam autoridade. Nosso olhar identifica detalhes, conversas e momentos que se transformam em narrativas relevantes e naturais, mesmo em dias comuns.",
+        tags: ["Rotina", "Autoridade", "Narrativas"],
         color: "from-[#5a1f5e] to-[#8b2874]"
     },
     {
-        icon: Video,
+        icon: Clapperboard,
         number: "03",
-        title: "Conteúdo Roteirizado",
-        description: "Produzimos reels estratégicos, vídeos longos e roteiros de impacto. Conteúdo pensado para o feed, com foco em clareza, autoridade e valor.",
-        tags: ["Reels Estratégicos", "Vídeos Longos", "Roteiro de Impacto"],
-        color: "from-[#8b2874] to-[#c42c4d]"
-    },
-    {
-        icon: Users,
-        number: "04",
-        title: "Acompanhamento Presencial",
-        description: "Acompanhamos você presencialmente captando lifestyle, stories autênticos e direcionando cenas. Extraímos da rotina conteúdos que comunicam autoridade.",
-        tags: ["Direção de Cena", "Stories", "Lifestyle"],
-        color: "from-[#c42c4d] to-[#ed1c24]"
+        title: "Conteúdo estratégico e roteirizado",
+        description: "Além dos registros do dia a dia, reservamos momentos específicos para gravações mais elaboradas. Vídeos roteirizados, pensados para o feed, com foco em impacto, clareza, autoridade e valor.",
+        tags: ["Roteiros", "Impacto", "Clareza"],
+        color: "from-[#8b2874] to-[#ed1c24]"
     },
     {
         icon: TrendingUp,
-        number: "05",
-        title: "Gestão Estratégica (Tráfego)",
-        description: "Gerenciamos ads manager, distribuição inteligente e análise de dados. Conteúdo bem construído precisa de estratégia para alcançar quem realmente importa.",
-        tags: ["Ads Manager", "Distribuição", "Análise de Dados"],
-        color: "from-[#ed1c24] to-[#ff4d4d]"
+        number: "04",
+        title: "Gestão de Aquisição de Clientes",
+        description: "Não adianta ter um conteúdo incrível se ele não chega a quem precisa. Gerenciamos seu tráfego pago nas plataformas com estratégia, relatórios detalhados e acompanhamento contínuo para garantir ROI.",
+        tags: ["Tráfego Pago", "Dados", "Performance"],
+        color: "from-[#ed1c24] to-[#431846]"
     }
 ]
 
 export default function WhatWeDo() {
     return (
-        <section className="relative w-full min-h-screen py-32 px-6 overflow-hidden">
+        <section className="relative w-full min-h-screen py-20 md:py-32 px-6 overflow-hidden">
             {/* Background */}
             <div className="absolute inset-0 bg-gradient-to-b from-black via-[#0a0a0a] to-black" />
 
@@ -158,6 +150,7 @@ export default function WhatWeDo() {
                         </motion.div>
                     ))}
                 </div>
+
             </div>
         </section>
     )

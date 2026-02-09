@@ -30,8 +30,12 @@ export default function OverlayNav() {
             <header className={`fixed top-0 left-0 w-full z-[9999] flex justify-between items-center px-6 md:px-12 py-6 transition-all duration-300 ${scrolled ? 'bg-black/50 backdrop-blur-md py-4' : 'bg-transparent'}`}>
 
                 {/* Logo Area */}
-                <div className="text-xl font-bold tracking-tighter text-white z-50 mix-blend-difference">
-                    SEEA
+                <div className="z-50">
+                    <img
+                        src="/logo-seea.png"
+                        alt="SEEA"
+                        className="h-16 w-auto object-contain"
+                    />
                 </div>
 
                 {/* Right: Menu Trigger */}

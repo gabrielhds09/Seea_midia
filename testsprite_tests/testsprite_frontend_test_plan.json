@@ -1,0 +1,507 @@
+[
+  {
+    "id": "TC001",
+    "title": "Verify Hero Section Renders and Animates Correctly",
+    "description": "Ensure the cinematic hero section loads with the correct video background and text reveal animations on desktop, tablet, and mobile devices.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Load the home page on desktop viewport"
+      },
+      {
+        "type": "assertion",
+        "description": "Video background plays correctly without errors"
+      },
+      {
+        "type": "assertion",
+        "description": "Text reveal animation triggers smoothly and completes"
+      },
+      {
+        "type": "action",
+        "description": "Resize viewport to tablet size and reload"
+      },
+      {
+        "type": "assertion",
+        "description": "Hero section elements adjust responsively with correct layout and animations"
+      },
+      {
+        "type": "action",
+        "description": "Resize viewport to mobile size and reload"
+      },
+      {
+        "type": "assertion",
+        "description": "Hero section elements display correctly with animations on mobile"
+      }
+    ]
+  },
+  {
+    "id": "TC002",
+    "title": "Validate Infinite Scrolling Marquee Displays Strategic Keywords",
+    "description": "Check that the infinite scrolling marquee renders correct keywords continuously and scrolls smoothly across desktop and mobile.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to homepage"
+      },
+      {
+        "type": "assertion",
+        "description": "Marquee displays all strategic keywords without truncation"
+      },
+      {
+        "type": "assertion",
+        "description": "Scrolling is smooth with no jitter or freezing"
+      },
+      {
+        "type": "action",
+        "description": "Use mobile viewport to reload page"
+      },
+      {
+        "type": "assertion",
+        "description": "Marquee remains visible and scrolls smoothly on mobile"
+      }
+    ]
+  },
+  {
+    "id": "TC003",
+    "title": "Detailed Services Section Loads with Interactive Cards and Animations",
+    "description": "Verify the services section presents all five ecosystem pillars with interactive cards that respond to hover or tap and animations are fluid.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Scroll to Services Section on desktop"
+      },
+      {
+        "type": "assertion",
+        "description": "All five ecosystem pillars are displayed"
+      },
+      {
+        "type": "action",
+        "description": "Hover over each service card"
+      },
+      {
+        "type": "assertion",
+        "description": "Interactive animations trigger on hover"
+      },
+      {
+        "type": "action",
+        "description": "Repeat on tablet/mobile with tap interactions"
+      },
+      {
+        "type": "assertion",
+        "description": "Animations and interactivity work correctly on touch devices"
+      }
+    ]
+  },
+  {
+    "id": "TC004",
+    "title": "Featured Project Carousel Functionality with 3D Flip Effects",
+    "description": "Ensure the 3D carousel of featured projects loads correctly and allows navigation with flip animations on desktop and mobile.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Locate the featured projects carousel on homepage"
+      },
+      {
+        "type": "assertion",
+        "description": "Carousel displays multiple project items correctly"
+      },
+      {
+        "type": "action",
+        "description": "Click next and previous controls on desktop"
+      },
+      {
+        "type": "assertion",
+        "description": "3D flip animation triggers smoothly and projects change accordingly"
+      },
+      {
+        "type": "action",
+        "description": "Swipe carousel on mobile devices"
+      },
+      {
+        "type": "assertion",
+        "description": "Swipe causes 3D flip transition and updates carousel correctly"
+      }
+    ]
+  },
+  {
+    "id": "TC005",
+    "title": "Looping Image Gallery Renders and Scrolls Smoothly",
+    "description": "Verify that the looping image gallery loads all images correctly and animates with smooth scrolling without freezing or glitches.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the looping gallery section"
+      },
+      {
+        "type": "assertion",
+        "description": "All intended images are visible and loaded without broken links"
+      },
+      {
+        "type": "action",
+        "description": "Scroll horizontally or vertically as designed"
+      },
+      {
+        "type": "assertion",
+        "description": "Scrolling and looping animation is continuous and fluid"
+      }
+    ]
+  },
+  {
+    "id": "TC006",
+    "title": "About Section Displays Company Information and Visuals Correctly",
+    "description": "Check the About SEEA section loads company's story and founder's vision with proper visuals and text formatting across devices.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Scroll to About Section on desktop"
+      },
+      {
+        "type": "assertion",
+        "description": "Company information is readable and complete"
+      },
+      {
+        "type": "assertion",
+        "description": "Visual presentation elements load correctly"
+      },
+      {
+        "type": "action",
+        "description": "Repeat on tablet and mobile viewports"
+      },
+      {
+        "type": "assertion",
+        "description": "Layout adjusts responsively and content remains accessible"
+      }
+    ]
+  },
+  {
+    "id": "TC007",
+    "title": "Client Testimonials Load and Integrate with Trustindex Widget",
+    "description": "Confirm that client testimonials section loads the Google Reviews widget (Trustindex) properly and displays client feedback dynamically.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Scroll to Testimonials section"
+      },
+      {
+        "type": "assertion",
+        "description": "Testimonials content is loaded and visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Trustindex widget loads without errors and displays up-to-date reviews"
+      },
+      {
+        "type": "action",
+        "description": "Test responsiveness on mobile"
+      },
+      {
+        "type": "assertion",
+        "description": "Widget remains functional and legible on mobile"
+      }
+    ]
+  },
+  {
+    "id": "TC008",
+    "title": "FAQ Section Accordion Cards Expand and Collapse Smoothly",
+    "description": "Test the FAQ section's expandable accordion cards open and close with animations without layout issues on all major devices.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to FAQ section"
+      },
+      {
+        "type": "action",
+        "description": "Click on multiple accordion headers"
+      },
+      {
+        "type": "assertion",
+        "description": "Corresponding FAQ answers expand with smooth animation"
+      },
+      {
+        "type": "action",
+        "description": "Click again to collapse the same accordions"
+      },
+      {
+        "type": "assertion",
+        "description": "Accordion content collapses smoothly without leaving blank space or flickering"
+      },
+      {
+        "type": "assertion",
+        "description": "Test on desktop and mobile devices"
+      }
+    ]
+  },
+  {
+    "id": "TC009",
+    "title": "Overlay Navigation Menu Opens and Closes with Fluid Transitions and Accessibility",
+    "description": "Verify the overlay navigation menu triggers open and close with smooth fullscreen transitions and supports keyboard navigation and ARIA attributes.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Click to open the overlay navigation menu"
+      },
+      {
+        "type": "assertion",
+        "description": "Menu appears with smooth transition and covers full screen"
+      },
+      {
+        "type": "assertion",
+        "description": "All menu links are visible and clickable"
+      },
+      {
+        "type": "action",
+        "description": "Navigate menu using keyboard (Tab, Shift+Tab)"
+      },
+      {
+        "type": "assertion",
+        "description": "Focus moves correctly between interactive elements"
+      },
+      {
+        "type": "action",
+        "description": "Close the menu by clicking close button or pressing Escape key"
+      },
+      {
+        "type": "assertion",
+        "description": "Menu closes with fluid transition to underlying page"
+      }
+    ]
+  },
+  {
+    "id": "TC010",
+    "title": "Floating WhatsApp CTA Button Triggers Correct Pre-Defined Message and Link",
+    "description": "Ensure the floating WhatsApp call-to-action button is visible, remains fixed on screen, and opens WhatsApp with the correct message and link.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Observe presence of floating WhatsApp CTA button on all pages and viewports"
+      },
+      {
+        "type": "assertion",
+        "description": "Button remains fixed in position and is not obstructed by other UI elements"
+      },
+      {
+        "type": "action",
+        "description": "Click the WhatsApp CTA button"
+      },
+      {
+        "type": "assertion",
+        "description": "WhatsApp app or web opens with pre-defined message content ready to send"
+      },
+      {
+        "type": "assertion",
+        "description": "The link uses correct phone number and message content as specified"
+      }
+    ]
+  },
+  {
+    "id": "TC011",
+    "title": "Mega Footer Displays Contact Info, Social Links, and Google Map Correctly",
+    "description": "Validate that the footer contains all contact details, social media icons linking correctly, and an embedded Google Map loads the SEEA location without errors.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Scroll to bottom of page to display footer"
+      },
+      {
+        "type": "assertion",
+        "description": "Contact information is complete and readable"
+      },
+      {
+        "type": "assertion",
+        "description": "Social media icons are visible and link to correct profiles"
+      },
+      {
+        "type": "assertion",
+        "description": "Google Maps iframe loads without errors showing SEEA location"
+      },
+      {
+        "type": "action",
+        "description": "Resize viewport to tablet and mobile sizes"
+      },
+      {
+        "type": "assertion",
+        "description": "Footer layout adjusts responsively and elements remain accessible"
+      }
+    ]
+  },
+  {
+    "id": "TC012",
+    "title": "Global Smooth Scrolling Powered by Lenis Functions Correctly",
+    "description": "Confirm that smooth scrolling experience is consistent and responsive across devices using Lenis library without stutter or jumps.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Scroll vertically through the entire website on desktop"
+      },
+      {
+        "type": "assertion",
+        "description": "Scrolling is smooth without jitter, skipping, or abrupt position changes"
+      },
+      {
+        "type": "action",
+        "description": "Scroll on mobile and tablet devices"
+      },
+      {
+        "type": "assertion",
+        "description": "Smooth scrolling persists and maintains consistent speed"
+      }
+    ]
+  },
+  {
+    "id": "TC013",
+    "title": "Preloader Screen Animates Brand Identity During Page Loading",
+    "description": "Verify the preloader screen with brand animation displays during the initial page load and disappears correctly once loading completes.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Refresh page or open fresh tab"
+      },
+      {
+        "type": "assertion",
+        "description": "Preloader screen appears immediately with brand identity animation"
+      },
+      {
+        "type": "assertion",
+        "description": "Preloader remains visible during page loading and disappears once complete"
+      },
+      {
+        "type": "assertion",
+        "description": "No deadlocks or indefinite preloader display occur"
+      }
+    ]
+  },
+  {
+    "id": "TC014",
+    "title": "SEO Metadata is Present and Correct in Page Headers",
+    "description": "Check that all pages include correct SEO metadata such as titles and descriptions matching product goals and page content.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Inspect head element of the home page"
+      },
+      {
+        "type": "assertion",
+        "description": "Page title matches expected branding and content"
+      },
+      {
+        "type": "assertion",
+        "description": "Meta description tag is present and accurately describes content"
+      },
+      {
+        "type": "action",
+        "description": "Check meta tags for OpenGraph and Twitter Cards presence and correctness"
+      }
+    ]
+  },
+  {
+    "id": "TC015",
+    "title": "Validate Website Performance Meets Core Web Vitals and Lighthouse Scores",
+    "description": "Run performance tests to ensure FCP < 1.5s, LCP < 2.5s, CLS < 0.1, and Lighthouse accessibility, SEO, best practices scores are above 90.",
+    "category": "performance",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Open homepage with default network and CPU throttling disabled"
+      },
+      {
+        "type": "assertion",
+        "description": "FCP is under 1.5 seconds"
+      },
+      {
+        "type": "assertion",
+        "description": "LCP is under 2.5 seconds"
+      },
+      {
+        "type": "assertion",
+        "description": "CLS score is below 0.1"
+      },
+      {
+        "type": "assertion",
+        "description": "Run Lighthouse audit and verify scores >= 90 for performance, accessibility, SEO, best practices"
+      }
+    ]
+  },
+  {
+    "id": "TC016",
+    "title": "Test Animated UI Components Trigger Correctly and Perform Smoothly",
+    "description": "Validate various text reveal, shimmering text, and other animated UI components activate on scroll or interaction without performance degradation or layout issues.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Scroll through all content sections containing animated UI components"
+      },
+      {
+        "type": "assertion",
+        "description": "Text reveal animations trigger as they enter the viewport"
+      },
+      {
+        "type": "assertion",
+        "description": "Shimmering text effects are visible and smooth"
+      },
+      {
+        "type": "assertion",
+        "description": "No layout shifts or flickering occur during animations"
+      }
+    ]
+  },
+  {
+    "id": "TC017",
+    "title": "Verify Accessibility of Interactive Elements Across Devices",
+    "description": "Ensure that interactive UI elements including navigation, accordions, carousels, and buttons comply with accessibility standards, support keyboard navigation and screen readers.",
+    "category": "security",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Perform keyboard-only navigation through menus, accordions, and carousels"
+      },
+      {
+        "type": "assertion",
+        "description": "Focus outlines are visible on all focusable elements"
+      },
+      {
+        "type": "assertion",
+        "description": "ARIA roles and labels are present and descriptive for screen readers"
+      },
+      {
+        "type": "action",
+        "description": "Test with screen reader enabled navigating each section"
+      },
+      {
+        "type": "assertion",
+        "description": "Content and interactive controls are announced correctly"
+      }
+    ]
+  }
+]

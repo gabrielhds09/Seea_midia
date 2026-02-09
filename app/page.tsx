@@ -1,7 +1,6 @@
 import dynamic from 'next/dynamic'
 import OverlayNav from '@/components/OverlayNav'
 import HeroCinematic from '@/components/HeroCinematic'
-import TextMarquee from '@/components/TextMarquee'
 import GSAPWrapper from '@/components/GSAPWrapper'
 import FloatingRecButton from '@/components/FloatingRecButton'
 
@@ -17,8 +16,6 @@ export default function Home() {
 
       <OverlayNav />
       <HeroCinematic />
-
-      <TextMarquee text="Estratégia • Posicionamento • Autoridade • Acompanhamento • Autenticidade • Presença" direction="left" className="bg-[#1a0d20]" />
 
       <ContentSections />
 

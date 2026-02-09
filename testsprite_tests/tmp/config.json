@@ -1,0 +1,16 @@
+{
+  "status": "commited",
+  "type": "frontend",
+  "scope": "codebase",
+  "localEndpoint": "http://localhost:3000",
+  "executionArgs": {
+    "projectName": "seea-web",
+    "projectPath": "c:/Users/Gabriel H/Documents/SEEA/seea-web",
+    "testIds": [],
+    "additionalInstruction": "",
+    "envs": {
+      "API_KEY": "sk-user-lMlF10pNHkXMc7u3PsbtUUzvxYORA3rv6Bmcz3xI13sWDAxzSDmJCHFo6TRbhik661fLn3kRZH-ghAZsEjICGyZECkfCRr6Km1PSAGKwDxbkIts_ctTdsobMRHt2hDgd_N0"
+    }
+  },
+  "proxy": "http://0a2a09ee-36b2-4a83-ad90-894fe47ac7aa:5Yiia6SSJFRBOdrXfUc9BQ3SI82xLksm@tun.testsprite.com:8080"
+}

@@ -2,23 +2,71 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
-import { ArrowRight, CheckCircle2, Instagram, Mail, MessageCircle } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import ClientLogos from './ClientLogos'
-import BentoGridWork from './BentoGridWork'
-import ProcessTimeline from './ProcessTimeline'
 import TextVideoMask from './TextVideoMask'
-import ServicesDetailed from './ServicesDetailed'
-import GradualBlur from './ui/GradualBlur'
-import SplitTextReveal from './gsap/SplitTextReveal'
+import WhatWeDo from './WhatWeDo'
+import MethodologyTimeline from './MethodologyTimeline'
 
-import MegaFooter from './MegaFooter'
-import ProjectTracks from './ProjectTracks'
-
-// New Nivora-inspired components
 import TeamMinimalist from './TeamMinimalist'
 import TestimonialsMinimalist from './TestimonialsMinimalist'
-import FAQMinimalist from './FAQMinimalist'
 import AboutSEEA from './AboutSEEA'
+import MegaFooter from './MegaFooter'
+import DomeGallery from './DomeGallery'
+
+// Dados do Portfólio (Edite aqui)
+const PORTFOLIO_ITEMS = [
+    {
+        src: '/thumbnails/thumb-01.jpg',
+        alt: 'Campaign 01',
+        video: '/video/video-01.mp4'
+    },
+    {
+        src: '/thumbnails/thumb-02.jpg',
+        alt: 'Campaign 02',
+        video: '/video/video-02.mp4'
+    },
+    {
+        src: '/thumbnails/thumb-03.jpg',
+        alt: 'Campaign 03',
+        video: '/video/video-03.mp4'
+    },
+    {
+        src: '/thumbnails/thumb-04.jpg',
+        alt: 'Campaign 04',
+        video: '/video/video-04.mp4'
+    },
+    {
+        src: '/thumbnails/thumb-05.jpg',
+        alt: 'Campaign 05',
+        video: '/video/video-05.mp4'
+    },
+    {
+        src: '/thumbnails/thumb-06.jpg',
+        alt: 'Campaign 06',
+        video: '/video/video-06.mp4'
+    },
+    {
+        src: '/thumbnails/thumb-07.jpg',
+        alt: 'Campaign 07',
+        video: '/video/video-07.mp4'
+    },
+    {
+        src: '/thumbnails/thumb-08.jpg',
+        alt: 'Campaign 08',
+        video: '/video/video-08.mp4'
+    },
+    {
+        src: '/thumbnails/thumb-09.jpg',
+        alt: 'Campaign 09',
+        video: '/video/video-09.mp4'
+    },
+    {
+        src: '/thumbnails/thumb-10.jpg',
+        alt: 'Campaign 10',
+        video: '/video/video-10.mp4'
+    }
+];
 
 
 // Shared Section Wrapper for consistent padding/layout
@@ -34,18 +82,10 @@ export default function ContentSections() {
     return (
         <div className="text-white relative overflow-hidden bg-gradient-to-b from-[#1a0d20] via-[#1f1028] to-[#1a0d20]">
 
-
-
-            {/* 1.5 SOCIAL PROOF (New) */}
+            {/* 1. SOCIAL PROOF (Logos) - Authority First */}
             <ClientLogos />
 
-            {/* 2. ECOSSISTEMA SEEA - 5 Pilares de Serviços */}
-            <ServicesDetailed />
-
-            {/* 2.5 PROJECT TRACKS (New - Scroll Flip Effect) */}
-            <ProjectTracks />
-
-            {/* 3. VISÃO ALÉM DO AGORA */}
+            {/* 2. O PROBLEMA / VISÃO (Visão Além do Agora) - The Hook */}
             <Section className="relative overflow-hidden">
                 {/* Dynamic Background */}
                 <div className="absolute inset-0 bg-gradient-to-b from-black via-[#0f0515] to-[#050505]" />
@@ -58,19 +98,24 @@ export default function ContentSections() {
                 />
 
                 <div className="max-w-4xl mx-auto text-center relative z-10">
-                    <h2 className="text-3xl font-bold uppercase tracking-tighter sm:text-5xl mb-12">Visão além do agora</h2>
+                    <h2 className="text-3xl font-bold uppercase tracking-tighter sm:text-5xl mb-12">
+                        O Ponto Cego da <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ed1c24] to-[#431846]">Excelência</span>
+                    </h2>
                     <div className="space-y-8 text-xl font-light leading-relaxed text-white/70">
                         <p>
-                            Com o tempo, é natural que o profissional se acostume com a própria rotina e deixe de enxergar o valor do que vive diariamente. A SEEA entra exatamente nesse ponto.
+                            Muitos profissionais de alto nível caem na armadilha da rotina: a excelência se torna hábito e deixa de ser notada por quem está imerso nela. Você faz muito, mas o mundo vê pouco.
                         </p>
                         <p>
-                            Otimizamos a rotina do cliente e captamos preciosidades que muitas vezes passam despercebidas por quem está imerso no próprio trabalho. Transformamos o que é vivido todos os dias em conteúdo que comunica posicionamento, proximidade e autoridade.
+                            <strong className="text-white font-medium">É aqui que a SEEA entra.</strong>
+                        </p>
+                        <p>
+                            Não inventamos personagens. Revelamos a autoridade que já existe na sua rotina, transformando momentos "comuns" em narrativas que posicionam, conectam e vendem.
                         </p>
                     </div>
                 </div>
             </Section>
 
-            {/* 4. O CONCEITO SEEA */}
+            {/* 3. A SOLUÇÃO (O Conceito SEEA) */}
             <Section className="relative overflow-hidden py-40">
                 <div className="absolute inset-0 opacity-20">
                     <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,#ffffff_0%,transparent_70%)] opacity-10" />
@@ -81,13 +126,17 @@ export default function ContentSections() {
                         {/* New Video Mask Title */}
                         <TextVideoMask text="SEEA" className="mb-4" />
 
-                        <p className="mt-4 text-xl tracking-[0.2em] uppercase text-white/50 font-medium ml-4">
-                            Vem de <i>see</i>, enxergar.
-                        </p>
+                        <div className="mt-8 ml-4 border-l-2 border-[#ed1c24] pl-6">
+                            <p className="text-2xl font-medium text-white mb-2">
+                                Vem de <i>see</i>, enxergar.
+                            </p>
+                            <p className="text-xl text-white/60">
+                                Enxergar o que normalmente passa despercebido.
+                            </p>
+                        </div>
                     </div>
 
                     <div className="space-y-6 text-lg text-white/70 leading-relaxed border-l border-white/20 pl-8">
-                        <p className="font-medium text-white text-2xl">Enxergar o que normalmente passa despercebido.</p>
                         <p>
                             Nosso diferencial está no olhar treinado para identificar ângulos, cenas, comportamentos e histórias que merecem ser contadas. Esse olhar não se limita ao conteúdo, mas ao próprio cliente. Cada trajetória é única e carrega valor.
                         </p>
@@ -98,67 +147,43 @@ export default function ContentSections() {
                 </div>
             </Section>
 
-            {/* 5, 6, 7. METODOLOGIA & PROCESSO (How We Work) */}
-            <Section className="relative border-y border-white/5 overflow-hidden">
-                {/* Dynamic Background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a] via-[#080808] to-black" />
+            {/* 4. A ENTREGA (O Que Fazemos) */}
+            <WhatWeDo />
 
-                {/* Glows */}
-                <motion.div
-                    animate={{ opacity: [0.1, 0.2, 0.1] }}
-                    transition={{ duration: 8, repeat: Infinity }}
-                    className="absolute top-1/2 left-0 w-96 h-96 bg-[#431846] rounded-full blur-[100px]"
-                />
-                <motion.div
-                    animate={{ opacity: [0.03, 0.08, 0.03] }}
-                    transition={{ duration: 6, repeat: Infinity, delay: 1 }}
-                    className="absolute bottom-0 right-0 w-96 h-96 bg-[#ed1c24] rounded-full blur-[100px]"
-                />
-
-                <div className="grid gap-20 lg:grid-cols-2 relative z-10">
-                    <div className="lg:sticky lg:top-32 lg:h-fit">
-                        <h2 className="text-4xl font-bold uppercase tracking-tight text-white/90 mb-8">
-                            Como trabalhamos
-                        </h2>
-                        <p className="text-lg text-white/60 leading-relaxed mb-6 max-w-md">
-                            Nosso processo nasce da convivência com o cliente. Observamos como ele se comunica, como explica, como vende e como se posiciona.
-                        </p>
-                        <p className="text-lg text-white/60 leading-relaxed mb-12 max-w-md">
-                            É dessa vivência que surgem roteiros, legendas e decisões estratégicas. Nossa principal fonte não é o Google. É o próprio cliente. Por isso, mesmo quando atuamos em segmentos semelhantes, cada perfil é único e carrega sua própria essência.
-                        </p>
-
-                        {/* Summary of 6 & 7 integrated as key benefits */}
-                        <div className="space-y-6 border-t border-white/10 pt-8">
-                            <div className="bg-white/5 p-6 rounded-lg border border-white/5">
-                                <h4 className="text-lg font-bold text-white mb-2">Acompanhamento Próximo e Humanizado</h4>
-                                <p className="text-sm text-white/50">Durante o atendimento, acompanhamos o cliente de forma próxima. Criamos conteúdos, orientamos gravações, ajustamos estratégias e oferecemos suporte contínuo. Também auxiliamos na gestão do direct e na interação com o público, sempre com uma abordagem humanizada e alinhada à imagem e ao posicionamento do cliente.</p>
-                            </div>
-                            <div className="bg-white/5 p-6 rounded-lg border border-white/5">
-                                <h4 className="text-lg font-bold text-white mb-2">Conteúdo que Chega nas Pessoas Certas</h4>
-                                <p className="text-sm text-white/50">Conteúdo bem construído precisa de estratégia para alcançar quem realmente importa. Por isso, criação e distribuição caminham juntas. Quando faz sentido para o projeto, utilizamos tráfego pago de forma integrada, sempre alinhado ao posicionamento, aos objetivos e à fase de cada cliente.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* New Visual Timeline */}
-                    <div>
-                        <ProcessTimeline />
-                    </div>
+            {/* 4.5. NOSSO PORTFÓLIO (Dome Gallery) */}
+            <section className="relative w-full h-screen bg-[#050505] overflow-hidden flex flex-col">
+                <div className="absolute top-0 left-0 w-full z-10 pt-16 px-6 text-center pointer-events-none">
+                    <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4">
+                        <span className="text-white">NOSSO</span>{' '}
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ed1c24] to-[#431846]">PORTFÓLIO</span>
+                    </h2>
+                    <p className="text-white/60 text-lg md:text-xl font-light">Explore nossas produções em 360°</p>
                 </div>
-            </Section>
+                <div className="flex-1 w-full h-full relative z-0">
+                    <DomeGallery
+                        images={PORTFOLIO_ITEMS}
+                        fit={0.85} // Optimized fit
+                        minRadius={500}
+                        maxRadius={1000}
+                        openedImageWidth="90vw"
+                        openedImageHeight="85vh"
+                    />
+                </div>
+            </section>
 
-            {/* 8. SOBRE A SEEA (Quem Somos) */}
-            <AboutSEEA />
+            {/* 5. O MÉTODO (Como Trabalhamos) */}
+            <MethodologyTimeline />
 
-            {/* 9. TEAM SECTION (Nivora-inspired) */}
-            <TeamMinimalist />
-
-            {/* 8.5 TESTIMONIALS (Nivora-inspired) */}
+            {/* 6. PROVA SOCIAL (Testimonials) - Validation */}
             <TestimonialsMinimalist />
 
-            {/* 9. FAQ (Nivora-inspired) */}
-            <FAQMinimalist />
+            {/* 7. QUEM SOMOS (About) - Personal Connection */}
+            <AboutSEEA />
 
+            {/* 8. TIME (Team) - Trust */}
+            <TeamMinimalist />
+
+            {/* 9. CTA FINAL */}
             <Section className="text-center py-40">
                 <h2 className="text-3xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter mb-8">Vamos conversar?</h2>
                 <p className="text-xl sm:text-2xl text-white/60 font-light mb-16 max-w-2xl mx-auto">
@@ -174,7 +199,7 @@ export default function ContentSections() {
                 </button>
             </Section>
 
-            {/* 10. MEGA FOOTER (New) */}
+            {/* 10. FOOTER */}
             <MegaFooter />
 
         </div>

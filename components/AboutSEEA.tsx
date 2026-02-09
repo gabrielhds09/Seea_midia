@@ -2,7 +2,11 @@
 
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
+import { ArrowLeft, ArrowUpRight } from 'lucide-react'
 
+// STATS kept as visual elements, but titles adjusted if needed. 
+// User didn't ask to change stats, so keeping them as is or simplifying.
+// Let's keep them as visual interest.
 const STATS = [
     { value: "+6", suffix: "anos", label: "De experiência no mercado audiovisual" },
     { value: "100", suffix: "%", label: "Projetos personalizados e únicos" },
@@ -27,7 +31,7 @@ export default function AboutSEEA() {
     const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.5, 1, 1, 0.5])
 
     return (
-        <section ref={containerRef} className="relative w-full min-h-screen py-40 px-6 overflow-hidden">
+        <section ref={containerRef} className="relative w-full min-h-screen py-20 md:py-40 px-6 overflow-hidden">
             {/* Background */}
             <div className="absolute inset-0 bg-gradient-to-b from-[#1a0d20] via-[#1f1028] to-[#1a0d20]" />
 
@@ -116,27 +120,26 @@ export default function AboutSEEA() {
                                 </div>
 
                                 <p className="text-white/80 text-lg leading-relaxed">
-                                    Profissional do audiovisual desde os 18 anos, com uma trajetória construída na prática, no atendimento direto a profissionais, empresas e marcas de diferentes segmentos.
+                                    A SEEA foi fundada por Aline Vitória, profissional do audiovisual desde os 18 anos, com uma trajetória construída na prática, no atendimento direto a profissionais, empresas e marcas de diferentes segmentos.
                                 </p>
                             </div>
                         </div>
 
                         {/* Philosophy */}
-                        <div className="pl-6 border-l-2 border-[#ed1c24]/30">
+                        <div className="pl-6 border-l-2 border-[#ed1c24]/30 space-y-6">
                             <p className="text-xl text-white/70 leading-relaxed">
                                 A empresa nasceu da percepção de que{' '}
                                 <strong className="text-white font-semibold">
                                     conteúdo genérico não sustenta autoridade
-                                </strong>
-                                .
+                                </strong>.
+                            </p>
+
+                            <p className="text-lg text-white/60 leading-relaxed">
+                                Hoje, a SEEA atua com um <strong className="text-white/80">modelo exclusivo</strong>, desenvolvido e testado ao longo dos anos, baseado em personalização, acompanhamento próximo e leitura estratégica de comportamento.
                             </p>
                         </div>
 
-                        <p className="text-lg text-white/60 leading-relaxed">
-                            Hoje, a SEEA atua com um <strong className="text-white/80">modelo exclusivo</strong>, desenvolvido e testado ao longo dos anos, baseado em personalização, acompanhamento próximo e leitura estratégica de comportamento.
-                        </p>
-
-                        {/* Values */}
+                        {/* Values - Keeping for visual richness as they align with "Personalização", "Olhar Treinado" etc */}
                         <div className="grid gap-4 pt-8">
                             {VALUES.map((value, index) => (
                                 <motion.div
@@ -226,9 +229,7 @@ export default function AboutSEEA() {
                                     <p className="text-white/50 text-sm">Inicie sua jornada conosco</p>
                                 </div>
                                 <div className="w-12 h-12 rounded-full bg-[#ed1c24] flex items-center justify-center group-hover:scale-110 transition-transform">
-                                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                    </svg>
+                                    <ArrowUpRight className="w-5 h-5 text-white" />
                                 </div>
                             </motion.a>
                         </motion.div>

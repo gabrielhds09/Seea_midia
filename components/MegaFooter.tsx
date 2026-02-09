@@ -69,7 +69,7 @@ export default function MegaFooter() {
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
                                 >
-                                    <span>Iniciar Projeto</span>
+                                    <span>Agendar conversa estratégica</span>
                                     <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-white/30 transition-colors">
                                         <ArrowUpRight className="w-4 h-4" />
                                     </div>
@@ -162,22 +162,12 @@ export default function MegaFooter() {
 
                 {/* Bottom Section */}
                 <div className="border-t border-white/[0.06] py-8">
-                    <div className="flex flex-col lg:flex-row justify-between items-center gap-8">
+                    <div className="flex justify-center items-center">
 
-                        {/* Massive Brand Text */}
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            viewport={{ once: true }}
-                            className="order-2 lg:order-1"
-                        >
-                            <div className="text-[15vw] leading-[0.8] font-black tracking-tighter text-white select-none mix-blend-difference pointer-events-none">
-                                SEEA
-                            </div>
-                        </motion.div>
+
 
                         {/* Copyright */}
-                        <div className="order-1 lg:order-2 text-right">
+                        <div className="w-full text-center">
                             <p className="text-white/30 text-xs uppercase tracking-[0.2em] mb-1">
                                 © {currentYear} SEEA Mídia
                             </p>
