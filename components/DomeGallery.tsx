@@ -141,6 +141,11 @@ export default function DomeGallery({
 
     const items = useMemo(() => buildItems(images, segments), [images, segments]);
 
+    // Debug: log when items are created
+    useEffect(() => {
+        console.log('DomeGallery: items created', { count: items.length, hasImages: images.length > 0 });
+    }, [items, images]);
+
     const applyTransform = useCallback((xDeg: number, yDeg: number) => {
         const el = sphereRef.current;
         if (el) {

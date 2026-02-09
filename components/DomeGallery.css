@@ -161,3 +161,8 @@
         transition: none !important;
     }
 }
+
+/* Critical utility class */
+.preserve-3d {
+    transform-style: preserve-3d;
+}
