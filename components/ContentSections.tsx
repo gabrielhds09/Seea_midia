@@ -162,12 +162,12 @@ export default function ContentSections() {
                 <div className="flex-1 w-full h-full relative z-0 min-h-[600px] md:min-h-screen">
                     <DomeGallery
                         images={PORTFOLIO_ITEMS}
-                        fit={0.95} // Increased for fuller viewport usage
-                        minRadius={400} // Reduced for better mobile adaptation
-                        maxRadius={1200} // Increased for larger desktop displays
-                        openedImageWidth="95vw" // Increased for full-screen feel
-                        openedImageHeight="90vh" // Increased for immersive viewing
-                        imageBorderRadius="16px" // Larger radius for premium look
+                        fit={0.7}
+                        minRadius={550}
+                        maxRadius={900}
+                        openedImageWidth="90vw"
+                        openedImageHeight="85vh"
+                        imageBorderRadius="16px"
                         openedImageBorderRadius="24px"
                         grayscale={true}
                     />
