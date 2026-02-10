@@ -16,11 +16,11 @@
 
 .item {
     position: absolute;
-    width: 280px;
-    /* Leve redução (era 300px) para equilíbrio */
-    height: 280px;
-    margin-left: -140px;
-    margin-top: -140px;
+    width: 300px;
+    /* Restaurado para 300px para impacto visual */
+    height: 300px;
+    margin-left: -150px;
+    margin-top: -150px;
     transform-style: preserve-3d;
 
     /* The core positioning logic */
@@ -30,18 +30,18 @@
 /* Tablet Optimization */
 @media (max-width: 1024px) {
     .item {
-        width: 250px;
-        height: 250px;
-        margin-left: -125px;
-        margin-top: -125px;
+        width: 260px;
+        height: 260px;
+        margin-left: -130px;
+        margin-top: -130px;
     }
 }
 
-/* Mobile Optimization - Balanced Size */
+/* Mobile Optimization - Clear Focus */
 @media (max-width: 768px) {
     .item {
         width: 220px;
-        /* Ajustado para mobile (era 240px, muito grande para raio pequeno) */
+        /* Mantido 220px, com raio 500 fica perfeito */
         height: 220px;
         margin-left: -110px;
         margin-top: -110px;
