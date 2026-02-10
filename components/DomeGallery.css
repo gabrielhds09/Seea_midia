@@ -16,28 +16,45 @@
 
 .item {
     position: absolute;
-    width: 260px;
-    height: 260px;
-    margin-left: -130px;
-    margin-top: -130px;
+    width: 280px;
+    /* Leve redução (era 300px) para equilíbrio */
+    height: 280px;
+    margin-left: -140px;
+    margin-top: -140px;
     transform-style: preserve-3d;
-    backface-visibility: hidden;
 
     /* The core positioning logic */
-    transform:
-        rotateY(calc(var(--offset-x) * var(--angle-unit))) rotateX(calc(var(--offset-y) * var(--angle-unit))) translateZ(var(--radius));
+    transform: rotateY(calc(var(--offset-x) * var(--angle-unit))) rotateX(calc(var(--offset-y) * var(--angle-unit))) translateZ(var(--radius));
 }
 
-@media (max-width: 768px) {
-    .sphere-root {
-        perspective: 1000px;
-    }
-
+/* Tablet Optimization */
+@media (max-width: 1024px) {
     .item {
-        width: 130px;
-        height: 130px;
-        margin-left: -65px;
-        margin-top: -30px;
+        width: 250px;
+        height: 250px;
+        margin-left: -125px;
+        margin-top: -125px;
+    }
+}
+
+/* Mobile Optimization - Balanced Size */
+@media (max-width: 768px) {
+    .item {
+        width: 220px;
+        /* Ajustado para mobile (era 240px, muito grande para raio pequeno) */
+        height: 220px;
+        margin-left: -110px;
+        margin-top: -110px;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .item {
+        width: 180px;
+        height: 180px;
+        margin-left: -90px;
+        margin-top: -90px;
     }
 }
 

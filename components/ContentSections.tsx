@@ -162,12 +162,15 @@ export default function ContentSections() {
                 <div className="flex-1 w-full h-full relative z-0">
                     <DomeGallery
                         images={PORTFOLIO_ITEMS}
-                        fit={0.9}
+                        fit={0.55} // Reduzido de 0.7 para aproximar os itens (menos espaçamento)
                         segments={24}
-                        minRadius={600}
-                        maxRadius={1200}
+                        minRadius={320} // Reduzido para garantir packing apertado no mobile
+                        maxRadius={800} // Limitado no desktop para não "explodir" a galeria
                         openedImageWidth="90vw"
                         openedImageHeight="85vh"
+                        imageBorderRadius="12px"
+                        openedImageBorderRadius="20px"
+                        grayscale={true}
                     />
                 </div>
             </section>
