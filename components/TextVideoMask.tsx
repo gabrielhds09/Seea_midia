@@ -1,55 +1,104 @@
 'use client'
 
-import React from 'react'
+import React, { useRef, useEffect } from 'react'
+import { motion } from 'framer-motion'
+import { gsap } from 'gsap'
 
 interface TextVideoMaskProps {
-    text: string
+    maskSrc?: string
     videoSrc?: string
     className?: string
+    aspectRatio?: string
 }
 
-export default function TextVideoMask({ text, videoSrc, className = '' }: TextVideoMaskProps) {
+export default function TextVideoMask({
+    maskSrc = '/SEEA-dark-tip.png',
+    videoSrc = '/video/video-01.mp4',
+    className = '',
+    aspectRatio = 'aspect-[500/160]'
+}: TextVideoMaskProps) {
+    const containerRef = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        if (!containerRef.current) return
+
+        // Subtle floating movement for the logo mask
+        gsap.to(containerRef.current, {
+            y: -8,
+            duration: 4,
+            ease: 'sine.inOut',
+            repeat: -1,
+            yoyo: true
+        })
+
+        // Slight rotation for organic feel
+        gsap.to(containerRef.current, {
+            rotate: 1,
+            duration: 5,
+            ease: 'sine.inOut',
+            repeat: -1,
+            yoyo: true,
+            delay: 1
+        })
+    }, [])
+
     return (
-        <div
-            className={`relative overflow-hidden flex items-center justify-center py-8 md:py-12 ${className}`}
-        >
-            {/* Background Gradient - Purple/Pink/Blue */}
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-600 via-pink-500 to-blue-500" />
+        <div className={`relative ${aspectRatio} w-full ${className}`}>
+            <motion.div
+                ref={containerRef}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+                className="relative w-full h-full flex items-center justify-center"
+            >
+                {/* 1. Base Logo — Solid and recognizable */}
+                <div
+                    className="absolute inset-0 z-0 bg-contain bg-center bg-no-repeat opacity-[0.95]"
+                    style={{ backgroundImage: `url(${maskSrc})` }}
+                />
 
-            <div className="relative w-full flex items-center justify-center px-4">
-                <div className="relative inline-block">
-
-                    {/* White/Gray SEEA (Background Layer) */}
-                    <h2
-                        className="relative text-[16vw] sm:text-[12vw] md:text-[10vw] lg:text-[8vw] leading-[0.85] font-black uppercase tracking-tighter select-none"
-                        style={{
-                            color: 'transparent',
-                            backgroundImage: 'linear-gradient(to bottom, rgba(255,255,255,0.35), rgba(180,180,180,0.25))',
-                            WebkitBackgroundClip: 'text',
-                            backgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent',
-                            textShadow: '0 0 30px rgba(255,255,255,0.1)'
-                        }}
+                {/* 2. Effect Layer — Atmospheric Video strictly inside the logo shape */}
+                <div
+                    className="absolute inset-0 z-10 w-full h-full opacity-40 mix-blend-soft-light"
+                    style={{
+                        WebkitMaskImage: `url(${maskSrc})`,
+                        maskImage: `url(${maskSrc})`,
+                        WebkitMaskSize: 'contain',
+                        maskSize: 'contain',
+                        WebkitMaskRepeat: 'no-repeat',
+                        maskRepeat: 'no-repeat',
+                        WebkitMaskPosition: 'center',
+                        maskPosition: 'center',
+                    }}
+                >
+                    <video
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="w-full h-full object-cover scale-150 grayscale"
                     >
-                        {text}
-                    </h2>
-
-                    {/* Red SEEA (Front Layer) - Using CSS background-clip instead of SVG mask */}
-                    <h2
-                        className="absolute inset-0 text-[16vw] sm:text-[12vw] md:text-[10vw] lg:text-[8vw] leading-[0.85] font-black uppercase tracking-tighter select-none animate-pulse"
-                        style={{
-                            color: 'transparent',
-                            backgroundImage: 'linear-gradient(135deg, #ed1c24 0%, #ff4d4d 50%, #c41e3a 100%)',
-                            WebkitBackgroundClip: 'text',
-                            backgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent',
-                            textShadow: '0 4px 20px rgba(237, 28, 36, 0.4)'
-                        }}
-                    >
-                        {text}
-                    </h2>
+                        <source src={videoSrc} type="video/mp4" />
+                    </video>
                 </div>
-            </div>
+
+                {/* 3. Luxury Polish — Subtle reflection sweep */}
+                <div
+                    className="absolute inset-0 z-20 pointer-events-none opacity-[0.15]"
+                    style={{
+                        WebkitMaskImage: `url(${maskSrc})`,
+                        maskImage: `url(${maskSrc})`,
+                        WebkitMaskSize: 'contain',
+                        maskSize: 'contain',
+                        WebkitMaskRepeat: 'no-repeat',
+                        maskRepeat: 'no-repeat',
+                        WebkitMaskPosition: 'center',
+                        maskPosition: 'center',
+                        background: 'linear-gradient(135deg, white 0%, rgba(255,255,255,0.8) 50%, white 100%)',
+                    }}
+                />
+            </motion.div>
         </div>
     )
 }

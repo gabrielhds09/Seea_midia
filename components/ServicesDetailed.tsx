@@ -1,292 +1,221 @@
 'use client'
 
 import React, { useState, useRef } from 'react'
-import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion'
-import { ArrowUpRight, Target, Zap, Video, Users, MonitorPlay } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { ArrowUpRight } from 'lucide-react'
 
 const SERVICES = [
     {
-        id: "01",
-        title: "Estratégia & Diagnóstico",
-        icon: Target,
-        description: "Análise profunda do seu momento atual. Definimos arquétipos, narrativa e o plano de ação para alinhar sua imagem aos seus objetivos comerciais.",
-        tags: ["Posicionamento", "Arquétipos", "Planejamento"],
-        accentColor: "#a855f7",
-        gradient: "from-purple-600 to-indigo-600"
+        id: '01',
+        title: 'ESTRATÉGIA',
+        subtitle: '& diagnóstico',
+        description: 'Análise profunda do seu momento atual. Definimos arquétipos, narrativa e o plano de ação para alinhar sua imagem aos seus objetivos comerciais.',
+        tags: ['Posicionamento', 'Arquétipos', 'Planejamento'],
     },
     {
-        id: "02",
-        title: "Branding Audiovisual",
-        icon: Zap,
-        description: "Construção da identidade visual e sonora da sua marca pessoal. Identidade que transmite nobreza, exclusividade e inovação.",
-        tags: ["Identidade Visual", "Direção de Arte", "Sound Design"],
-        accentColor: "#6366f1",
-        gradient: "from-indigo-600 to-purple-600"
+        id: '02',
+        title: 'BRANDING',
+        subtitle: 'audiovisual',
+        description: 'Construção da identidade visual e sonora da sua marca pessoal. Identidade que transmite nobreza, exclusividade e inovação.',
+        tags: ['Identidade Visual', 'Direção de Arte', 'Sound Design'],
     },
     {
-        id: "03",
-        title: "Conteúdo Roteirizado",
-        icon: Video,
-        description: "Produção de alto nível com roteiros intencionais (REC). Vídeos que educam, engajam e vendem, sem parecer 'mais do mesmo'.",
-        tags: ["Reels Estratégicos", "Vídeos Longos", "Roteiro"],
-        accentColor: "#ed1c24",
-        gradient: "from-red-600 to-rose-600"
+        id: '03',
+        title: 'CONTEÚDO',
+        subtitle: 'roteirizado',
+        description: 'Produção de alto nível com roteiros intencionais (REC). Vídeos que educam, engajam e vendem, sem parecer "mais do mesmo".',
+        tags: ['Reels Estratégicos', 'Vídeos Longos', 'Roteiro'],
     },
     {
-        id: "04",
-        title: "Acompanhamento Presencial",
-        icon: Users,
-        description: "Captura orgânica da sua rotina. Transformamos o dia a dia em conteúdo de autoridade, com direção de cena e olhar treinado em tempo real.",
-        tags: ["Direção de Cena", "Stories", "Lifestyle"],
-        accentColor: "#ec4899",
-        gradient: "from-pink-600 to-purple-600"
+        id: '04',
+        title: 'ACOMPANHAMENTO',
+        subtitle: 'presencial',
+        description: 'Captura orgânica da sua rotina. Transformamos o dia a dia em conteúdo de autoridade, com direção de cena e olhar treinado em tempo real.',
+        tags: ['Direção de Cena', 'Stories', 'Lifestyle'],
     },
     {
-        id: "05",
-        title: "Gestão Estratégica (Tráfego)",
-        icon: MonitorPlay,
-        description: "Não basta postar, é preciso distribuir. Amplificamos sua mensagem para o público certo através de tráfego pago inteligente.",
-        tags: ["Ads Manager", "Distribuição", "Análise de Dados"],
-        accentColor: "#10b981",
-        gradient: "from-emerald-600 to-teal-600"
-    }
+        id: '05',
+        title: 'GESTÃO',
+        subtitle: 'estratégica (tráfego)',
+        description: 'Não basta postar, é preciso distribuir. Amplificamos sua mensagem para o público certo através de tráfego pago inteligente.',
+        tags: ['Ads Manager', 'Distribuição', 'Análise de Dados'],
+    },
 ]
 
-function ServiceCard({ service, index }: { service: typeof SERVICES[0], index: number }) {
-    const [isHovered, setIsHovered] = useState(false)
-    const cardRef = useRef<HTMLDivElement>(null)
-
-    const mouseX = useMotionValue(0)
-    const mouseY = useMotionValue(0)
+function ServiceRow({ service, index }: { service: typeof SERVICES[0]; index: number }) {
+    const [hovered, setHovered] = useState(false)
+    const arrowRef = useRef<HTMLDivElement>(null)
+    const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
 
     const handleMouseMove = (e: React.MouseEvent) => {
-        if (!cardRef.current) return
-        const rect = cardRef.current.getBoundingClientRect()
-        mouseX.set(e.clientX - rect.left)
-        mouseY.set(e.clientY - rect.top)
+        if (!arrowRef.current) return
+        const rect = arrowRef.current.getBoundingClientRect()
+        const centerX = rect.left + rect.width / 2
+        const centerY = rect.top + rect.height / 2
+
+        // Magnetic pull factor
+        const pullX = (e.clientX - centerX) * 0.35
+        const pullY = (e.clientY - centerY) * 0.35
+        setMousePos({ x: pullX, y: pullY })
+    }
+
+    const handleMouseLeave = () => {
+        setHovered(false)
+        setMousePos({ x: 0, y: 0 })
     }
 
     return (
         <motion.div
-            ref={cardRef}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-10%" }}
-            transition={{ delay: index * 0.1, duration: 0.5, ease: "easeOut" }}
+            viewport={{ once: true, margin: '-8%' }}
+            transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: index * 0.08 }}
+            onMouseEnter={() => setHovered(true)}
             onMouseMove={handleMouseMove}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:border-white/10 transition-colors duration-300"
+            onMouseLeave={handleMouseLeave}
+            className="group relative border-b border-black/[0.06] cursor-pointer overflow-hidden"
         >
-            {/* Mouse Follow Gradient */}
+            {/* ── BACKGROUND SWEEP ── */}
             <motion.div
-                className="absolute w-[400px] h-[400px] rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                style={{
-                    background: `radial-gradient(circle, ${service.accentColor}15 0%, transparent 70%)`,
-                    left: mouseX,
-                    top: mouseY,
-                    x: '-50%',
-                    y: '-50%'
-                }}
+                className="absolute inset-0 bg-[#f4f2ee] -z-10 origin-left"
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: hovered ? 1 : 0 }}
+                transition={{ duration: 0.7, ease: [0.19, 1, 0.22, 1] }}
             />
 
-            {/* Content */}
-            <div className="relative z-10 p-8 lg:p-10">
-                <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-8">
+            <div className="flex items-start gap-8 py-8 sm:py-10 relative z-10 px-0 group-hover:px-4 transition-all duration-700">
+                {/* Number */}
+                <span className="flex-shrink-0 pt-1 text-[0.6rem] font-medium tracking-[0.4em] text-[#431846]/50 group-hover:text-[#431846] transition-colors">
+                    {service.id}
+                </span>
 
-                    {/* Left Side */}
-                    <div className="flex items-start gap-4 lg:gap-6 lg:w-3/5 w-full relative">
-                        {/* Number + Icon */}
-                        <div className="flex flex-col items-center gap-3 shrink-0">
-                            <span className="text-[10px] lg:text-xs font-mono text-white/20">{service.id}</span>
-                            <motion.div
-                                className={`w-10 h-10 lg:w-14 lg:h-14 rounded-xl lg:rounded-2xl bg-gradient-to-br ${service.gradient} flex items-center justify-center shadow-lg`}
-                                style={{
-                                    boxShadow: isHovered ? `0 20px 40px -10px ${service.accentColor}40` : 'none'
-                                }}
-                                animate={{
-                                    scale: isHovered ? 1.1 : 1,
-                                    rotate: isHovered ? 5 : 0
-                                }}
-                                transition={{ duration: 0.3 }}
-                            >
-                                <service.icon className="w-5 h-5 lg:w-6 lg:h-6 text-white" />
-                            </motion.div>
-                        </div>
-
-                        {/* Title + Description + Tags */}
-                        <div className="flex-1 min-w-0 w-full">
-
-                            {/* Layout: Vertical Stack Global, with Flex Row for Header on Desktop */}
-                            <div className="flex flex-col gap-3">
-
-                                {/* Header Group: Title + Tags */}
-                                <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4 w-full">
-                                    {/* Title - Fixed width to prevent squishing */}
-                                    <h3 className="text-xl md:text-3xl font-bold tracking-tight text-white leading-snug w-full lg:w-[65%]">
-                                        {service.title}
-                                    </h3>
-
-                                    {/* Tags - Always Vertical on Desktop, Horizontal Flow on Mobile */}
-                                    <div className="flex flex-wrap gap-2 lg:flex-col lg:items-end lg:gap-1 lg:w-[35%] shrink-0">
-                                        {service.tags.map((tag, i) => (
-                                            <motion.span
-                                                key={tag}
-                                                initial={{ opacity: 0 }}
-                                                whileInView={{ opacity: 1 }}
-                                                viewport={{ once: true }}
-                                                transition={{ delay: index * 0.1 + i * 0.05 }}
-                                                className="relative overflow-hidden text-[9px] lg:text-[10px] uppercase tracking-[0.1em] px-3 py-1.5 lg:px-3 lg:py-1.5 rounded-full border border-white/10 bg-white/5 text-white/50 whitespace-nowrap text-center"
-                                            >
-                                                <span className="relative z-10">{tag}</span>
-                                                {/* Shine Effect */}
-                                                <div className="absolute inset-0 z-0 w-full h-full -skew-x-12 opacity-0 animate-shine"
-                                                    style={{ background: `linear-gradient(90deg, transparent, ${service.accentColor}40, transparent)` }} />
-                                            </motion.span>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                {/* Description */}
-                                <div className="text-sm lg:text-base text-white/60 leading-relaxed">
-                                    {service.description}
-                                </div>
-                            </div>
-                        </div>
+                {/* Title + sub */}
+                <div className="flex-1 min-w-0">
+                    <div className="mb-4">
+                        <span
+                            className="font-sans font-extralight tracking-[-0.02em] text-[#111111]"
+                            style={{ fontSize: 'clamp(1.4rem, 2.8vw, 2.2rem)' }}
+                        >
+                            {service.title}
+                        </span>{' '}
+                        <span
+                            className="font-serif italic text-black/20 group-hover:text-black/35 transition-colors"
+                            style={{ fontSize: 'clamp(1rem, 2.2vw, 1.8rem)' }}
+                        >
+                            {service.subtitle}
+                        </span>
                     </div>
 
-                    {/* Right Side - Arrow */}
-                    <motion.div
-                        className="lg:w-auto flex items-center justify-end"
-                        animate={{ x: isHovered ? 5 : 0 }}
-                    >
-                        <motion.div
-                            className="w-14 h-14 rounded-full border flex items-center justify-center transition-all duration-500"
-                            style={{
-                                borderColor: isHovered ? service.accentColor : 'rgba(255,255,255,0.1)',
-                                backgroundColor: isHovered ? service.accentColor : 'rgba(255,255,255,0.02)'
-                            }}
-                            animate={{ rotate: isHovered ? 45 : 0 }}
-                            transition={{ duration: 0.3 }}
-                        >
-                            <ArrowUpRight className="w-5 h-5 text-white" />
-                        </motion.div>
-                    </motion.div>
+                    <p className="text-[0.85rem] font-light leading-[1.8] text-black/45 group-hover:text-black/60 max-w-2xl mb-5 transition-colors">
+                        {service.description}
+                    </p>
+
+                    <div className="flex flex-wrap gap-2">
+                        {service.tags.map((tag) => (
+                            <span
+                                key={tag}
+                                className="text-[0.6rem] font-medium uppercase tracking-[0.18em] px-3.5 py-1.5 border border-black/[0.06] text-black/30 group-hover:border-[#431846]/20 group-hover:text-black/50 transition-all duration-500"
+                            >
+                                {tag}
+                            </span>
+                        ))}
+                    </div>
                 </div>
+
+                {/* ── MAGNETIC ARROW ── */}
+                <motion.div
+                    ref={arrowRef}
+                    className="flex-shrink-0 w-12 h-12 rounded-full border border-black/[0.08] flex items-center justify-center text-black/20 transition-colors duration-500 mt-1"
+                    animate={{
+                        x: hovered ? mousePos.x : 0,
+                        y: hovered ? mousePos.y : 0,
+                        borderColor: hovered ? 'rgba(67,24,70,0.5)' : 'rgba(0,0,0,0.08)',
+                        color: hovered ? '#431846' : 'rgba(0,0,0,0.2)'
+                    }}
+                    transition={{ type: 'spring', stiffness: 150, damping: 15 }}
+                >
+                    <ArrowUpRight className="w-5 h-5" />
+                </motion.div>
             </div>
 
-            {/* Bottom Accent Line */}
+            {/* Red accent hairline */}
             <motion.div
-                className="absolute bottom-0 left-0 h-[2px]"
-                style={{ backgroundColor: service.accentColor }}
-                initial={{ width: 0 }}
-                animate={{ width: isHovered ? '100%' : 0 }}
-                transition={{ duration: 0.5 }}
+                className="absolute bottom-0 left-0 h-[1.5px] bg-[#431846] origin-left"
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: hovered ? 1 : 0 }}
+                transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
             />
         </motion.div>
     )
 }
 
 export default function ServicesDetailed() {
-    const containerRef = useRef<HTMLDivElement>(null)
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start end", "end start"]
-    })
-
-    const y = useTransform(scrollYProgress, [0, 1], [50, -50])
-
     return (
-        <section ref={containerRef} className="relative py-40 overflow-hidden">
-            {/* Background */}
-            <div className="absolute inset-0 bg-[#1a0d20]" />
+        <section className="relative py-40 overflow-hidden bg-[#faf9f7] px-6 sm:px-12 lg:px-20 xl:px-28">
 
-            {/* Gradient Orbs */}
-            <motion.div
-                style={{ y }}
-                className="absolute top-1/4 right-0 w-[800px] h-[800px] bg-[#431846]/20 rounded-full blur-[200px] pointer-events-none"
-            />
-            <motion.div
-                className="absolute bottom-0 left-1/4 w-[600px] h-[600px] bg-[#ed1c24]/5 rounded-full blur-[150px] pointer-events-none"
-            />
+            {/* Top hairline */}
+            <div className="absolute top-0 left-0 right-0 h-[0.5px]" style={{ background: 'linear-gradient(90deg, transparent, rgba(17,17,17,0.08), transparent)' }} />
 
-            {/* Grid Pattern */}
-            <div className="absolute inset-0 opacity-[0.015]">
-                <svg className="w-full h-full">
-                    <pattern id="servicesGrid" width="60" height="60" patternUnits="userSpaceOnUse">
-                        <path d="M 60 0 L 0 0 0 60" fill="none" stroke="white" strokeWidth="1" />
-                    </pattern>
-                    <rect width="100%" height="100%" fill="url(#servicesGrid)" />
-                </svg>
-            </div>
-
-            <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <div className="max-w-7xl mx-auto relative z-10">
 
                 {/* Header */}
-                <div className="mb-20">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="flex items-center gap-4 mb-8"
-                    >
-                        <div className="w-12 h-[1px] bg-gradient-to-r from-[#ed1c24] to-transparent" />
-                        <span className="text-[#ed1c24] text-xs font-medium tracking-[0.4em] uppercase">
-                            Serviços
-                        </span>
-                    </motion.div>
-
-                    <motion.h2
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.1 }}
-                        className="text-3xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter mb-6"
-                    >
-                        <span className="text-white">Ecossistema</span>{' '}
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ed1c24] via-[#a855f7] to-[#431846]">
-                            SEEA
-                        </span>
-                    </motion.h2>
-
-                    <motion.p
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.2 }}
-                        className="text-xl text-white/50 max-w-2xl font-light"
-                    >
-                        Uma abordagem 360º que une estratégia, produção de elite e distribuição inteligente.
-                    </motion.p>
+                <div className="mb-24 max-w-4xl">
+                    <p className="text-[0.62rem] font-semibold uppercase tracking-[0.5em] text-[#431846]/40 mb-10">
+                        Serviços
+                    </p>
+                    <div className="flex flex-col gap-[6px] mb-12">
+                        <div className="w-16 h-[2.5px] bg-[#431846]/50" />
+                        <div className="w-10 h-[2.5px] bg-[#431846]/50" />
+                    </div>
+                    <div className="overflow-hidden mb-1">
+                        <motion.h2
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
+                            className="font-extralight tracking-tight text-[#111111]"
+                            style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', lineHeight: 0.95 }}
+                        >
+                            <span className="font-sans">UM ECOSSISTEMA </span>
+                            <span className="font-serif italic font-normal serif-luxury text-[#431846]/70" style={{ fontSize: '1.08em', marginLeft: '0.1em' }}>completo</span>
+                        </motion.h2>
+                    </div>
+                    <div className="overflow-hidden mt-2">
+                        <h2 className="font-extralight tracking-tight text-[#111111]"
+                            style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', lineHeight: 0.95 }}>
+                            <span className="font-sans">SEEA</span>
+                            <span className="text-[#431846]">.</span>
+                        </h2>
+                    </div>
+                    <p className="mt-8 text-[0.95rem] font-light leading-[1.8] text-black/60 max-w-2xl">
+                        Uma abordagem 360° que une estratégia, produção de elite e distribuição inteligente.
+                    </p>
                 </div>
 
-                {/* Services Grid */}
-                <div className="space-y-4">
-                    {SERVICES.map((service, index) => (
-                        <ServiceCard key={service.id} service={service} index={index} />
+                {/* Services list */}
+                <div className="border-t border-black/[0.07]">
+                    {SERVICES.map((service, i) => (
+                        <ServiceRow key={service.id} service={service} index={i} />
                     ))}
                 </div>
 
                 {/* Bottom CTA */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="mt-20 text-center"
-                >
-                    <p className="text-white/40 text-sm mb-6">
+                <div className="mt-20 flex items-center justify-between gap-8 flex-wrap">
+                    <p className="text-[0.78rem] font-light text-black/40 max-w-xs">
                         Cada projeto é único. Vamos entender o seu?
                     </p>
-                    <motion.a
-                        href="#contato"
-                        className="inline-flex items-center gap-3 px-8 py-4 rounded-full border border-white/20 text-white text-sm font-medium uppercase tracking-wider hover:bg-white hover:text-black transition-all duration-300"
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
+                    <a
+                        href="https://wa.me/5511999999999"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group flex items-center gap-4 py-4 border-b border-black/[0.12] transition-all duration-500 hover:border-black/30"
                     >
-                        Agendar Conversa Estratégica
-                        <ArrowUpRight className="w-4 h-4" />
-                    </motion.a>
-                </motion.div>
+                        <span className="text-[0.72rem] font-medium uppercase tracking-[0.3em] text-black/45 group-hover:text-[#111111] transition-colors">
+                            Agendar conversa
+                        </span>
+                        <ArrowUpRight className="w-4 h-4 text-black/25 group-hover:text-[#431846] transition-colors" />
+                    </a>
+                </div>
             </div>
         </section>
     )

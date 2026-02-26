@@ -9,13 +9,17 @@ const ContentSections = dynamic(() => import('@/components/ContentSections'), {
   loading: () => <div className="min-h-screen bg-[#1a0525]" />
 })
 
+import SectionSeparator from '@/components/SectionSeparator'
+
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#1a0d20] relative selection:bg-purple-500 selection:text-white">
+    <main className="min-h-screen bg-[#faf9f7] relative">
       <GSAPWrapper />
 
       <OverlayNav />
       <HeroCinematic />
+
+      <SectionSeparator />
 
       <ContentSections />
 

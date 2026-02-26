@@ -134,45 +134,49 @@ export default function TeamMinimalist() {
     }
 
     return (
-        <section className="relative w-full py-20 md:py-32 overflow-hidden bg-[#050505]">
-            {/* Background */}
-            <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-[#431846]/30 rounded-full blur-[120px] -translate-y-1/2" />
-                <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#ed1c24]/10 rounded-full blur-[100px]" />
-            </div>
+        <section className="relative w-full py-20 md:py-32 overflow-hidden bg-[#f2f0ec]">
+            {/* Top hairline */}
+            <div className="absolute top-0 left-0 right-0 h-[0.5px]" style={{ background: 'linear-gradient(90deg, transparent, rgba(17,17,17,0.08), transparent)' }} />
 
             <div className="max-w-[1600px] mx-auto px-6 relative z-10">
                 {/* Header & Controls */}
                 <div className="mb-16 md:mb-24 flex flex-col md:flex-row items-center justify-between gap-8">
                     <div className="text-center md:text-left">
-                        <motion.h2
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            className="text-5xl md:text-8xl font-black tracking-tighter uppercase leading-[0.9]"
-                        >
-                            <span className="text-white">MENTES</span> <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ed1c24] via-[#ff6b6b] to-[#431846]">CRIATIVAS</span>
-                        </motion.h2>
+                        <p className="text-[0.62rem] font-semibold uppercase tracking-[0.5em] text-[#431846]/40 mb-10">Equipe</p>
+                        <div className="flex flex-col items-center md:items-start gap-[6px] mb-12">
+                            <div className="w-16 h-[2.5px] bg-[#431846]/50" />
+                            <div className="w-10 h-[2.5px] bg-[#431846]/50" />
+                        </div>
+                        <div className="overflow-hidden mb-1">
+                            <motion.h2
+                                initial={{ opacity: 0, x: -20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
+                                className="font-extralight tracking-tight text-[#111111]"
+                                style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', lineHeight: 0.95 }}
+                            >
+                                <span className="font-sans tracking-tight">MENTES </span>
+                                <span className="font-serif italic font-normal serif-luxury text-[#431846]/70" style={{ fontSize: '1.08em', marginLeft: '0.1em' }}>criativas</span>.
+                            </motion.h2>
+                        </div>
                     </div>
 
                     {/* Desktop Navigation Arrows */}
                     <div className="hidden md:flex gap-4">
                         <button
                             onClick={scrollPrev}
-                            className="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all duration-300 group"
-                            aria-label="Anterior"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white group-hover:text-black transition-colors">
+                            className="w-16 h-16 rounded-full border border-black/[0.1] flex items-center justify-center hover:bg-[#111111] hover:text-white transition-all duration-300 group"
+                            aria-label="Anterior">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-black/50 group-hover:text-white transition-colors">
                                 <path d="m15 18-6-6 6-6" />
                             </svg>
                         </button>
                         <button
                             onClick={scrollNext}
-                            className="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all duration-300 group"
-                            aria-label="Próximo"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white group-hover:text-black transition-colors">
+                            className="w-16 h-16 rounded-full border border-black/[0.1] flex items-center justify-center hover:bg-[#111111] hover:text-white transition-all duration-300 group"
+                            aria-label="Próximo">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-black/50 group-hover:text-white transition-colors">
                                 <path d="m9 18 6-6-6-6" />
                             </svg>
                         </button>
@@ -191,25 +195,49 @@ export default function TeamMinimalist() {
                     {TEAM_MEMBERS.map((member, index) => (
                         <div key={index} className="flex-shrink-0 w-[300px] md:w-[400px] snap-center group">
                             {/* Image - Square */}
-                            <div className="relative w-full aspect-square rounded-[2rem] overflow-hidden mb-6 bg-neutral-900 border border-white/5">
-                                <Image
-                                    src={member.image}
-                                    alt={member.name}
-                                    fill
-                                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                                    sizes="(max-width: 768px) 300px, 400px"
-                                />
-                                {/* Purple overlay effect from reference */}
-                                <div className="absolute inset-0 bg-[#431846]/20 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60 opacity-60" />
-                            </div>
+                            <motion.div
+                                style={{ perspective: 1000 }}
+                                onMouseMove={(e) => {
+                                    const rect = e.currentTarget.getBoundingClientRect()
+                                    const x = e.clientX - rect.left - rect.width / 2
+                                    const y = e.clientY - rect.top - rect.height / 2
+                                    gsap.to(e.currentTarget.querySelector('.card-inner'), {
+                                        rotateY: x * 0.05,
+                                        rotateX: -y * 0.05,
+                                        duration: 0.6,
+                                        ease: 'power2.out'
+                                    })
+                                }}
+                                onMouseLeave={(e) => {
+                                    gsap.to(e.currentTarget.querySelector('.card-inner'), {
+                                        rotateY: 0,
+                                        rotateX: 0,
+                                        duration: 1,
+                                        ease: 'elastic.out(1, 0.3)'
+                                    })
+                                }}
+                                className="relative w-full aspect-square rounded-[2rem] overflow-hidden mb-6 bg-[#e8e4dd] border border-black/[0.06] group"
+                            >
+                                <div className="card-inner relative w-full h-full">
+                                    <Image
+                                        src={member.image}
+                                        alt={member.name}
+                                        fill
+                                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                        sizes="(max-width: 768px) 300px, 400px"
+                                    />
+                                    {/* Purple overlay effect from reference */}
+                                    <div className="absolute inset-0 bg-[#431846]/15 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60 opacity-60" />
+                                </div>
+                            </motion.div>
 
                             {/* Name & Role - Centered Below */}
                             <div className="text-center">
-                                <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 uppercase tracking-wide">
+                                <h3 className="text-2xl md:text-3xl font-bold text-[#111111] mb-2 uppercase tracking-wide">
                                     {member.name.split(' ')[0]}
                                 </h3>
-                                <p className="text-[#888] text-xs md:text-sm font-bold tracking-[0.2em] uppercase group-hover:text-[#ed1c24] transition-colors">
+                                <p className="text-black/40 text-xs md:text-sm font-bold tracking-[0.2em] uppercase group-hover:text-[#431846] transition-colors">
                                     {member.role}
                                 </p>
                             </div>
@@ -224,8 +252,8 @@ export default function TeamMinimalist() {
                             key={index}
                             onClick={() => scrollToCard(index)}
                             className={`h-2 rounded-full transition-all duration-300 ${index === activeIndex
-                                ? 'w-8 bg-gradient-to-r from-[#ed1c24] to-[#431846]'
-                                : 'w-2 bg-white/20'
+                                ? 'w-8 bg-[#431846]'
+                                : 'w-2 bg-black/20'
                                 }`}
                             aria-label={`Ver membro ${index + 1}`}
                         />

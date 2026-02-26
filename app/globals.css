@@ -1,19 +1,47 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:italic,wght@400;700&family=Plus+Jakarta+Sans:wght@200;300;400;500;600&display=swap');
 @import "tailwindcss";
 
 
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --color-seea-purple: #431846;
+  /* SEEA Brand */
   --color-seea-red: #ed1c24;
-  --color-seea-dark: #1a1a1a;
+  --color-seea-purple: #431846;
 
-  --font-inter: 'Inter', sans-serif;
+  /* Tier 10 Luxury Palette */
+  --color-seea-bg: #faf9f7;
+  --color-seea-bg-warm: #f6f4f1;
+  --color-seea-ink: #111111;
+  --color-seea-red-glint: #ff3d44;
+
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+  --font-serif: 'Playfair Display', serif;
+
+  /* Custom Luxury Easings */
+  --ease-luxury: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-viscous: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 :root {
-  /* Darker Purple for depth */
+  --color-seea-purple: #431846;
+  --color-seea-red: #ed1c24;
+  --seea-charcoal: #121212;
+  --background: #0c0510;
+
+  /* HIGH-END GRADIENTS */
+  --seea-ethereal-purple: radial-gradient(circle at 50% 0%, #5a2670 0%, #431846 45%, #0c0510 100%);
+  --seea-marble-white: radial-gradient(circle at center, #ffffff 0%, #f9f7f6 100%);
+
+  /* System Tokens */
+  --radius-card: 32px;
+  --radius-pill: 999px;
+  --blur-glass: 24px;
+
+  /* Fluid Typography */
+  --font-size-h1: clamp(2rem, 7vw, 6rem);
+  --font-size-sub: clamp(0.9rem, 2.5vw, 1.25rem);
+
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -48,59 +76,190 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
+/* ===================================================
+   BODY — Light Luxury
+   Warm off-white like expensive paper or linen.
+   SEEA red is the sole chromatic luxury signal.
+=================================================== */
 body {
-  /* Vivid Radial Gradient for "High-End" depth */
-  background-color: #0c0510;
-  /* Solid fallback for scroll flash prevention */
-  background: radial-gradient(circle at 50% 0%, #431846 0%, #1a0525 60%, #050505 100%);
+  background-color: var(--color-seea-bg);
+  /* LUMINOUS DEPTH SYSTEM */
+  background-image:
+    radial-gradient(circle at 0% 0%, rgba(237, 28, 36, 0.015) 0%, transparent 40%),
+    radial-gradient(circle at 100% 100%, rgba(237, 28, 36, 0.01) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.4) 0%, transparent 100%);
   background-attachment: fixed;
-  /* Parallax-like feel */
   overflow-x: hidden;
-  font-family: var(--font-inter);
+  font-family: var(--font-sans);
+  font-weight: 300;
+  letter-spacing: -0.012em;
   min-height: 100vh;
+  color: var(--color-seea-ink);
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Custom Scrollbar - Minimal & Dark */
-::-webkit-scrollbar {
-  width: 8px;
+/* Custom Selection */
+::selection {
+  background-color: var(--color-seea-purple);
+  color: #faf9f7;
 }
 
-::-webkit-scrollbar-track {
-  background: #1a1a1a;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #ed1c24;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #ff4d4d;
-}
-
-/* Utility for text balance if needed */
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+/* Luxury Animations */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-150%) skewX(-15deg);
   }
+
+  100% {
+    transform: translateX(150%) skewX(-15deg);
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+
+  50% {
+    transform: translateY(-20px) rotate(2deg);
+  }
+}
+
+.animate-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.animate-shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent);
+  transform: translateX(-150%) skewX(-15deg);
+}
+
+.animate-shimmer:hover::after {
+  animation: shimmer 1.5s infinite;
+}
+
+/* Fine grain texture — luxury paper tactility */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.018;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 260px 260px;
+  mix-blend-mode: multiply;
+}
+
+
+/* Luxury Reveal Utilities */
+.mask-reveal {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 1.5s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.mask-reveal.active {
+  clip-path: inset(0 0 0 0);
+}
+
+.text-reveal-wrapper {
+  overflow: hidden;
+  display: block;
+}
+
+.seea-noise-overlay {
+  position: relative;
+}
+
+.seea-noise-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  opacity: 0.05;
+  pointer-events: none;
+  filter: contrast(150%) brightness(100%);
+  z-index: 50;
+}
+
+/* Custom Easings for Framer Motion can be defined in JS, 
+   but we'll keep some CSS variables for consistency */
+:root {
+  --ease-expo: cubic-bezier(0.83, 0, 0.17, 1);
+  --ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 /* ======= New UI Components Styles ======= */
 
-/* GradualBlur Component */
-.gradual-blur {
-  isolation: isolate;
+.seea-noise-overlay {
+  position: relative;
 }
 
-.gradual-blur-inner {
+.seea-noise-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+.seea-hero-bg {
+  background: var(--seea-ethereal-purple);
+}
+
+.seea-marble-bg {
+  background: var(--seea-marble-white);
+}
+
+.seea-glass {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(var(--blur-glass));
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* POETIC LIGHT SWEEP */
+.light-sweep-container {
   position: relative;
+  overflow: hidden;
+}
+
+.light-sweep-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -200%;
   width: 100%;
   height: 100%;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.4),
+      transparent);
+  transform: skewX(-15deg);
+  animation: lightSweep 6s infinite ease-in-out;
 }
 
-.gradual-blur-inner>div {
-  -webkit-backdrop-filter: inherit;
-  backdrop-filter: inherit;
+@keyframes lightSweep {
+  from {
+    left: -200%;
+  }
+
+  to {
+    left: 200%;
+  }
 }
 
 @supports not (backdrop-filter: blur(1px)) {
@@ -179,6 +338,22 @@ body {
   background-size: 200% 200%;
   animation: gradient-xy 6s ease infinite;
 }
+
+/* Purple orb float (ContentSections) */
+@keyframes orbFloat {
+
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  50% {
+    opacity: 0.35;
+    transform: translateX(-50%) translateY(30px);
+  }
+}
+
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);

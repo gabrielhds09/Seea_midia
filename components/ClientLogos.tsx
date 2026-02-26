@@ -22,10 +22,10 @@ const MARQUEE_LOGOS = [...LOGOS, ...LOGOS, ...LOGOS]
 export default function ClientLogos() {
     return (
         <section className="relative overflow-hidden py-12">
-            <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#050505] via-transparent to-[#050505] pointer-events-none" />
+            <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#faf9f7] via-transparent to-[#faf9f7] pointer-events-none" />
 
             <div className="mb-8 text-center">
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/30">
+                <p className="text-[0.62rem] font-semibold uppercase tracking-[0.5em] text-[#431846]/35">
                     Quem Confia na SEEA
                 </p>
             </div>
@@ -42,9 +42,9 @@ export default function ClientLogos() {
                     }}
                 >
                     {MARQUEE_LOGOS.map((logo, index) => (
-                        <div key={`${logo.id}-${index}`} className="flex items-center gap-3 flex-shrink-0 group cursor-pointer px-8 border-r border-white/10">
-                            <logo.icon className="h-6 w-6 text-white/60 transition-transform group-hover:scale-110 group-hover:text-purple-400" />
-                            <span className="text-lg font-medium tracking-tight text-white/40 group-hover:text-white transition-colors">{logo.name}</span>
+                        <div key={`${logo.id}-${index}`} className="flex items-center gap-3 flex-shrink-0 group cursor-pointer px-8 border-r border-black/[0.06]">
+                            <logo.icon className="h-6 w-6 text-black/40 transition-transform group-hover:scale-110 group-hover:text-[#431846]" />
+                            <span className="text-lg font-medium tracking-tight text-black/35 group-hover:text-[#111111] transition-colors">{logo.name}</span>
                         </div>
                     ))}
                 </motion.div>
@@ -60,9 +60,9 @@ export default function ClientLogos() {
                     }}
                 >
                     {MARQUEE_LOGOS.map((logo, index) => (
-                        <div key={`${logo.id}-${index}-dbl`} className="flex items-center gap-3 flex-shrink-0 group cursor-pointer px-8 border-r border-white/10">
-                            <logo.icon className="h-6 w-6 text-white/60 transition-transform group-hover:scale-110 group-hover:text-purple-400" />
-                            <span className="text-lg font-medium tracking-tight text-white/40 group-hover:text-white transition-colors">{logo.name}</span>
+                        <div key={`${logo.id}-${index}-dbl`} className="flex items-center gap-3 flex-shrink-0 group cursor-pointer px-8 border-r border-black/[0.06]">
+                            <logo.icon className="h-6 w-6 text-black/40 transition-transform group-hover:scale-110 group-hover:text-[#431846]" />
+                            <span className="text-lg font-medium tracking-tight text-black/35 group-hover:text-[#111111] transition-colors">{logo.name}</span>
                         </div>
                     ))}
                 </motion.div>

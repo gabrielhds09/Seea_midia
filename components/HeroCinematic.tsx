@@ -1,226 +1,458 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
-import { ArrowRight } from 'lucide-react'
+import React, { useEffect, useRef } from 'react'
+import { motion } from 'framer-motion'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+
+/**
+ * SEEA HERO — White Marble + Clean Dark Bridge
+ *
+ * Hero: white marble textured background, dark editorial typography.
+ * Statement section: gradient bridge white → clean dark (#111111).
+ * Animation delay aligned with Preloader (~9.6s).
+ */
+
+const LuxuryCharText = ({ text, className, style }: { text: string; className?: string; style?: React.CSSProperties }) => (
+    <span className={`inline-block ${className || ''}`} style={style}>
+        {text.split(' ').map((word, wordIndex) => (
+            <span key={wordIndex} className="inline-block whitespace-nowrap mr-[0.22em] last:mr-0 pt-4 pb-2 -mt-4 -mb-2 perspective-[1000px]">
+                {word.split('').map((char, charIndex) => (
+                    <span key={charIndex} className="hero-char inline-block will-change-transform" style={{ transformOrigin: '50% 100%' }}>
+                        {char}
+                    </span>
+                ))}
+            </span>
+        ))}
+    </span>
+)
 
 export default function HeroCinematic() {
-    const [isLoading, setIsLoading] = useState(true)
-    const { scrollY } = useScroll()
+    const heroRef = useRef<HTMLElement>(null)
+    const headlineRef = useRef<HTMLDivElement>(null)
+    const metaLeftRef = useRef<HTMLDivElement>(null)
+    const metaRightRef = useRef<HTMLDivElement>(null)
+    const ruleRef = useRef<HTMLDivElement>(null)
+    const ctaRef = useRef<HTMLAnchorElement>(null)
+    const scrollRef = useRef<HTMLDivElement>(null)
+    const statementRef = useRef<HTMLDivElement>(null)
+    const statementRuleRef = useRef<HTMLDivElement>(null)
 
-    // Parallax Effects
-    // Parallax Effects
-    const yLogo = useTransform(scrollY, [0, 800], [0, 150])
-
-    // Loading Simulation & Scroll Reset
     useEffect(() => {
-        // Force scroll to top on refresh/load
-        window.scrollTo(0, 0)
+        if (!heroRef.current || !headlineRef.current) return
 
-        const timer = setTimeout(() => {
-            setIsLoading(false)
-        }, 2200) // Tempo para apreciar o logo
-        return () => clearTimeout(timer)
+        const ctx = gsap.context(() => {
+            // ═══ ENTRANCE — aligned with preloader (~9.6s) ═══
+            const tl = gsap.timeline({
+                delay: 9.6,
+                defaults: { ease: 'expo.out' },
+            })
+
+            if (ruleRef.current) {
+                tl.from(ruleRef.current, {
+                    scaleX: 0,
+                    duration: 1.8,
+                    ease: 'power3.inOut',
+                    transformOrigin: 'left center',
+                })
+            }
+
+            const chars = headlineRef.current!.querySelectorAll('.hero-char')
+            tl.fromTo(chars,
+                { y: 35, rotationX: -80, rotationZ: 3, opacity: 0 },
+                { y: 0, rotationX: 0, rotationZ: 0, opacity: 1, duration: 4.5, stagger: 0.05, ease: 'expo.out' },
+                '-=1.4'
+            )
+
+            if (metaLeftRef.current) {
+                tl.from(metaLeftRef.current, { opacity: 0, y: 15, duration: 1.5 }, '-=1.2')
+            }
+            if (metaRightRef.current) {
+                tl.from(metaRightRef.current, { opacity: 0, y: 15, duration: 1.5 }, '-=1.3')
+            }
+            if (ctaRef.current) {
+                tl.from(ctaRef.current, { opacity: 0, scale: 0.95, y: 15, duration: 1.5 }, '-=0.9')
+            }
+            if (scrollRef.current) {
+                tl.from(scrollRef.current, { opacity: 0, y: -10, duration: 1.2 }, '-=0.5')
+            }
+
+            // ═══ LIVING MAGNETIC DOT ═══
+            const dot = headlineRef.current!.querySelector('.signature-dot')
+            const glow = headlineRef.current!.querySelector('.living-glow')
+
+            if (dot) {
+                let isReady = false;
+
+                // Wait for the timeline to completely finish the 3D text entry
+                tl.call(() => {
+                    isReady = true;
+                    // Ultra-slow Breathing Life starts ONLY after landing
+                    gsap.to(dot, { scale: 1.05, duration: 3.5, repeat: -1, yoyo: true, ease: 'sine.inOut' })
+                    if (glow) {
+                        gsap.to(glow, { opacity: 0.3, scale: 2.2, duration: 3.5, repeat: -1, yoyo: true, ease: 'sine.inOut' })
+                    }
+                })
+
+                // Magnetism
+                window.addEventListener('mousemove', (e) => {
+                    if (!isReady) return; // Ignore mouse hover while letters are 3D-folding
+
+                    const { clientX, clientY } = e
+                    const rect = dot.getBoundingClientRect()
+                    const centerX = rect.left + rect.width / 2
+                    const centerY = rect.top + rect.height / 2
+                    const distanceX = clientX - centerX
+                    const distanceY = clientY - centerY
+                    const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY)
+
+                    if (distance < 200) {
+                        gsap.to(dot, {
+                            x: distanceX * 0.2,
+                            y: distanceY * 0.2,
+                            duration: 0.6,
+                            ease: 'power2.out',
+                            overwrite: 'auto'
+                        })
+                    } else {
+                        gsap.to(dot, { x: 0, y: 0, duration: 1.2, ease: 'elastic.out(1, 0.3)', overwrite: 'auto' })
+                    }
+                })
+            }
+
+            // ═══ PARALLAX ═══
+            gsap.to(headlineRef.current!, {
+                yPercent: -12,
+                autoAlpha: 0.8,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: heroRef.current,
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: 1,
+                },
+            })
+
+            // ═ STATEMENT PARALLAX ═
+            if (statementRef.current) {
+                gsap.to(statementRef.current.querySelector('h2'), {
+                    yPercent: -15,
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: statementRef.current,
+                        start: 'top bottom',
+                        end: 'bottom top',
+                        scrub: true
+                    }
+                })
+            }
+
+            // ═══ STATEMENT — ScrollTrigger ═══
+            if (statementRef.current) {
+                if (statementRuleRef.current) {
+                    gsap.from(statementRuleRef.current, {
+                        scaleX: 0,
+                        duration: 1.8,
+                        ease: 'expo.inOut',
+                        transformOrigin: 'left center',
+                        scrollTrigger: {
+                            trigger: statementRef.current,
+                            start: 'top 90%',
+                            toggleActions: 'play none none none',
+                        }
+                    })
+                }
+
+                const revealLines = statementRef.current.querySelectorAll('.reveal-line-inner')
+                gsap.from(revealLines, {
+                    yPercent: 100,
+                    rotateX: 5,
+                    opacity: 0,
+                    duration: 2,
+                    stagger: 0.12,
+                    ease: 'expo.out',
+                    scrollTrigger: {
+                        trigger: statementRef.current,
+                        start: 'top 85%',
+                        toggleActions: 'play none none none',
+                    }
+                })
+
+                const tags = statementRef.current.querySelectorAll('.service-tag')
+                gsap.from(tags, {
+                    opacity: 0,
+                    scale: 0.9,
+                    y: 12,
+                    duration: 1.2,
+                    stagger: 0.08,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: statementRef.current,
+                        start: 'top 75%',
+                        toggleActions: 'play none none none',
+                    }
+                })
+            }
+
+        }, heroRef)
+
+        return () => {
+            ctx.revert()
+            window.removeEventListener('mousemove', () => { })
+        }
     }, [])
 
     return (
         <>
-            {/* === 1. PRELOADER CINEMATOGRÁFICO === */}
-            <AnimatePresence mode="wait">
-                {isLoading && (
-                    <motion.div
-                        className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#1a0d20]"
-                        exit={{
-                            y: "-100%",
-                            transition: { duration: 1, ease: [0.76, 0, 0.24, 1] }
-                        }}
-                    >
-                        {/* Logo Pulsante */}
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 1.1 }}
-                            transition={{ duration: 1.5, ease: "easeOut" }}
-                            className="relative"
-                        >
-                            <img
-                                src="/logo-seea.png"
-                                alt="SEEA"
-                                className="w-48 md:w-64 brightness-200 drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]"
-                            />
+            {/* ════════════════════════════════
+                HERO — White Marble
+            ════════════════════════════════ */}
+            <section
+                ref={heroRef}
+                className="relative flex flex-col justify-center min-h-[100dvh] overflow-hidden"
+                style={{
+                    background: 'linear-gradient(175deg, var(--color-seea-bg) 0%, var(--color-seea-bg-warm) 100%)',
+                }}
+            >
+                {/* ── AMBIENT PARALLAX BLOB ── */}
+                <motion.div
+                    className="absolute top-[-10%] right-[-10%] w-[60%] aspect-square rounded-full pointer-events-none z-0 opacity-40"
+                    style={{
+                        background: 'radial-gradient(circle, rgba(237,28,36,0.06) 0%, transparent 70%)',
+                        filter: 'blur(120px)',
+                    }}
+                    animate={{
+                        x: [0, 20, -20, 0],
+                        y: [0, -15, 15, 0],
+                        scale: [1, 1.1, 0.9, 1]
+                    }}
+                    transition={{
+                        duration: 25,
+                        repeat: Infinity,
+                        ease: "linear"
+                    }}
+                />
 
-                            {/* Loading Bar Minimalista */}
-                            <motion.div
-                                className="mt-8 h-[2px] w-full bg-[#1a1a1a] rounded-full overflow-hidden"
-                            >
-                                <motion.div
-                                    className="h-full bg-gradient-to-r from-[#431846] to-[#ed1c24]"
-                                    initial={{ width: 0 }}
-                                    animate={{ width: "100%" }}
-                                    transition={{ duration: 2, ease: "easeInOut" }}
-                                />
-                            </motion.div>
-                        </motion.div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+                {/* Marble vein texture (Global noise now added) */}
+                <div
+                    className="absolute inset-0 pointer-events-none opacity-[0.04]"
+                    style={{
+                        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='6' seed='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crech t width='100%25' height='100%25' filter='url(%23m)'/%3E%3C/svg%3E")`,
+                        mixBlendMode: 'multiply',
+                    }}
+                />
 
-            {/* === 2. HERO SECTION SOPHISTICATED === */}
-            <section className="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#1a0d20]">
+                {/* Warm radial warmth — center */}
+                <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                        background: 'radial-gradient(ellipse 70% 60% at 50% 40%, rgba(255,252,248,0.5) 0%, transparent 100%)',
+                    }}
+                />
 
-                {/* BACKGROUND ATMOSFÉRICO SUTIL */}
-                <div className="absolute inset-0 z-0 select-none pointer-events-none">
-                    {/* Gradiente Base Profundo */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-[#2a1535] via-[#1a0d20] to-[#1a0d20]" />
-
-                    {/* Glow Central Elegante */}
-                    {/* Main Purple Glow */}
-                    <motion.div
-                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[700px] bg-[#431846] rounded-full blur-[150px] opacity-[0.35]"
-                        animate={{
-                            opacity: [0.25, 0.4, 0.25],
-                            scale: [1, 1.08, 1],
-                        }}
-                        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-                    />
-
-                    {/* Top Purple Glow - Creates welcoming atmosphere */}
-                    <motion.div
-                        className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] bg-[#431846] rounded-full blur-[120px] opacity-[0.25]"
-                        animate={{
-                            opacity: [0.2, 0.3, 0.2],
-                        }}
-                        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                    />
-
-                    {/* Subtle Red Accent Bottom */}
-                    <motion.div
-                        className="absolute bottom-0 right-1/4 w-[600px] h-[300px] bg-[#ed1c24] rounded-full blur-[150px] opacity-[0.08]"
-                        animate={{
-                            opacity: [0.05, 0.1, 0.05],
-                        }}
-                        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-                    />
+                {/* BRAND CHARM LIGHTS — Subtle purple flares */}
+                <div className="absolute inset-0 z-[1] pointer-events-none overflow-hidden">
+                    <div className="absolute top-[20%] -right-32 w-[600px] h-[600px] bg-[#431846]/[0.012] rounded-full blur-[160px]" />
+                    <div className="absolute bottom-0 -left-20 w-[400px] h-[400px] bg-[#431846]/[0.008] rounded-full blur-[120px]" />
                 </div>
 
-                {/* CONTEÚDO PRINCIPAL */}
-                <div className="relative z-10 w-full max-w-[1400px] px-6 flex flex-col items-center text-center">
+                {/* ── Layout Grid ── */}
+                <div className="relative z-[2] w-full px-6 sm:px-12 lg:px-20 xl:px-28 pt-[18vh] sm:pt-[22vh] pb-16">
 
-                    {/* LOGO - Elegante e Menor */}
-                    <motion.div
-                        style={{ y: yLogo }}
-                        className="mb-16 md:mb-20"
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={!isLoading ? { opacity: 1, y: 0 } : {}}
-                        transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
-                    >
-                        <img
-                            src="/logo-seea.png"
-                            alt="SEEA Mídia"
-                            className="w-[180px] md:w-[280px] h-auto object-contain drop-shadow-2xl opacity-90"
-                        />
-                    </motion.div>
-
-                    {/* TEXTO EDITORIAL */}
+                    {/* Top Rule */}
                     <div
-                        className="flex flex-col items-center gap-6 md:gap-10 w-full relative z-20"
-                    >
-                        <h1 className="flex flex-col items-center font-light text-white leading-[1.2] tracking-wide">
+                        ref={ruleRef}
+                        className="w-full h-[0.5px] mb-10 sm:mb-14 origin-left"
+                        style={{
+                            background: 'linear-gradient(90deg, #c0bbb4 0%, transparent 100%)',
+                        }}
+                    />
 
-                            {/* LINHA 1: Frase inicial elegante */}
-                            <div className="overflow-hidden">
-                                <motion.span
-                                    initial={{ y: "100%" }}
-                                    animate={!isLoading ? { y: 0 } : {}}
-                                    transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                                    className="block text-sm sm:text-lg md:text-2xl lg:text-3xl text-white/50 uppercase tracking-[0.2em] mb-2 sm:mb-4"
+                    {/* ── HEADLINE ── */}
+                    <div ref={headlineRef} className="mb-12 sm:mb-16">
+                        <h1 className="text-[clamp(2.6rem,8.5vw,7.5rem)] leading-[0.95] font-light tracking-[-0.04em] flex flex-wrap gap-x-[0.22em] gap-y-[0.1em] items-end">
+                            <LuxuryCharText text="UM TIME" className="font-sans text-[#111111]" />
+                            <div className="basis-full h-0" />
+                            <LuxuryCharText text="QUE" className="font-sans text-[#111111]" />
+                            <LuxuryCharText text="enxerga cada" className="font-serif italic font-normal serif-luxury text-[#431846]/90 relative" style={{ fontSize: '1.08em', top: '0.12em' }} />
+                            <div className="basis-full h-0" />
+                            <LuxuryCharText text="PROJETO" className="font-sans text-[#111111]" />
+                            <LuxuryCharText text="como uma" className="font-serif italic font-normal serif-luxury text-[#431846]/90 relative" style={{ fontSize: '1.08em', top: '0.12em' }} />
+                            <div className="basis-full h-0" />
+                            <LuxuryCharText text="HISTÓRIA" className="font-sans text-[#111111]" />
+
+                            {/* Living Dot */}
+                            <span className="inline-block pt-4 pb-2 -mt-4 -mb-2 perspective-[1000px]">
+                                <span
+                                    className="signature-dot hero-char inline-block text-[#431846] font-bold relative will-change-transform z-10 cursor-default"
+                                    style={{ transformOrigin: '50% 100%' }}
                                 >
-                                    Gestão de carreira
-                                </motion.span>
-                            </div>
-
-                            {/* LINHA 2: Power Headline */}
-                            <div className="overflow-hidden py-1">
-                                <motion.div
-                                    initial={{ y: "100%", opacity: 0 }}
-                                    animate={!isLoading ? { y: 0, opacity: 1 } : {}}
-                                    transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                                    className="block text-3xl sm:text-6xl md:text-7xl lg:text-8xl font-normal text-white"
-                                >
-                                    e imagem <span className="font-serif italic text-white/80">para</span>
-                                </motion.div>
-                            </div>
-
-                            {/* LINHA 3: Quem quer ir além */}
-                            <div className="overflow-hidden flex flex-wrap justify-center items-baseline gap-x-2 gap-y-0 md:gap-4 mt-1 sm:mt-2">
-                                <motion.span
-                                    initial={{ y: "100%", opacity: 0 }}
-                                    animate={!isLoading ? { y: 0, opacity: 1 } : {}}
-                                    transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
-                                    className="block text-3xl sm:text-5xl md:text-7xl lg:text-7xl font-light text-white/90"
-                                >
-                                    quem quer ir
-                                </motion.span>
-
-                                <div className="relative px-2">
-                                    <motion.span
-                                        className="block text-3xl sm:text-5xl md:text-7xl lg:text-7xl font-bold italic text-transparent bg-clip-text bg-gradient-to-r from-[#ed1c24] to-[#ff4d4d]"
-                                        initial={{ opacity: 0 }}
-                                        animate={!isLoading ? { opacity: 1 } : {}}
-                                        transition={{ duration: 1.2, delay: 0.5 }}
-                                    >
-                                        além do óbvio
-                                    </motion.span>
-                                    <motion.div
-                                        className="absolute -bottom-1 md:-bottom-2 left-0 h-[2px] md:h-[3px] bg-[#ed1c24]"
-                                        initial={{ opacity: 0, width: "100%" }}
-                                        animate={!isLoading ? { opacity: 1 } : {}}
-                                        transition={{ duration: 0.8, delay: 0.8 }}
-                                    />
-                                </div>
-                            </div>
-                        </h1>
-
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={!isLoading ? { opacity: 1 } : {}}
-                            transition={{ delay: 1.4, duration: 1 }}
-                            className="hidden md:block w-[1px] h-16 bg-gradient-to-b from-white/0 via-white/20 to-white/0 my-2"
-                        />
-
-                        {/* SUBTITLE */}
-                        <motion.p
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={!isLoading ? { opacity: 1, y: 0 } : {}}
-                            transition={{ delay: 1.6, duration: 1 }}
-                            className="text-sm sm:text-base md:text-lg text-white/60 max-w-[90%] md:max-w-2xl font-light leading-relaxed tracking-wide mt-4 md:mt-0"
-                        >
-                            Transformamos sua rotina em <strong className="text-white font-medium">posicionamento</strong> e sua presença em <strong className="text-white font-medium">autoridade</strong>. Estratégia audiovisual para quem não pode ser ignorado.
-                        </motion.p>
-
-                        {/* CTA - Minimalist Luxury - STATIC */}
-                        <div className="mt-8 mb-4 md:mt-12 md:mb-8 relative z-30">
-                            <button className="group relative flex items-center gap-4 px-8 py-4 md:px-10 md:py-5 bg-black/40 backdrop-blur-md border border-white/20 rounded-full hover:bg-white/10 transition-all duration-500 shadow-lg md:shadow-none whitespace-nowrap">
-                                <span className="text-[10px] sm:text-xs uppercase tracking-[0.2em] font-medium text-white group-hover:text-[#ed1c24] transition-colors">
-                                    Agendar conversa estratégica
+                                    .
+                                    <span className="living-glow absolute left-1/2 bottom-[0.25em] -translate-x-1/2 w-[0.25em] h-[0.25em] bg-[#431846] rounded-full blur-[4px] opacity-0 -z-10 pointer-events-none"></span>
                                 </span>
-                                <div className="w-2 h-2 rounded-full bg-[#ed1c24] group-hover:scale-150 transition-transform duration-500" />
-                            </button>
+                            </span>
+                        </h1>
+                    </div>
+
+
+                    {/* ── Bottom Meta — Split ── */}
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-8 sm:gap-4">
+
+                        {/* Left: Services */}
+                        <div ref={metaLeftRef} className="flex flex-col gap-3">
+                            <p className="text-[0.6rem] sm:text-[0.65rem] font-medium uppercase tracking-[0.35em] text-neutral-400">
+                                O que fazemos
+                            </p>
+                            <div className="flex flex-wrap gap-x-5 gap-y-1">
+                                {['Branding', 'Conteúdo', 'Estratégia', 'Tráfego'].map((s) => (
+                                    <span
+                                        key={s}
+                                        className="text-[0.72rem] sm:text-[0.78rem] font-light tracking-[0.15em] uppercase text-neutral-500 hover:text-[#431846] transition-colors cursor-default"
+                                    >
+                                        {s}
+                                    </span>
+                                ))}
+                            </div>
                         </div>
 
+                        {/* Right: CTA + Meta */}
+                        <div ref={metaRightRef} className="flex flex-col items-start sm:items-end gap-4">
+                            <p className="text-[0.62rem] font-medium uppercase tracking-[0.55em] text-[#431846]/30">
+                                SÃO PAULO — BRASIL / EST. 2024
+                            </p>
+                            <a
+                                ref={ctaRef}
+                                href="https://wa.me/5511999999999?text=Olá! Vim pelo site da SEEA e gostaria de agendar uma conversa estratégica."
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group relative inline-flex items-center gap-3 text-[0.75rem] sm:text-[0.8rem] font-medium uppercase tracking-[0.25em] text-neutral-700 transition-all duration-700 hover:text-neutral-900 animate-shimmer"
+                            >
+                                <span className="relative">
+                                    Agendar Conversa
+                                    <span className="absolute left-0 bottom-[-3px] w-0 h-[1px] bg-neutral-700 transition-all duration-700 group-hover:w-full" />
+                                </span>
+                                <svg
+                                    width="16"
+                                    height="16"
+                                    viewBox="0 0 16 16"
+                                    fill="none"
+                                    className="transition-transform duration-600 group-hover:translate-x-1.5"
+                                >
+                                    <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                            </a>
+                        </div>
                     </div>
                 </div>
 
-                {/* SCROLL INDICATOR */}
-                <motion.div
-                    className="absolute bottom-10 left-1/2 -translate-x-1/2 text-[10px] text-white/30 tracking-[0.3em] uppercase"
-                    initial={{ opacity: 0 }}
-                    animate={!isLoading ? { opacity: 1 } : {}}
-                    transition={{ delay: 2.2, duration: 1 }}
+                {/* ── REFINED SCROLL INDICATOR ── */}
+                <div
+                    ref={scrollRef}
+                    className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 z-[3] flex flex-col items-center gap-2"
                 >
-                    Scroll
-                </motion.div>
+                    <div className="flex items-center gap-2">
+                        <span className="text-[0.5rem] text-[#431846] opacity-40">[</span>
+                        <span className="text-[0.55rem] font-medium uppercase tracking-[0.5em] text-neutral-400">
+                            Scroll
+                        </span>
+                        <span className="text-[0.5rem] text-[#431846] opacity-40">]</span>
+                    </div>
+                    <div className="w-[1px] h-12 bg-neutral-200 relative overflow-hidden">
+                        <div
+                            className="absolute top-0 left-0 w-full"
+                            style={{
+                                height: '35%',
+                                background: 'linear-gradient(180deg, transparent, #431846)',
+                                animation: 'scrollLine 3.2s cubic-bezier(0.19, 1, 0.22, 1) infinite',
+                            }}
+                        />
+                    </div>
+                </div>
 
+                <style jsx>{`
+                    @keyframes scrollLine {
+                        0% { transform: translateY(-100%); opacity: 0; }
+                        20% { opacity: 1; }
+                        80% { opacity: 1; }
+                        100% { transform: translateY(300%); opacity: 0; }
+                    }
+                    @keyframes marquee {
+                        0% { transform: translateX(0); }
+                        100% { transform: translateX(-33.33%); }
+                    }
+                    .animate-marquee {
+                        animation: marquee 35s linear infinite;
+                    }
+                `}</style>
+            </section>
+
+            {/* ════════════════════════════════
+                STATEMENT — Gradient Bridge
+                White marble → clean dark (#111111)
+            ════════════════════════════════ */}
+            <section
+                className="relative py-36 sm:py-48 xl:py-60 px-6 sm:px-12 lg:px-20 xl:px-28 overflow-hidden"
+                style={{
+                    background: 'linear-gradient(180deg, #f3f0ec 0%, #dedad5 22%, #b0aaa4 42%, #5a5552 60%, #222020 78%, #111111 100%)',
+                }}
+            >
+                {/* Marble texture — fades out with background */}
+                <div
+                    className="absolute inset-0 pointer-events-none opacity-[0.04]"
+                    style={{
+                        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='6' seed='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)'/%3E%3C/svg%3E")`,
+                        mixBlendMode: 'multiply',
+                    }}
+                />
+
+                <div ref={statementRef} className="relative z-[1] max-w-6xl mx-auto">
+                    {/* Rule — starts neutral, reads white at bottom */}
+                    <div
+                        ref={statementRuleRef}
+                        className="w-full h-[0.5px] mb-14 sm:mb-20 origin-left"
+                        style={{
+                            background: 'linear-gradient(90deg, #b0aaa4 0%, transparent 70%)',
+                        }}
+                    />
+
+                    {/* Statement text — white, legible against darkening bg */}
+                    <div className="mb-16 sm:mb-24">
+                        <div className="overflow-hidden mb-1">
+                            <div className="reveal-line-inner">
+                                <h2 className="text-[clamp(1.8rem,5.5vw,4.5rem)] leading-[1.06] font-extralight tracking-[-0.03em] text-white">
+                                    <span className="font-sans">NARRATIVA </span>
+                                    <span className="font-serif italic font-light text-white/40" style={{ fontSize: '0.9em' }}>é o</span>
+                                    <span className="font-sans"> DESTINO</span>
+                                    <span className="text-[#431846]">,</span>
+                                </h2>
+                            </div>
+                        </div>
+                        <div className="overflow-hidden">
+                            <div className="reveal-line-inner">
+                                <h2 className="text-[clamp(1.8rem,5.5vw,4.5rem)] leading-[1.06] font-extralight tracking-[-0.03em] text-white">
+                                    <span className="font-sans">AUTORIDADE </span>
+                                    <span className="font-serif italic font-light text-white/40" style={{ fontSize: '0.9em' }}>é a nossa</span>
+                                    <span className="font-sans"> JORNADA</span>
+                                    <span className="text-[#431846]">.</span>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Service tags */}
+                    <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+                        {['Gestão de Carreira', 'Branding Pessoal', 'Conteúdo Estratégico', 'Tráfego Pago', 'Roteiro'].map((tag) => (
+                            <span
+                                key={tag}
+                                className="service-tag px-5 py-2.5 rounded-full border border-white/15 text-[0.65rem] sm:text-[0.7rem] font-medium uppercase tracking-[0.22em] text-white/40 transition-all duration-500 hover:border-white/30 hover:text-white/65 cursor-default"
+                            >
+                                {tag}
+                            </span>
+                        ))}
+                    </div>
+                </div>
             </section>
         </>
     )

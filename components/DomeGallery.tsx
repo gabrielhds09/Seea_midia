@@ -51,18 +51,23 @@ interface DomeGalleryProps {
 
 function buildItems(pool: (string | ImageItem)[], seg: number) {
     const xCols = Array.from({ length: seg }, (_, i) => i - Math.floor(seg / 2));
-    const evenYs = [-4, -2, 0, 2, 4];
-    const oddYs = [-3, -1, 1, 3, 5];
+    // 5 pure rings to create a solid masonry wall (favo de mel)
+    const rings = [-4, -2, 0, 2, 4];
 
-    const coords = xCols.flatMap((x, c) => {
-        const ys = c % 2 === 0 ? evenYs : oddYs;
-        // Aumentamos o multiplicador de Y para dar mais respiro vertical
-        return ys.map(y => ({ x: x * 2, y: y * 2.2, sizeX: 2, sizeY: 2 }));
+    const coords = rings.flatMap(y => {
+        // Offset alternate rows by 1 unit to create perfect staggered bricks
+        const isStaggered = Math.abs(y) === 2;
+        return xCols.map(x => ({
+            x: x * 2 + (isStaggered ? 1 : 0),
+            y: y * 1.05, // 1.05 gives a microscopic elegant breathing room vertically
+            sizeX: 2,
+            sizeY: 2
+        }));
     });
 
     const totalSlots = coords.length;
     if (pool.length === 0) {
-        return coords.map(c => ({ ...c, src: '', alt: '' }));
+        return coords.map(c => ({ ...c, src: '', alt: '', video: undefined }));
     }
 
     const normalizedImages = pool.map(image => {
@@ -431,7 +436,7 @@ export default function DomeGallery({
                 right: 'max(24px, env(safe-area-inset-right, 24px))',
                 height: '48px',
                 padding: '0 24px 0 24px',
-                background: '#ed1c24', // Brand red for visibility
+                background: '#431846', // Brand purple for visibility
                 color: 'white',
                 border: 'none',
                 cursor: 'pointer',
@@ -564,7 +569,7 @@ export default function DomeGallery({
 
                                     {it.video && (
                                         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                                            <div className="w-14 h-14 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center transition-all duration-300 group-hover:bg-[#ed1c24] group-hover:scale-110">
+                                            <div className="w-14 h-14 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center transition-all duration-300 group-hover:bg-[#431846] group-hover:scale-110">
                                                 <svg className="w-7 h-7 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
                                                     <path d="M8 5v14l11-7z" />
                                                 </svg>
