@@ -51,15 +51,16 @@ interface DomeGalleryProps {
 
 function buildItems(pool: (string | ImageItem)[], seg: number) {
     const xCols = Array.from({ length: seg }, (_, i) => i - Math.floor(seg / 2));
-    // 5 pure rings to create a solid masonry wall (favo de mel)
-    const rings = [-4, -2, 0, 2, 4];
+    const evenYs = [-4, -2, 0, 2, 4];
+    const oddYs = [-3, -1, 1, 3, 5];
 
-    const coords = rings.flatMap(y => {
-        // Offset alternate rows by 1 unit to create perfect staggered bricks
-        const isStaggered = Math.abs(y) === 2;
-        return xCols.map(x => ({
-            x: x * 2 + (isStaggered ? 1 : 0),
-            y: y * 1.05, // 1.05 gives a microscopic elegant breathing room vertically
+    const coords = xCols.flatMap((x, c) => {
+        const ys = c % 2 === 0 ? evenYs : oddYs;
+        // The original interwoven matrix ensures 50% diagonal overlap, completely covering any gaps
+        // Multiplying by 1.15 gently separates the items to respect borders, keeping them as a cohesive woven dome
+        return ys.map(y => ({
+            x: x * 1.15,
+            y: y * 1.15,
             sizeX: 2,
             sizeY: 2
         }));
