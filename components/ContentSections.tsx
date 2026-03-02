@@ -84,8 +84,8 @@ const PORTFOLIO_ITEMS = [
 
 
 // Shared Section Wrapper for consistent padding/layout
-const Section = ({ children, className = '' }: { children: React.ReactNode; className?: string }) => (
-    <section className={`px-6 py-32 sm:px-12 lg:px-24 ${className}`}>
+const Section = ({ children, className = '', id }: { children: React.ReactNode; className?: string, id?: string }) => (
+    <section id={id} className={`px-6 py-32 sm:px-12 lg:px-24 content-auto ${className}`} style={{ contentVisibility: 'auto' }}>
         <div className="mx-auto max-w-7xl">
             {children}
         </div>
@@ -103,7 +103,7 @@ export default function ContentSections() {
             </div>
 
             {/* 1. VISÃO ALÉM DO AGORA — Ultra-Editorial */}
-            <section id="perspectiva" className="relative overflow-hidden py-32 md:py-48 px-6 sm:px-12 lg:px-20 xl:px-28">
+            <section id="perspectiva" className="relative overflow-hidden py-32 md:py-48 px-6 sm:px-12 lg:px-20 xl:px-28" style={{ contentVisibility: 'auto' }}>
                 <div className="absolute inset-0 bg-[#f2f0ec]" />
 
                 {/* Subtle horizontal rule glow */}
@@ -196,10 +196,10 @@ export default function ContentSections() {
 
 
             {/* 2. SEEA — THE CINEMATIC MANIFESTO (Editorial Refinement) */}
-            <section id="o-conceito" className="relative min-h-[100svh] flex flex-col justify-center py-32 md:py-48 bg-[#faf9f7] overflow-hidden isolate transition-colors duration-1000">
+            <section id="o-conceito" className="relative min-h-[100svh] flex flex-col justify-center py-32 md:py-48 bg-[#faf9f7] overflow-hidden isolate transition-colors duration-1000" style={{ contentVisibility: 'auto' }}>
 
                 {/* 1. Background Atmosphere: Layered Ghost Typography & Grain */}
-                <div className="absolute inset-0 pointer-events-none opacity-[0.03] contrast-125 brightness-110 mix-blend-multiply">
+                <div className="hidden md:block absolute inset-0 pointer-events-none opacity-[0.03] contrast-125 brightness-110 mix-blend-multiply">
                     <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20" />
                 </div>
 
@@ -339,17 +339,17 @@ export default function ContentSections() {
             </section>
 
             {/* 6. PROVA SOCIAL (Testimonials) - Validation */}
-            <section id="depoimentos">
+            <section id="depoimentos" style={{ contentVisibility: 'auto' }}>
                 <TestimonialsMinimalist />
             </section>
 
             {/* 7. QUEM SOMOS (About) - Personal Connection */}
-            <section id="quem-somos">
+            <section id="quem-somos" style={{ contentVisibility: 'auto' }}>
                 <AboutSEEA />
             </section>
 
             {/* 8. TIME (Team) - Trust */}
-            <section id="time">
+            <section id="time" style={{ contentVisibility: 'auto' }}>
                 <TeamMinimalist />
             </section>
 

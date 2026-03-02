@@ -211,7 +211,7 @@ export default function HeroCinematic() {
             >
                 {/* ── AMBIENT PARALLAX BLOB ── */}
                 <motion.div
-                    className="absolute top-[-10%] right-[-10%] w-[60%] aspect-square rounded-full pointer-events-none z-0 opacity-40"
+                    className="hidden md:block absolute top-[-10%] right-[-10%] w-[60%] aspect-square rounded-full pointer-events-none z-0 opacity-40"
                     style={{
                         background: 'radial-gradient(circle, rgba(237,28,36,0.06) 0%, transparent 70%)',
                         filter: 'blur(120px)',
@@ -230,7 +230,7 @@ export default function HeroCinematic() {
 
                 {/* Marble vein texture (Global noise now added) */}
                 <div
-                    className="absolute inset-0 pointer-events-none opacity-[0.04]"
+                    className="hidden md:block absolute inset-0 pointer-events-none opacity-[0.04]"
                     style={{
                         backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='6' seed='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crech t width='100%25' height='100%25' filter='url(%23m)'/%3E%3C/svg%3E")`,
                         mixBlendMode: 'multiply',
@@ -393,7 +393,7 @@ export default function HeroCinematic() {
             >
                 {/* Marble texture — fades out with background */}
                 <div
-                    className="absolute inset-0 pointer-events-none opacity-[0.04]"
+                    className="hidden md:block absolute inset-0 pointer-events-none opacity-[0.04]"
                     style={{
                         backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='6' seed='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)'/%3E%3C/svg%3E")`,
                         mixBlendMode: 'multiply',
