@@ -47,21 +47,38 @@ export default function PremiumPortfolio({ items }: PremiumPortfolioProps) {
                 end: () => `+=${getScrollAmount() * -1}`,
                 pin: true,
                 animation: tween,
-                scrub: 1,
+                scrub: 1.5, // Increased scrub for iPhone-style inertial feel
                 invalidateOnRefresh: true,
+                anticipatePin: 1, // Fixes abrupt jumping when pinning
             })
+
+            // Entrance reveal for the whole track to avoid "pop-in"
+            gsap.fromTo(track,
+                { opacity: 0, x: 100 },
+                {
+                    opacity: 1,
+                    x: 0,
+                    duration: 1.5,
+                    ease: 'expo.out',
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: 'top 80%',
+                        toggleActions: 'play none none none'
+                    }
+                }
+            )
 
             // Parallax effect for images inside the track (Luxury feel)
             const cards = gsap.utils.toArray('.portfolio-card-image-inner') as HTMLElement[]
             cards.forEach((inner) => {
                 gsap.to(inner, {
-                    xPercent: 25,
+                    xPercent: 20, // Slightly reduced for more natural feel on smaller screens
                     ease: 'none',
                     scrollTrigger: {
                         trigger: sectionRef.current,
                         start: 'top top',
                         end: () => `+=${getScrollAmount() * -1}`,
-                        scrub: 1,
+                        scrub: 1.5, // Match main track scrub
                         invalidateOnRefresh: true,
                     }
                 })
