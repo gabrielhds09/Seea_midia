@@ -116,49 +116,62 @@ export default function PremiumPortfolio({ items }: PremiumPortfolioProps) {
                         </div>
                     </div>
 
-                    {/* The Portfolio Cards */}
-                    {items.map((item, index) => (
-                        <div
-                            key={index}
-                            className="portfolio-card group relative h-[50vh] md:h-[60vh] aspect-[3/4] overflow-hidden rounded-[2px]"
-                            style={{ flexShrink: 0 }}
-                        >
-                            <div className="absolute inset-0 overflow-hidden bg-[#1a1a1a]">
-                                {/* Inner wrapper for horizontal parallax */}
-                                <div className="portfolio-card-image-inner absolute inset-0 w-[130%] h-full -left-[15%] origin-center will-change-transform translate-z-0">
-                                    {item.video ? (
-                                        <video
-                                            src={item.video}
-                                            className="w-full h-full object-cover transition-transform duration-[1.8s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04] opacity-85 group-hover:opacity-100"
-                                            autoPlay
-                                            muted
-                                            loop
-                                            playsInline
-                                        />
-                                    ) : (
-                                        <Image
-                                            src={item.src}
-                                            alt={item.alt}
-                                            fill
-                                            className="object-cover transition-transform duration-[1.8s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04] opacity-85 group-hover:opacity-100"
-                                        />
-                                    )}
+                    {/* The Portfolio Cards Container */}
+                    <div className="flex h-max items-center gap-8 md:gap-14 portfolio-gallery-container group/gallery">
+                        {items.map((item, index) => (
+                            <div
+                                key={index}
+                                className="portfolio-card group relative h-[50vh] md:h-[62vh] aspect-[3/4.2] overflow-hidden rounded-[4px] transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] 
+                                           will-change-[transform,filter,opacity]
+                                           group-hover/gallery:blur-[2px] group-hover/gallery:opacity-40 group-hover/gallery:scale-[0.96]
+                                           hover:!blur-0 hover:!opacity-100 hover:!scale-[1.05] hover:z-20 hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.5)]"
+                                style={{ flexShrink: 0 }}
+                            >
+                                <div className="absolute inset-0 overflow-hidden bg-[#1a1a1a]">
+                                    {/* Inner wrapper for horizontal parallax */}
+                                    <div className="portfolio-card-image-inner absolute inset-0 w-[135%] h-full -left-[17.5%] origin-center will-change-transform translate-z-0">
+                                        {item.video ? (
+                                            <video
+                                                src={item.video}
+                                                className="w-full h-full object-cover transition-transform duration-[2.5s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.1]"
+                                                autoPlay
+                                                muted
+                                                loop
+                                                playsInline
+                                            />
+                                        ) : (
+                                            <Image
+                                                src={item.src}
+                                                alt={item.alt}
+                                                fill
+                                                className="object-cover transition-transform duration-[2.5s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.1]"
+                                            />
+                                        )}
+                                    </div>
                                 </div>
-                            </div>
 
-                            {/* Elegant Hover Overlay / Info */}
-                            <div className="absolute inset-0 flex flex-col justify-end p-8 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
-                                <div className="translate-y-6 group-hover:translate-y-0 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
-                                    <p className="text-[0.6rem] font-semibold uppercase tracking-[0.4em] text-[#431846] mb-3">
-                                        {item.category || "Case de Sucesso"}
-                                    </p>
-                                    <h3 className="text-2xl md:text-3xl font-light text-white mb-2 font-serif italic tracking-tight">
-                                        {item.title || item.alt}
-                                    </h3>
+                                {/* Label Area - Apple Glass Style */}
+                                <div className="absolute inset-x-0 bottom-0 p-6 md:p-8 translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-30">
+                                    <div className="glass-natural p-6 rounded-[2px] backdrop-blur-xl border border-white/5 shadow-2xl overflow-hidden relative group/label">
+                                        {/* Subtle Shine Effect */}
+                                        <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/[0.05] to-transparent group-hover/label:animate-shine" />
+
+                                        <div className="relative z-10">
+                                            <p className="text-[0.55rem] font-bold uppercase tracking-[0.45em] text-[#ed1c24] mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 delay-100">
+                                                {item.category || "CASE STUDY"}
+                                            </p>
+                                            <h3 className="text-xl md:text-2xl font-light text-white tracking-tight font-serif italic mb-1">
+                                                {item.title || item.alt}
+                                            </h3>
+                                        </div>
+                                    </div>
                                 </div>
+
+                                {/* Fallback overlay for legibility on mobile/initial view */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60 pointer-events-none group-hover:opacity-0 transition-opacity duration-700" />
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
 
                     {/* End Spacer */}
                     <div className="w-[15vw] h-full flex items-center justify-center flex-shrink-0" />
