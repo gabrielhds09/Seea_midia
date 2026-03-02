@@ -4,6 +4,7 @@ import React, { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import HeroBackgroundCanvas from './HeroBackgroundCanvas'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -209,46 +210,21 @@ export default function HeroCinematic() {
                     background: 'linear-gradient(175deg, var(--color-seea-bg) 0%, var(--color-seea-bg-warm) 100%)',
                 }}
             >
-                {/* ── AMBIENT PARALLAX BLOB ── */}
-                <motion.div
-                    className="hidden md:block absolute top-[-10%] right-[-10%] w-[60%] aspect-square rounded-full pointer-events-none z-0 opacity-40"
-                    style={{
-                        background: 'radial-gradient(circle, rgba(237,28,36,0.06) 0%, transparent 70%)',
-                        filter: 'blur(120px)',
-                    }}
-                    animate={{
-                        x: [0, 20, -20, 0],
-                        y: [0, -15, 15, 0],
-                        scale: [1, 1.1, 0.9, 1]
-                    }}
-                    transition={{
-                        duration: 25,
-                        repeat: Infinity,
-                        ease: "linear"
-                    }}
-                />
-
-                {/* Marble vein texture (Global noise now added) */}
-                <div
-                    className="hidden md:block absolute inset-0 pointer-events-none opacity-[0.04]"
-                    style={{
-                        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='6' seed='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crech t width='100%25' height='100%25' filter='url(%23m)'/%3E%3C/svg%3E")`,
-                        mixBlendMode: 'multiply',
-                    }}
-                />
+                {/* ── INTERACTIVE SILK BACKGROUND ── */}
+                <HeroBackgroundCanvas />
 
                 {/* Warm radial warmth — center */}
                 <div
-                    className="absolute inset-0 pointer-events-none"
+                    className="absolute inset-0 pointer-events-none z-[1]"
                     style={{
-                        background: 'radial-gradient(ellipse 70% 60% at 50% 40%, rgba(255,252,248,0.5) 0%, transparent 100%)',
+                        background: 'radial-gradient(ellipse 70% 60% at 50% 40%, rgba(255,252,248,0.3) 0%, transparent 100%)',
                     }}
                 />
 
                 {/* BRAND CHARM LIGHTS — Subtle purple flares */}
-                <div className="absolute inset-0 z-[1] pointer-events-none overflow-hidden">
-                    <div className="absolute top-[20%] -right-32 w-[600px] h-[600px] bg-[#431846]/[0.012] rounded-full blur-[160px]" />
-                    <div className="absolute bottom-0 -left-20 w-[400px] h-[400px] bg-[#431846]/[0.008] rounded-full blur-[120px]" />
+                <div className="absolute inset-0 z-[2] pointer-events-none overflow-hidden">
+                    <div className="absolute top-[20%] -right-32 w-[600px] h-[600px] bg-[#431846]/[0.015] rounded-full blur-[160px]" />
+                    <div className="absolute bottom-0 -left-20 w-[400px] h-[400px] bg-[#431846]/[0.012] rounded-full blur-[120px]" />
                 </div>
 
                 {/* ── Layout Grid ── */}
