@@ -43,6 +43,7 @@ Brand
   --red:              #ed1c24   ← acento SEEA (ponto final, ícones)
   --purple-brand:     #431846   ← roxo mid (gradientes, orbs)
   --purple-deep:      #1a0d20   ← base
+  --apple-glass:      rgba(255, 255, 255, 0.03) ← blur(40px)
 ```
 
 ### Gradientes Recorrentes

@@ -57,7 +57,7 @@ O site comunica a essência da SEEA através de uma experiência visual premium,
 | **Animações Avançadas** | GSAP | 3.14.2 |
 | **Smooth Scroll** | Lenis | 1.0.42 |
 | **Ícones** | Lucide React | 0.562.0 |
-| **Tipografia** | Google Fonts (Inter) | - |
+| **Tipografia** | Google Fonts (Inter, Playfair Display) | - |
 
 ### 3.2 Estrutura de Diretórios
 ```
@@ -67,18 +67,12 @@ seea-web/
 │   ├── page.tsx        # Página principal
 │   ├── globals.css     # Estilos globais
 │   └── favicon.ico
-├── components/
-│   ├── HeroCinematic.tsx       # Hero section cinematográfica
-│   ├── ServicesDetailed.tsx    # Ecossistema SEEA (5 pilares)
-│   ├── AboutSEEA.tsx           # Sobre a empresa
-│   ├── TeamMinimalist.tsx      # Equipe
-│   ├── ProjectTracks.tsx       # Projetos em destaque
-│   ├── LoopingGallery.tsx      # Galeria de trabalhos
-│   ├── TestimonialsMinimalist.tsx  # Depoimentos
-│   ├── FAQMinimalist.tsx       # Perguntas frequentes
-│   ├── MegaFooter.tsx          # Footer completo
-│   ├── FloatingRecButton.tsx   # CTA WhatsApp flutuante
-│   └── ... (29+ componentes)
+│   ├── ContentSections.tsx     # Orquestrador de seções (Concept, Portfolio, etc.)
+│   ├── MethodologyTimeline.tsx # Processo (Alternating side-entry)
+│   ├── PremiumPortfolio.tsx    # Portfólio GSAP Horizontal
+│   ├── OverlayNav.tsx          # Header Apple Glass (40px blur)
+│   ├── SmoothScroll.tsx        # Lenis (Snappy 1.2s duration)
+│   └── TeamMinimalist.tsx      # Equipe Minimalista
 ├── public/
 │   └── logo-seea.png
 └── package.json

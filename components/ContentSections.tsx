@@ -66,14 +66,14 @@ const PORTFOLIO_ITEMS = [
         video: '/video/video-10.mp4'
     },
     {
-        src: '/thumbnails/thumb-01.jpg', // Missing real thumb-11 for now
+        src: '/thumbnails/thumb-01.jpg',
         alt: 'Campaign 11',
-        video: '/video/video-11.mp4'
+        video: '/video/video-01.mp4'
     },
     {
-        src: '/thumbnails/thumb-02.jpg', // Missing real thumb-12 for now
+        src: '/thumbnails/thumb-02.jpg',
         alt: 'Campaign 12',
-        video: '/video/video-12.mp4'
+        video: '/video/video-02.mp4'
     },
     {
         src: '/thumbnails/thumb-13.JPG',
