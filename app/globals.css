@@ -468,15 +468,14 @@ body::after {
 }
 
 @layer utilities {
-  .text-luxury-glow {
-    text-shadow: 0 0 25px rgba(67, 24, 70, 0.1), 0 0 50px rgba(237, 28, 36, 0.05);
-  }
-
-  .glass-card-premium {
+  .glass-natural {
     background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.02);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  }
+
+  .text-luxury-glow {
+    text-shadow: 0 0 25px rgba(67, 24, 70, 0.08), 0 0 50px rgba(255, 255, 255, 0.1);
   }
 
   .apple-mask-reveal {

@@ -78,7 +78,7 @@ export default function OverlayNav() {
     return (
         <>
             {/* Valid for all pages - Fixed Header */}
-            <header className={`fixed top-0 left-0 w-full z-[9999] flex justify-between items-center px-6 md:px-12 py-6 transition-all duration-700 ease-in-out will-change-[backdrop-filter,background-color,padding] ${scrolled ? 'bg-white/5 md:bg-white/0 backdrop-blur-3xl md:backdrop-blur-[40px] py-4 border-b border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.04)]' : 'bg-transparent'}`}>
+            <header className={`fixed top-0 left-0 w-full z-[9999] flex justify-between items-center px-6 md:px-12 py-5 transition-all duration-700 ease-in-out will-change-[backdrop-filter,background-color] ${scrolled ? 'bg-white/[0.03] backdrop-blur-[40px] border-b border-white/5 md:border-none shadow-[0_8px_32px_rgba(0,0,0,0.02)] ring-1 ring-inset ring-white/5' : 'bg-transparent'}`}>
 
                 {/* Logo Area */}
                 <div className="z-50 nav-logo opacity-0 will-change-[transform,opacity,clip-path]">
