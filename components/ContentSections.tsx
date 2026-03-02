@@ -364,27 +364,6 @@ export default function ContentSections() {
                 <TeamMinimalist />
             </section>
 
-            {/* 9. CTA FINAL */}
-            <Section className="text-center py-32 md:py-48">
-                <h2 className="text-3xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter mb-8 text-[#111111]">Vamos conversar?</h2>
-                <p className="text-xl sm:text-2xl text-black/45 font-light mb-16 max-w-2xl mx-auto">
-                    Cada projeto começa com uma conversa estratégica.<br />
-                    Se fizer sentido para os dois lados, seguimos juntos.
-                </p>
-
-                <a
-                    href="https://wa.me/5511999999999?text=Olá! Vim pelo site da SEEA e gostaria de agendar uma conversa estratégica."
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group relative inline-flex overflow-hidden rounded-full bg-[#111111] px-12 py-6 text-sm font-bold tracking-[0.2em] text-white shadow-[0_4px_32px_rgba(17,17,17,0.15)] transition-transform hover:scale-105"
-                >
-                    <span className="relative z-10 flex items-center gap-3">
-                        AGENDAR CONVERSA ESTRATÉGICA
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                    </span>
-                    <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-50 group-hover:animate-shine" />
-                </a>
-            </Section>
 
             {/* 10. FOOTER */}
             <MegaFooter />

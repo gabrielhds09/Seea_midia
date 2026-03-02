@@ -484,6 +484,7 @@ body::after {
     background-size: 200% 100%;
     background-position: 100% 0;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     transition: background-position 1.5s cubic-bezier(0.16, 1, 0.3, 1);
   }
