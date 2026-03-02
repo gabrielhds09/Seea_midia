@@ -264,7 +264,7 @@ export default function ContentSections() {
                                 </div>
                                 <div className="overflow-hidden py-4 -ml-1 md:-ml-3">
                                     <motion.span
-                                        className="block text-[clamp(5.5rem,13vw,11rem)] leading-[0.85] font-serif italic text-[#431846] relative"
+                                        className="block text-[clamp(5.5rem,13vw,11rem)] leading-[0.85] font-serif italic text-[#431846] relative text-luxury-glow"
                                         initial={{ y: "100%", skewY: 5 }}
                                         whileInView={{ y: 0, skewY: 0 }}
                                         viewport={{ once: true }}

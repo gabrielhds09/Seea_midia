@@ -467,4 +467,28 @@ body::after {
   border-radius: var(--luxury-radius);
 }
 
-@layer utilities {}
+@layer utilities {
+  .text-luxury-glow {
+    text-shadow: 0 0 25px rgba(67, 24, 70, 0.1), 0 0 50px rgba(237, 28, 36, 0.05);
+  }
+
+  .glass-card-premium {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.02);
+  }
+
+  .apple-mask-reveal {
+    background: linear-gradient(to right, #111111 50%, rgba(17, 17, 17, 0.2) 100%);
+    background-size: 200% 100%;
+    background-position: 100% 0;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: background-position 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .apple-mask-reveal-active {
+    background-position: 0% 0;
+  }
+}
