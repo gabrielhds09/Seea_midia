@@ -7,31 +7,31 @@ import { Search, Clapperboard, Rocket, TrendingUp } from 'lucide-react'
 const PROCESS_STEPS = [
     {
         title: "Imersão & Convivência",
-        description: "Não usamos templates. Nosso processo nasce de estar perto. Observamos como você se comunica, como vende e como se posiciona para extrair sua essência real.",
+        description: "Nosso processo nasce da convivência. Observamos como você se comunica, vende e se posiciona para criar algo autêntico. Nossa principal fonte não é o Google, é o próprio cliente.",
         icon: Search,
         align: "left",
-        tags: ["GESTÃO DE CARREIRA", "BRANDING PESSOAL", "CONTEÚDO ESTRATÉGICO"],
+        tags: ["CONVIVÊNCIA", "AUTENTICIDADE", "ESTRATÉGIA"],
     },
     {
-        title: "Produção & Acompanhamento",
-        description: "Transformamos a rotina em conteúdo. Orientamos gravações, ajustamos a postura e garantimos que cada material comunique autoridade e intencionalidade.",
+        title: "Conteúdo & Autoridade",
+        description: "É da vivência que surgem roteiros e decisões. Captamos detalhes que passam despercebidos para transformar o vivido em autoridade real.",
         icon: Clapperboard,
         align: "right",
-        tags: ["DIREÇÃO DE ARTE", "ROTEIRO AUTORAL", "CAPTAÇÃO PROFISSIONAL"],
+        tags: ["OLHAR TREINADO", "IDENTIDADE", "AUTORIDADE"],
+    },
+    {
+        title: "Acompanhamento & Suporte",
+        description: "Atendimento próximo e humanizado. Criamos conteúdo, orientamos gravações, ajustamos estratégias e auxiliamos até na gestão do seu direct.",
+        icon: Rocket,
+        align: "left",
+        tags: ["SUPORTE HUMANIZADO", "GESTÃO", "PROXIMIDADE"],
     },
     {
         title: "Distribuição Estratégica",
-        description: "Conteúdo sem alcance é apenas arquivo. Definimos para quem falar e usamos tráfego pago inteligente para garantir que sua mensagem chegue às pessoas certas.",
-        icon: Rocket,
-        align: "right",
-        tags: ["TRÁFEGO PAGO", "SEGMENTAÇÃO", "ALCANCE QUALIFICADO"],
-    },
-    {
-        title: "Análise & Otimização",
-        description: "O jogo é de longo prazo. Analisamos métricas, ajustamos rotas e otimizamos constantemente para que sua autoridade cresça mês a mês.",
+        description: "Criação e distribuição caminham juntas. Utilizamos tráfego pago de forma integrada, sempre alinhado ao seu posicionamento e aos seus objetivos reais.",
         icon: TrendingUp,
         align: "right",
-        tags: ["MÉTRICAS", "PERFORMANCE", "CRESCIMENTO CONTÍNUO"],
+        tags: ["TRÁFEGO PAGO", "ALCANCE", "POSICIONAMENTO"],
     }
 ]
 
@@ -63,7 +63,7 @@ export default function MethodologyTimeline() {
                     className="text-center mb-32"
                 >
                     {/* Standardized Label */}
-                    <p className="text-[0.62rem] font-semibold uppercase tracking-[0.5em] text-[#431846]/35 mb-8">
+                    <p className="text-[0.62rem] font-bold uppercase tracking-[0.55em] text-[#431846] mb-8">
                         Metodologia
                     </p>
 
@@ -72,7 +72,7 @@ export default function MethodologyTimeline() {
                         style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', lineHeight: 0.95 }}
                     >
                         <span className="font-sans">NOSSO </span>
-                        <span className="font-serif italic font-normal serif-luxury text-[#431846]/70 lowercase" style={{ fontSize: '1.08em', margin: '0 0.1em' }}>processo,</span>
+                        <span className="font-serif italic font-normal serif-luxury text-[#431846] lowercase" style={{ fontSize: '1.08em', margin: '0 0.1em' }}>processo,</span>
                         <span className="font-sans"> NA PRÁTICA.</span>
                     </h2>
                     <p className="text-[0.95rem] font-light leading-[1.8] text-black/60 max-w-2xl mx-auto tracking-tight">
@@ -116,23 +116,23 @@ function TimelineItem({ step, index }: { step: typeof PROCESS_STEPS[0], index: n
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-20%" }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className={`relative flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-0 ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'}`}
+            className={`relative flex flex-col md:flex-row items-center gap-8 md:gap-0 ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'}`}
         >
 
             {/* Center Node */}
-            <div className="absolute left-[11px] md:left-1/2 top-0 md:top-8 w-4.5 h-4.5 rounded-full border-[3px] border-[#faf9f7] bg-[#431846] z-30 md:-translate-x-1/2 shadow-[0_4px_10px_rgba(67,24,70,0.15)]">
+            <div className="absolute left-[20px] md:left-1/2 top-0 md:top-8 w-4.5 h-4.5 rounded-full border-[3px] border-[#faf9f7] bg-[#431846] z-30 -translate-x-1/2 shadow-[0_4px_10px_rgba(67,24,70,0.15)]">
                 <div className="absolute inset-0 rounded-full bg-[#ed1c24] opacity-30 animate-pulse" />
             </div>
 
             {/* Content Card */}
-            <div className={`w-full md:w-1/2 pl-12 md:pl-0 ${isEven ? 'md:pr-24 md:text-right' : 'md:pl-24 md:text-left'}`}>
+            <div className={`w-full md:w-1/2 px-4 md:px-0 ${isEven ? 'md:pr-24 md:text-right text-center' : 'md:pl-24 md:text-left text-center'}`}>
 
                 <div className={`relative group p-8 rounded-3xl bg-white/40 backdrop-blur-md border border-[#431846]/[0.06] hover:border-[#431846]/20 transition-all duration-500 hover:-translate-y-2 shadow-[0_10px_30px_rgba(67,24,70,0.02)]`}>
 
                     {/* Hover Glow */}
                     <div className="absolute inset-0 bg-gradient-to-br from-[#431846]/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
 
-                    <div className={`relative z-10 flex flex-col ${isEven ? 'md:items-end' : 'md:items-start'}`}>
+                    <div className={`relative z-10 flex flex-col items-center ${isEven ? 'md:items-end' : 'md:items-start'}`}>
                         <div className="w-14 h-14 rounded-2xl bg-[#431846]/[0.04] flex items-center justify-center mb-6 text-[#431846] group-hover:bg-[#431846] group-hover:text-white transition-all duration-500">
                             <step.icon size={28} />
                         </div>
@@ -146,7 +146,7 @@ function TimelineItem({ step, index }: { step: typeof PROCESS_STEPS[0], index: n
                         </p>
 
                         {/* Pill Tags */}
-                        <div className={`flex flex-wrap gap-2 ${isEven ? 'md:justify-end' : 'md:justify-start'}`}>
+                        <div className={`flex flex-wrap gap-2 justify-center ${isEven ? 'md:justify-end' : 'md:justify-start'}`}>
                             {step.tags.map((tag, ti) => (
                                 <motion.span
                                     key={ti}
@@ -166,7 +166,7 @@ function TimelineItem({ step, index }: { step: typeof PROCESS_STEPS[0], index: n
 
             </div>
 
-            {/* Empty space for the other side */}
+            {/* Empty space for the other side on desktop */}
             <div className="hidden md:block w-1/2" />
 
         </motion.div>

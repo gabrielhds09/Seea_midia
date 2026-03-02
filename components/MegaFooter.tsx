@@ -4,6 +4,7 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { Instagram, Linkedin, MessageCircle, Mail, MapPin, ArrowUpRight } from 'lucide-react'
+import { gsap } from 'gsap'
 
 const NAV_LINKS = [
     { label: 'Home', href: '#' },
@@ -68,7 +69,7 @@ export default function MegaFooter() {
                                 </div>
 
                                 <p className="text-[0.95rem] font-light leading-[1.8] text-black/60 mb-12 max-w-sm">
-                                    Gestão de carreira e imagem para quem quer construir autoridade e ir{' '}
+                                    Gestão de carreira e imagem para quem quer ir{' '}
                                     <span className="text-black/80 font-normal italic">além do óbvio</span>.
                                 </p>
 
@@ -89,7 +90,7 @@ export default function MegaFooter() {
                                     className="animate-shimmer group inline-flex items-center gap-6 py-6 px-10 border border-black/[0.08] rounded-full transition-all duration-500 hover:border-[#431846]/40 hover:bg-white/50 backdrop-blur-md"
                                 >
                                     <span className="text-[0.8rem] font-medium uppercase tracking-[0.4em] text-black/60 group-hover:text-[#111111] transition-colors">
-                                        Agendar agora
+                                        Agendar conversa estratégica
                                     </span>
                                     <ArrowUpRight className="w-4.5 h-4.5 text-[#431846]/40 group-hover:text-[#ed1c24] transition-all duration-500" />
                                 </motion.a>

@@ -142,9 +142,9 @@ export default function TeamMinimalist() {
                 {/* Header & Controls */}
                 <div className="mb-16 md:mb-24 flex flex-col md:flex-row items-center justify-between gap-8">
                     <div className="text-center md:text-left">
-                        <p className="text-[0.62rem] font-semibold uppercase tracking-[0.5em] text-[#431846]/40 mb-10">Equipe</p>
+                        <p className="text-[0.62rem] font-bold uppercase tracking-[0.55em] text-[#431846] mb-10">Equipe</p>
                         <div className="flex flex-col items-center md:items-start gap-[6px] mb-12">
-                            <div className="w-16 h-[2.5px] bg-[#431846]/50" />
+                            <div className="w-16 h-[2.5px] bg-[#ed1c24]/50" />
                             <div className="w-10 h-[2.5px] bg-[#431846]/50" />
                         </div>
                         <div className="overflow-hidden mb-1">
@@ -157,7 +157,7 @@ export default function TeamMinimalist() {
                                 style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', lineHeight: 0.95 }}
                             >
                                 <span className="font-sans tracking-tight">MENTES </span>
-                                <span className="font-serif italic font-normal serif-luxury text-[#431846]/70" style={{ fontSize: '1.08em', marginLeft: '0.1em' }}>criativas</span>.
+                                <span className="font-serif italic font-normal serif-luxury text-[#431846]" style={{ fontSize: '1.08em', marginLeft: '0.1em' }}>criativas</span>.
                             </motion.h2>
                         </div>
                     </div>

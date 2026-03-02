@@ -79,14 +79,14 @@ export default function AboutSEEA() {
                                     transition={{ duration: 1.5, ease: [0.19, 1, 0.22, 1] }}
                                 >
                                     <div className="mb-20">
-                                        <p className="text-[0.62rem] font-semibold uppercase tracking-[0.5em] text-[#431846]/40 mb-10">
+                                        <p className="text-[0.62rem] font-bold uppercase tracking-[0.55em] text-[#431846] mb-10">
                                             Nossa Identidade
                                         </p>
 
                                         {/* Red double-bar accent */}
                                         <div className="flex flex-col gap-[6px] mb-12">
                                             <motion.div
-                                                className="w-16 h-[2.5px] bg-[#431846]/50"
+                                                className="w-16 h-[2.5px] bg-[#ed1c24]/50"
                                                 initial={{ scaleX: 0 }}
                                                 whileInView={{ scaleX: 1 }}
                                                 transition={{ duration: 1, delay: 0.5 }}
@@ -110,14 +110,14 @@ export default function AboutSEEA() {
                                                     style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', lineHeight: 0.95 }}
                                                 >
                                                     <span className="font-sans">SOBRE A </span>
-                                                    <span className="font-serif italic font-normal serif-luxury text-[#431846]/70 lowercase" style={{ fontSize: '1.08em', marginLeft: '0.1em' }}>seea</span>
+                                                    <span className="font-serif italic font-normal serif-luxury text-[#431846] lowercase" style={{ fontSize: '1.08em', marginLeft: '0.1em' }}>seea</span>
                                                 </motion.h2>
                                             </div>
                                         </div>
                                     </div>
 
                                     <p className="text-[0.95rem] font-light leading-[1.8] text-black/60 max-w-2xl mb-16 tracking-tight">
-                                        {"A SEEA é uma gestora de carreira e imagem digital para profissionais que desejam construir autoridade real — não ruído — através de narrativa e impacto visual.".split(" ").map((word, i) => (
+                                        {"A SEEA foi fundada por Aline Vitória, profissional do audiovisual desde os 18 anos. A empresa nasceu da percepção de que conteúdo genérico não sustenta autoridade. Hoje, atuamos com um modelo exclusivo, baseado em personalização e leitura estratégica de comportamento.".split(" ").map((word, i) => (
                                             <motion.span
                                                 key={i}
                                                 className="inline-block mr-[0.25em]"

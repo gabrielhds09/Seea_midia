@@ -11,7 +11,7 @@ const SERVICES = [
         number: "01",
         title: "Gestão de carreira e posicionamento",
         description: "Cuidamos da sua imagem de forma estratégica. Entendemos seus objetivos, seus valores e seus próximos passos para que o conteúdo acompanhe sua evolução profissional e pessoal.",
-        tags: ["Gestão de Imagem", "Estratégia", "Evolução"],
+        tags: ["Posicionamento", "Estratégia", "Imagem"],
         color: "from-[#431846] to-[#5a1f5e]"
     },
     {
@@ -19,23 +19,15 @@ const SERVICES = [
         number: "02",
         title: "Conteúdo pensado a partir da sua rotina",
         description: "Acompanhamos o cliente presencialmente e extraímos da própria rotina conteúdos que comunicam autoridade. Nosso olhar identifica detalhes, conversas e momentos que se transformam em narrativas relevantes e naturais, mesmo em dias comuns.",
-        tags: ["Rotina", "Autoridade", "Narrativas"],
-        color: "from-[#5a1f5e] to-[#8b2874]"
+        tags: ["Presença", "Autoridade", "Narrativa"],
+        color: "from-[#5a1f5e] to-[#ed1c24]"
     },
     {
         icon: Clapperboard,
         number: "03",
         title: "Conteúdo estratégico e roteirizado",
         description: "Além dos registros do dia a dia, reservamos momentos específicos para gravações mais elaboradas. Vídeos roteirizados, pensados para o feed, com foco em impacto, clareza, autoridade e valor.",
-        tags: ["Roteiros", "Impacto", "Clareza"],
-        color: "from-[#8b2874] to-[#ed1c24]"
-    },
-    {
-        icon: TrendingUp,
-        number: "04",
-        title: "Gestão de Aquisição de Clientes",
-        description: "Não adianta ter um conteúdo incrível se ele não chega a quem precisa. Gerenciamos seu tráfego pago nas plataformas com estratégia, relatórios detalhados e acompanhamento contínuo para garantir ROI.",
-        tags: ["Tráfego Pago", "Dados", "Performance"],
+        tags: ["Impacto", "Roteiro", "Valor"],
         color: "from-[#ed1c24] to-[#431846]"
     }
 ]
@@ -103,7 +95,7 @@ export default function WhatWeDo() {
                     </div>
 
                     <p className="text-[0.95rem] font-light leading-[1.8] text-white/60 max-w-2xl mx-auto">
-                        Atuamos como um braço de inteligência criativa, transformando rotina em autoridade real através de uma metodologia proprietária e refinada.
+                        Nosso trabalho vai além de gravar vídeos ou alimentar redes sociais. Atuamos de forma próxima, estratégica e personalizada, construindo uma presença forte e autêntica.
                     </p>
                 </motion.div>
 

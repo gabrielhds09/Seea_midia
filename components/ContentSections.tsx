@@ -4,14 +4,14 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import TextVideoMask from './TextVideoMask'
-import WhatWeDo from './WhatWeDo'
+
 import MethodologyTimeline from './MethodologyTimeline'
 
 import TeamMinimalist from './TeamMinimalist'
 import TestimonialsMinimalist from './TestimonialsMinimalist'
 import AboutSEEA from './AboutSEEA'
 import MegaFooter from './MegaFooter'
-import DomeGallery from './DomeGallery'
+import PremiumPortfolio from './PremiumPortfolio'
 
 // Dados do Portfólio (Edite aqui)
 const PORTFOLIO_ITEMS = [
@@ -85,7 +85,7 @@ const PORTFOLIO_ITEMS = [
 
 // Shared Section Wrapper for consistent padding/layout
 const Section = ({ children, className = '' }: { children: React.ReactNode; className?: string }) => (
-    <section className={`px-6 py-16 sm:px-12 md:py-24 lg:px-24 ${className}`}>
+    <section className={`px-6 py-32 sm:px-12 lg:px-24 ${className}`}>
         <div className="mx-auto max-w-7xl">
             {children}
         </div>
@@ -102,8 +102,8 @@ export default function ContentSections() {
                 <div className="absolute top-[70%] -left-10 w-[400px] h-[400px] bg-[#431846]/[0.02] rounded-full blur-[80px]" />
             </div>
 
-            {/* 1. O PROBLEMA — Ultra-Editorial */}
-            <section className="relative overflow-hidden py-24 md:py-32 px-6 sm:px-12 lg:px-20 xl:px-28">
+            {/* 1. VISÃO ALÉM DO AGORA — Ultra-Editorial */}
+            <section id="perspectiva" className="relative overflow-hidden py-32 md:py-48 px-6 sm:px-12 lg:px-20 xl:px-28">
                 <div className="absolute inset-0 bg-[#f2f0ec]" />
 
                 {/* Subtle horizontal rule glow */}
@@ -111,21 +111,21 @@ export default function ContentSections() {
 
                 <div className="relative z-10 max-w-7xl mx-auto">
                     {/* Label */}
-                    <p className="text-[0.62rem] font-semibold uppercase tracking-[0.5em] text-[#431846]/35 mb-16">
-                        O Diagnóstico
+                    <p className="text-[0.62rem] font-bold uppercase tracking-[0.55em] text-[#431846] mb-16">
+                        Perspectiva
                     </p>
 
                     {/* Headline — editorial split */}
                     <div className="mb-20 max-w-5xl">
                         <div className="overflow-hidden mb-2">
                             <h2 className="text-[clamp(2rem,6vw,5.5rem)] leading-[1.04] font-extralight tracking-[-0.03em] text-[#111111]">
-                                <span className="font-sans">O PONTO CEGO </span>
-                                <span className="font-serif italic font-normal serif-luxury text-[#431846]/70" style={{ fontSize: '1.08em', marginLeft: '0.1em' }}>da sua</span>
+                                <span className="font-sans">VISÃO ALÉM </span>
+                                <span className="font-serif italic font-normal serif-luxury text-[#431846]/70" style={{ fontSize: '1.08em', marginLeft: '0.1em' }}>do</span>
                             </h2>
                         </div>
                         <div className="overflow-hidden">
                             <h2 className="text-[clamp(2rem,6vw,5.5rem)] leading-[1.04] font-extralight tracking-[-0.03em]">
-                                <span className="font-sans text-[#111111]">EXCELÊNCIA</span>
+                                <span className="font-sans text-[#111111]">AGORA</span>
                                 <span className="text-[#431846]">.</span>
                             </h2>
                         </div>
@@ -137,7 +137,7 @@ export default function ContentSections() {
                             {/* Red accent bar — from the S letterform */}
                             <div className="flex flex-col gap-[6px] mb-10">
                                 <motion.div
-                                    className="w-10 h-[2.5px] bg-[#431846]/50"
+                                    className="w-10 h-[2.5px] bg-[#ed1c24]/50"
                                     initial={{ scaleX: 0 }}
                                     whileInView={{ scaleX: 1 }}
                                     transition={{ duration: 1, ease: [0.19, 1, 0.22, 1] }}
@@ -181,7 +181,7 @@ export default function ContentSections() {
                                 ))}
                             </p>
                             <motion.p
-                                className="text-[0.85rem] font-bold uppercase tracking-[0.4em] text-[#431846]"
+                                className="text-[0.85rem] font-bold uppercase tracking-[0.55em] text-[#431846]"
                                 initial={{ opacity: 0, x: -10 }}
                                 whileInView={{ opacity: 1, x: 0 }}
                                 transition={{ duration: 1, delay: 1.5 }}
@@ -193,159 +193,168 @@ export default function ContentSections() {
                 </div>
             </section>
 
-            {/* 3. SEEA — BRAND MANIFESTO usando elementos da logo */}
-            <section className="relative overflow-hidden py-0">
-                <div className="absolute inset-0 bg-[#faf9f7]" />
-                {/* Top rule */}
-                <div className="absolute top-0 left-0 right-0 h-[0.5px]" style={{ background: 'linear-gradient(90deg, transparent, rgba(17,17,17,0.07), transparent)' }} />
 
-                <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-12 lg:px-20 xl:px-28 py-40">
-                    <div className="grid lg:grid-cols-2 gap-20 xl:gap-32 items-center">
 
-                        {/* LEFT — S E E A logo-inspired lettermark */}
-                        <div className="relative">
-                            {/* Large SEEA using brand color split */}
-                            <div className="relative select-none">
-                                {/* Label above */}
-                                <p className="text-[0.62rem] font-semibold uppercase tracking-[0.5em] text-[#431846]/35 mb-8">
-                                    O Conceito
-                                </p>
+            {/* 2. SEEA — THE CINEMATIC MANIFESTO (Editorial Refinement) */}
+            <section id="o-conceito" className="relative min-h-[100svh] flex flex-col justify-center py-32 md:py-48 bg-[#faf9f7] overflow-hidden isolate transition-colors duration-1000">
 
-                                {/* OFFICIAL LOGO CINEMATIC MASK */}
-                                <div className="mb-12 max-w-[500px]">
-                                    <TextVideoMask
-                                        maskSrc="/SEEA-dark-tip.png"
-                                        videoSrc="/video/video-01.mp4"
-                                        className="opacity-95"
-                                    />
-                                </div>
+                {/* 1. Background Atmosphere: Layered Ghost Typography & Grain */}
+                <div className="absolute inset-0 pointer-events-none opacity-[0.03] contrast-125 brightness-110 mix-blend-multiply">
+                    <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20" />
+                </div>
 
-                                {/* Thin rule separator */}
-                                <div className="mt-10 w-full h-[0.5px]" style={{ background: 'linear-gradient(90deg, rgba(67,24,70,0.35) 0%, rgba(17,17,17,0.05) 60%, transparent 100%)' }} />
+                <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
+                    {/* Ghost "S" */}
+                    <motion.div
+                        className="absolute -left-[5%] top-[10%] text-[45vw] font-black text-[#431846]/[0.015] leading-none tracking-tighter will-change-transform"
+                        style={{ y: '-20%', translateZ: 0 }}
+                        animate={{ y: '20%' }}
+                        transition={{ duration: 15, ease: "linear", repeat: Infinity, repeatType: "reverse" }}
+                    >
+                        S
+                    </motion.div>
+                    {/* Ghost "EEA" */}
+                    <motion.div
+                        className="absolute -right-[15%] bottom-[10%] text-[40vw] font-black text-[#431846]/[0.01] leading-none tracking-tighter will-change-transform"
+                        style={{ x: '10%', translateZ: 0 }}
+                        animate={{ x: '-10%' }}
+                        transition={{ duration: 20, ease: "linear", repeat: Infinity, repeatType: "reverse" }}
+                    >
+                        EEA
+                    </motion.div>
+                </div>
 
-                                {/* Etymology */}
-                                <div className="mt-8">
-                                    <p className="text-[0.8rem] sm:text-[0.88rem] font-light leading-[1.9] text-black/45">
-                                        Vem de <span className="font-serif italic font-normal serif-luxury text-[#431846]/70">see</span>, enxergar.
-                                    </p>
-                                    <p className="text-[0.8rem] sm:text-[0.88rem] font-light text-black/30">
-                                        Enxergar o que normalmente passa despercebido.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-12 lg:px-20 xl:px-28 w-full">
+                    <div className="flex flex-col gap-24">
 
-                        {/* RIGHT — Manifesto text */}
-                        <div className="flex flex-col gap-12 border-l border-black/[0.06] pl-0 lg:pl-16">
-                            <div>
-                                <p className="text-[0.62rem] font-semibold uppercase tracking-[0.5em] text-[#431846]/35 mb-10">
-                                    Olhar Treinado
-                                </p>
-                                <p className="text-xl sm:text-2xl font-light leading-[1.7] text-black/60 tracking-tight">
-                                    {"Nosso diferencial está no olhar treinado para identificar ângulos, cenas, comportamentos e histórias que merecem ser contadas.".split(" ").map((word, i) => (
-                                        <motion.span
-                                            key={i}
-                                            className="inline-block mr-[0.25em]"
-                                            initial={{ opacity: 0, y: 10 }}
-                                            whileInView={{ opacity: 1, y: 0 }}
-                                            viewport={{ once: true }}
-                                            transition={{ duration: 0.8, delay: i * 0.03, ease: [0.19, 1, 0.22, 1] }}
-                                        >
-                                            {word}
-                                        </motion.span>
-                                    ))}
-                                </p>
-                            </div>
-                            <div>
-                                <div className="flex flex-col gap-[6px] mb-10">
-                                    <motion.div
-                                        initial={{ scaleX: 0 }}
-                                        whileInView={{ scaleX: 1 }}
-                                        viewport={{ once: true }}
-                                        transition={{ duration: 1, ease: [0.19, 1, 0.22, 1] }}
-                                        className="w-10 h-[2.5px] bg-[#431846]/50 origin-left"
-                                    />
-                                    <motion.div
-                                        initial={{ scaleX: 0 }}
-                                        whileInView={{ scaleX: 1 }}
-                                        viewport={{ once: true }}
-                                        transition={{ duration: 1, delay: 0.2, ease: [0.19, 1, 0.22, 1] }}
-                                        className="w-6 h-[2.5px] bg-[#431846]/50 origin-left"
-                                    />
-                                </div>
-                                <p className="text-lg sm:text-xl font-light leading-[1.8] text-black/40">
-                                    {"Por atuarmos com diferentes segmentos e públicos, conseguimos identificar rapidamente para quem o cliente precisa falar e como comunicar de forma clara, intencional e verdadeira.".split(" ").map((word, i) => (
-                                        <motion.span
-                                            key={i}
-                                            className="inline-block mr-[0.25em]"
-                                            initial={{ opacity: 0 }}
-                                            whileInView={{ opacity: 1 }}
-                                            viewport={{ once: true }}
-                                            transition={{ duration: 1, delay: 0.5 + (i * 0.02) }}
-                                        >
-                                            {word}
-                                        </motion.span>
-                                    ))}
-                                </p>
-                            </div>
+                        {/* 2. Headline: The "Olhar Treinado" Reveal */}
+                        <div className="max-w-5xl">
                             <motion.p
-                                initial={{ opacity: 0, x: -10 }}
+                                className="text-[0.65rem] font-bold uppercase tracking-[0.8em] text-[#431846] mb-12 flex items-center gap-4"
+                                initial={{ opacity: 0, x: -20 }}
                                 whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 1, delay: 1.5 }}
-                                className="text-[0.85rem] font-bold uppercase tracking-[0.4em] text-[#431846]"
+                                transition={{ duration: 1 }}
                             >
-                                Esse olhar não se limita ao conteúdo, mas ao próprio cliente.
+                                <span className="w-8 h-[1px] bg-[#431846]/30" />
+                                O Conceito
                             </motion.p>
+
+                            <h2 className="font-extralight tracking-tight text-[#111111] space-y-2">
+                                <div className="overflow-hidden">
+                                    <motion.span
+                                        className="block text-[clamp(2.5rem,6vw,4.8rem)] leading-[1.05] opacity-90"
+                                        initial={{ y: "100%" }}
+                                        whileInView={{ y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                                    >
+                                        Nosso diferencial está
+                                    </motion.span>
+                                </div>
+                                <div className="overflow-hidden">
+                                    <motion.span
+                                        className="block text-[clamp(2.5rem,6vw,4.8rem)] leading-[1.05] opacity-90 mb-4"
+                                        initial={{ y: "100%" }}
+                                        whileInView={{ y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 1.2, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                                    >
+                                        precisamente no
+                                    </motion.span>
+                                </div>
+                                <div className="overflow-hidden py-4 -ml-1 md:-ml-3">
+                                    <motion.span
+                                        className="block text-[clamp(5.5rem,13vw,11rem)] leading-[0.85] font-serif italic text-[#431846] relative"
+                                        initial={{ y: "100%", skewY: 5 }}
+                                        whileInView={{ y: 0, skewY: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 1.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                                    >
+                                        o conceito seea
+                                    </motion.span>
+                                </div>
+                            </h2>
                         </div>
 
+                        {/* 3. Narrative Details: Asymmetric Layout */}
+                        <div className="grid grid-cols-1 md:grid-cols-12 gap-16 items-start">
+                            <div className="md:col-start-7 md:col-span-5 space-y-12">
+                                <div className="relative">
+                                    <motion.div
+                                        className="absolute -left-12 top-4 w-8 h-[1px] bg-[#431846]/20 hidden md:block"
+                                        initial={{ scaleX: 0 }}
+                                        whileInView={{ scaleX: 1 }}
+                                        transition={{ duration: 1, delay: 0.5 }}
+                                    />
+                                    <motion.p
+                                        className="text-[1.35rem] md:text-[1.6rem] font-light leading-[1.7] text-[#111111]/80 italic font-serif"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 1, delay: 0.4 }}
+                                    >
+                                        Nosso diferencial está no olhar treinado para identificar detalhes e histórias que merecem ser contadas. Um olhar que não se limita ao conteúdo, mas ao próprio cliente.
+                                    </motion.p>
+                                </div>
+
+                                <div className="pt-12 border-t border-[#431846]/10 max-w-sm">
+                                    <motion.div
+                                        className="space-y-4"
+                                        initial={{ opacity: 0 }}
+                                        whileInView={{ opacity: 1 }}
+                                        transition={{ duration: 1, delay: 0.6 }}
+                                    >
+                                        <div className="flex items-center gap-3 mb-2">
+                                            <div className="w-1.5 h-1.5 rounded-full bg-[#ed1c24]/40" />
+                                            <p className="text-[0.65rem] uppercase tracking-[0.4em] text-[#111111]/40 font-bold">Essência</p>
+                                        </div>
+                                        <p className="text-[1.1rem] font-light leading-relaxed text-[#111111]/80">
+                                            Identificamos para quem você precisa falar e como comunicar de forma intencional e verdadeira. Cada trajetória é única e carrega valor.
+                                        </p>
+                                    </motion.div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+                {/* Decorative Line - Vertical connection */}
+                <motion.div
+                    className="absolute left-1/2 bottom-0 w-[1px] h-32 bg-gradient-to-b from-transparent to-[#111111]/10"
+                    initial={{ scaleY: 0 }}
+                    whileInView={{ scaleY: 1 }}
+                    transition={{ duration: 1.5 }}
+                />
             </section>
 
 
-            {/* 4.5. NOSSO PORTFÓLIO (Dome Gallery) */}
-            <section id="portfolio" className="relative w-full h-screen bg-[#e8e4dd] overflow-hidden flex flex-col">
-                <div className="absolute top-0 left-0 w-full z-10 pt-4 md:pt-8 px-6 text-center pointer-events-none">
-                    <h2
-                        className="font-extralight tracking-tight text-[#111111] mb-2 md:mb-4"
-                        style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', lineHeight: 0.95 }}
-                    >
-                        <span className="font-sans uppercase">NOSSO </span>
-                        <span className="font-serif italic font-normal serif-luxury text-[#431846]/70 lowercase" style={{ fontSize: '1.08em', marginLeft: '0.1em' }}>portfólio</span>
-                    </h2>
-                    <p className="text-[0.95rem] font-light leading-[1.8] text-black/60 max-w-2xl mx-auto mb-16 tracking-tight">Explore nossas produções em 360°</p>
-                </div>
-                <div className="flex-1 w-full h-full relative z-0">
-                    <DomeGallery
-                        images={PORTFOLIO_ITEMS}
-                        fit={0.85} // Retornando para um fit mais envolvente e natural
-                        segments={20} // Reduzindo segmentos para limpar o visual
-                        minRadius={500} // Aumentando raio mínimo para evitar distorção no mobile
-                        maxRadius={1100} // Aumentando raio máximo para desktop imersivo
-                        openedImageWidth="90vw"
-                        openedImageHeight="85vh"
-                        imageBorderRadius="12px"
-                        openedImageBorderRadius="20px"
-                        grayscale={true}
-                    />
-                </div>
+            {/* 4.5. NOSSO PORTFÓLIO ($50k GSAP Horizontal Scroll) */}
+            <section id="nosso-acervo">
+                <PremiumPortfolio items={PORTFOLIO_ITEMS} />
             </section>
 
-            {/* 5. O MÉTODO (Como Trabalhamos) */}
-            <MethodologyTimeline />
+            {/* 5. NOSSO PROCESSO (Methodology Timeline) */}
+            <section id="metodologia">
+                <MethodologyTimeline />
+            </section>
 
             {/* 6. PROVA SOCIAL (Testimonials) - Validation */}
-            <TestimonialsMinimalist />
+            <section id="depoimentos">
+                <TestimonialsMinimalist />
+            </section>
 
             {/* 7. QUEM SOMOS (About) - Personal Connection */}
-            <AboutSEEA />
+            <section id="quem-somos">
+                <AboutSEEA />
+            </section>
 
             {/* 8. TIME (Team) - Trust */}
-            <TeamMinimalist />
+            <section id="time">
+                <TeamMinimalist />
+            </section>
 
             {/* 9. CTA FINAL */}
-            <Section className="text-center py-40">
+            <Section className="text-center py-32 md:py-48">
                 <h2 className="text-3xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter mb-8 text-[#111111]">Vamos conversar?</h2>
                 <p className="text-xl sm:text-2xl text-black/45 font-light mb-16 max-w-2xl mx-auto">
                     Cada projeto começa com uma conversa estratégica.<br />

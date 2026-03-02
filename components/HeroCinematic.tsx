@@ -15,17 +15,11 @@ gsap.registerPlugin(ScrollTrigger)
  * Animation delay aligned with Preloader (~9.6s).
  */
 
-const LuxuryCharText = ({ text, className, style }: { text: string; className?: string; style?: React.CSSProperties }) => (
-    <span className={`inline-block ${className || ''}`} style={style}>
-        {text.split(' ').map((word, wordIndex) => (
-            <span key={wordIndex} className="inline-block whitespace-nowrap mr-[0.22em] last:mr-0 pt-4 pb-2 -mt-4 -mb-2 perspective-[1000px]">
-                {word.split('').map((char, charIndex) => (
-                    <span key={charIndex} className="hero-char inline-block will-change-transform" style={{ transformOrigin: '50% 100%' }}>
-                        {char}
-                    </span>
-                ))}
-            </span>
-        ))}
+const LuxuryLineText = ({ text, className, style }: { text: string; className?: string; style?: React.CSSProperties }) => (
+    <span className={`inline-block overflow-hidden pt-2 pb-4 -mb-4 -mt-2 ${className || ''}`} style={style}>
+        <span className="hero-line inline-block will-change-transform translate-y-[120%] rotate-[2deg] translate-z-0">
+            {text}
+        </span>
     </span>
 )
 
@@ -59,11 +53,10 @@ export default function HeroCinematic() {
                 })
             }
 
-            const chars = headlineRef.current!.querySelectorAll('.hero-char')
-            tl.fromTo(chars,
-                { y: 35, rotationX: -80, rotationZ: 3, opacity: 0 },
-                { y: 0, rotationX: 0, rotationZ: 0, opacity: 1, duration: 4.5, stagger: 0.05, ease: 'expo.out' },
-                '-=1.4'
+            const lines = headlineRef.current!.querySelectorAll('.hero-line')
+            tl.to(lines,
+                { y: '0%', rotation: 0, opacity: 1, duration: 2.2, stagger: 0.15, ease: 'power4.out' },
+                '-=1.2'
             )
 
             if (metaLeftRef.current) {
@@ -273,20 +266,20 @@ export default function HeroCinematic() {
                     {/* ── HEADLINE ── */}
                     <div ref={headlineRef} className="mb-12 sm:mb-16">
                         <h1 className="text-[clamp(2.6rem,8.5vw,7.5rem)] leading-[0.95] font-light tracking-[-0.04em] flex flex-wrap gap-x-[0.22em] gap-y-[0.1em] items-end">
-                            <LuxuryCharText text="UM TIME" className="font-sans text-[#111111]" />
+                            <LuxuryLineText text="UM TIME" className="font-sans text-[#111111]" />
                             <div className="basis-full h-0" />
-                            <LuxuryCharText text="QUE" className="font-sans text-[#111111]" />
-                            <LuxuryCharText text="enxerga cada" className="font-serif italic font-normal serif-luxury text-[#431846]/90 relative" style={{ fontSize: '1.08em', top: '0.12em' }} />
+                            <LuxuryLineText text="QUE" className="font-sans text-[#111111]" />
+                            <LuxuryLineText text="enxerga cada" className="font-serif italic font-normal serif-luxury text-[#431846]/90 relative" style={{ fontSize: '1.08em', top: '0.12em' }} />
                             <div className="basis-full h-0" />
-                            <LuxuryCharText text="PROJETO" className="font-sans text-[#111111]" />
-                            <LuxuryCharText text="como uma" className="font-serif italic font-normal serif-luxury text-[#431846]/90 relative" style={{ fontSize: '1.08em', top: '0.12em' }} />
+                            <LuxuryLineText text="PROJETO" className="font-sans text-[#111111]" />
+                            <LuxuryLineText text="como uma" className="font-serif italic font-normal serif-luxury text-[#431846]/90 relative" style={{ fontSize: '1.08em', top: '0.12em' }} />
                             <div className="basis-full h-0" />
-                            <LuxuryCharText text="HISTÓRIA" className="font-sans text-[#111111]" />
+                            <LuxuryLineText text="HISTÓRIA" className="font-sans text-[#111111]" />
 
                             {/* Living Dot */}
-                            <span className="inline-block pt-4 pb-2 -mt-4 -mb-2 perspective-[1000px]">
+                            <span className="inline-block overflow-hidden pt-4 pb-4 -mt-4 -mb-4">
                                 <span
-                                    className="signature-dot hero-char inline-block text-[#431846] font-bold relative will-change-transform z-10 cursor-default"
+                                    className="signature-dot hero-line inline-block text-[#431846] font-bold relative will-change-transform z-10 cursor-default translate-y-[120%]"
                                     style={{ transformOrigin: '50% 100%' }}
                                 >
                                     .
@@ -302,14 +295,14 @@ export default function HeroCinematic() {
 
                         {/* Left: Services */}
                         <div ref={metaLeftRef} className="flex flex-col gap-3">
-                            <p className="text-[0.6rem] sm:text-[0.65rem] font-medium uppercase tracking-[0.35em] text-neutral-400">
+                            <p className="text-[0.6rem] sm:text-[0.65rem] font-bold uppercase tracking-[0.55em] text-[#431846]">
                                 O que fazemos
                             </p>
                             <div className="flex flex-wrap gap-x-5 gap-y-1">
                                 {['Branding', 'Conteúdo', 'Estratégia', 'Tráfego'].map((s) => (
                                     <span
                                         key={s}
-                                        className="text-[0.72rem] sm:text-[0.78rem] font-light tracking-[0.15em] uppercase text-neutral-500 hover:text-[#431846] transition-colors cursor-default"
+                                        className="text-[0.72rem] sm:text-[0.78rem] font-light tracking-[0.15em] uppercase text-neutral-400 hover:text-[#431846] transition-colors cursor-default"
                                     >
                                         {s}
                                     </span>
@@ -319,7 +312,7 @@ export default function HeroCinematic() {
 
                         {/* Right: CTA + Meta */}
                         <div ref={metaRightRef} className="flex flex-col items-start sm:items-end gap-4">
-                            <p className="text-[0.62rem] font-medium uppercase tracking-[0.55em] text-[#431846]/30">
+                            <p className="text-[0.62rem] font-bold uppercase tracking-[0.55em] text-[#431846]">
                                 SÃO PAULO — BRASIL / EST. 2024
                             </p>
                             <a
@@ -419,22 +412,26 @@ export default function HeroCinematic() {
 
                     {/* Statement text — white, legible against darkening bg */}
                     <div className="mb-16 sm:mb-24">
-                        <div className="overflow-hidden mb-1">
+                        <div className="overflow-hidden mb-2">
                             <div className="reveal-line-inner">
-                                <h2 className="text-[clamp(1.8rem,5.5vw,4.5rem)] leading-[1.06] font-extralight tracking-[-0.03em] text-white">
-                                    <span className="font-sans">NARRATIVA </span>
-                                    <span className="font-serif italic font-light text-white/40" style={{ fontSize: '0.9em' }}>é o</span>
-                                    <span className="font-sans"> DESTINO</span>
-                                    <span className="text-[#431846]">,</span>
+                                <h2 className="text-[clamp(1.8rem,5vw,4.5rem)] leading-[1.06] font-extralight tracking-[-0.03em] text-white">
+                                    <span className="font-sans uppercase">Gestão de carreira </span>
+                                    <span className="font-serif italic font-light text-white/40" style={{ fontSize: '0.85em', marginLeft: '0.1em' }}>e</span>
+                                </h2>
+                            </div>
+                        </div>
+                        <div className="overflow-hidden mb-2">
+                            <div className="reveal-line-inner">
+                                <h2 className="text-[clamp(1.8rem,5vw,4.5rem)] leading-[1.06] font-extralight tracking-[-0.03em] text-white uppercase">
+                                    <span className="font-sans">imagem</span>
                                 </h2>
                             </div>
                         </div>
                         <div className="overflow-hidden">
                             <div className="reveal-line-inner">
-                                <h2 className="text-[clamp(1.8rem,5.5vw,4.5rem)] leading-[1.06] font-extralight tracking-[-0.03em] text-white">
-                                    <span className="font-sans">AUTORIDADE </span>
-                                    <span className="font-serif italic font-light text-white/40" style={{ fontSize: '0.9em' }}>é a nossa</span>
-                                    <span className="font-sans"> JORNADA</span>
+                                <h2 className="text-[clamp(1.8rem,5vw,4.5rem)] leading-[1.06] font-extralight tracking-[-0.03em] text-white">
+                                    <span className="font-serif italic font-light text-white/40 lowercase" style={{ fontSize: '0.9em' }}>para quem quer ir </span>
+                                    <span className="font-sans uppercase">além do óbvio</span>
                                     <span className="text-[#431846]">.</span>
                                 </h2>
                             </div>
@@ -454,6 +451,18 @@ export default function HeroCinematic() {
                     </div>
                 </div>
             </section>
+            <GlowFrame />
         </>
+    )
+}
+
+function GlowFrame() {
+    return (
+        <div className="fixed inset-0 pointer-events-none z-[8000] overflow-hidden">
+            <div className="absolute inset-0 border-[0.5px] border-white/5 box-content" />
+            <div className="absolute inset-0 shadow-[inset_0_0_120px_rgba(67,24,70,0.15)] opacity-60" />
+            <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-[#431846]/10 to-transparent opacity-20" />
+            <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#431846]/10 to-transparent opacity-20" />
+        </div>
     )
 }

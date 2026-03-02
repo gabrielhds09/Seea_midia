@@ -5,9 +5,11 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import { Menu, X } from 'lucide-react'
 import { gsap } from 'gsap'
+import StaggerText from './StaggerText'
 
 export default function OverlayNav() {
     const [isOpen, setIsOpen] = useState(false)
+    const [activeSection, setActiveSection] = useState('')
     const [scrolled, setScrolled] = useState(false)
 
     useEffect(() => {
@@ -16,14 +18,42 @@ export default function OverlayNav() {
         }
         window.addEventListener('scroll', handleScroll)
 
-        // Animate the logo and menu button in after preloader (9.6s)
+        // Intersection Observer for section tracking
+        const observerOptions = {
+            root: null,
+            rootMargin: '-40% 0% -40% 0%', // Trigger when the section is in the middle of the screen
+            threshold: 0
+        };
+
+        const sectionNames: { [key: string]: string } = {
+            'inicio': 'INÍCIO',
+            'perspectiva': 'PERSPECTIVA',
+            'o-conceito': 'PROPOSTA',
+            'nosso-acervo': 'NOSSO ACERVO',
+            'metodologia': 'MÉTODO',
+            'depoimentos': 'FEEDBACK',
+            'quem-somos': 'QUEM SOMOS',
+            'time': 'NOSSO TIME'
+        };
+
+        const observerCallback = (entries: IntersectionObserverEntry[]) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setActiveSection(sectionNames[entry.target.id] || '');
+                }
+            });
+        };
+
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
+        const sections = document.querySelectorAll('section[id]');
+        sections.forEach(section => observer.observe(section));
+
+        // GSAP Intro
         const ctx = gsap.context(() => {
-            // Elegant masked slide-up for the logo
             gsap.fromTo('.nav-logo',
                 { clipPath: 'inset(100% 0 0 0)', y: 20, scale: 1.05, opacity: 0 },
                 { clipPath: 'inset(0% 0 0 0)', y: 0, scale: 1, opacity: 1, duration: 2.2, ease: 'expo.out', delay: 9.6 }
             )
-            // Sophisticated fade slide for the menu
             gsap.fromTo('.nav-menu',
                 { y: -30, opacity: 0 },
                 { y: 0, opacity: 1, duration: 2.2, ease: 'expo.out', delay: 9.8 }
@@ -32,22 +62,23 @@ export default function OverlayNav() {
 
         return () => {
             window.removeEventListener('scroll', handleScroll)
+            observer.disconnect()
             ctx.revert()
         }
     }, [])
 
     const menuItems = [
-        { label: "Home", href: "#" },
-        { label: "Projetos", href: "#" },
-        { label: "Serviços", href: "#" },
-        { label: "Sobre", href: "#" },
-        { label: "Contato", href: "#" }
+        { label: "Home", href: "#inicio" },
+        { label: "O Conceito", href: "#o-conceito" },
+        { label: "Acervo", href: "#nosso-acervo" },
+        { label: "Metodologia", href: "#metodologia" },
+        { label: "Quem Somos", href: "#quem-somos" }
     ]
 
     return (
         <>
             {/* Valid for all pages - Fixed Header */}
-            <header className={`fixed top-0 left-0 w-full z-[9999] flex justify-between items-center px-6 md:px-12 py-6 transition-all duration-300 ${scrolled ? 'bg-white/85 backdrop-blur-md py-4 border-b border-black/[0.05]' : 'bg-transparent'}`}>
+            <header className={`fixed top-0 left-0 w-full z-[9999] flex justify-between items-center px-6 md:px-12 py-6 transition-all duration-500 will-change-[backdrop-filter,background-color,padding] ${scrolled ? 'bg-white/65 backdrop-blur-lg md:backdrop-blur-2xl py-4 border-b border-[#431846]/[0.05] shadow-[0_8px_32px_rgba(67,24,70,0.03)]' : 'bg-transparent'}`}>
 
                 {/* Logo Area */}
                 <div className="z-50 nav-logo opacity-0 will-change-[transform,opacity,clip-path]">
@@ -62,17 +93,34 @@ export default function OverlayNav() {
                 </div>
 
                 {/* Right: Menu Trigger */}
-                <button
-                    onClick={() => setIsOpen(true)}
-                    aria-label="Abrir menu de navegação"
-                    aria-expanded={isOpen}
-                    className="group flex items-center gap-3 text-[#111111] z-50 nav-menu opacity-0 will-change-[transform,opacity]"
-                >
-                    <span className="hidden md:block text-xs font-bold tracking-[0.2em] uppercase text-black/45 group-hover:tracking-[0.3em] group-hover:text-black/70 transition-all">Menu</span>
-                    <div className="p-2 border border-black/[0.12] rounded-full group-hover:bg-[#111111] group-hover:text-white group-hover:border-[#111111] transition-all">
-                        <Menu className="w-5 h-5" />
-                    </div>
-                </button>
+                <div className="flex items-center gap-6 nav-menu opacity-0 will-change-[transform,opacity]">
+                    {/* Active Section Indicator */}
+                    <AnimatePresence mode="wait">
+                        {scrolled && activeSection && (
+                            <motion.span
+                                key={activeSection}
+                                initial={{ opacity: 0, x: 20, filter: 'blur(8px)' }}
+                                animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+                                exit={{ opacity: 0, x: -20, filter: 'blur(8px)' }}
+                                className="hidden md:block text-[0.62rem] font-bold tracking-[0.45em] text-[#431846]"
+                            >
+                                {activeSection}
+                            </motion.span>
+                        )}
+                    </AnimatePresence>
+
+                    <button
+                        onClick={() => setIsOpen(true)}
+                        aria-label="Abrir menu de navegação"
+                        aria-expanded={isOpen}
+                        className="group flex items-center gap-3 text-[#111111] z-50"
+                    >
+                        <span className="hidden md:block text-xs font-bold tracking-[0.2em] uppercase text-black/45 group-hover:tracking-[0.3em] group-hover:text-[#431846] transition-all">Menu</span>
+                        <div className="p-2 border border-black/[0.12] rounded-full group-hover:bg-[#431846] group-hover:text-white group-hover:border-[#431846] transition-all">
+                            <Menu className="w-5 h-5" />
+                        </div>
+                    </button>
+                </div>
             </header>
 
             {/* Full Screen Overlay */}

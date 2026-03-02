@@ -3,6 +3,7 @@
 import React, { useState, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
+import { useSpring } from 'framer-motion'
 
 const SERVICES = [
     {
@@ -11,6 +12,7 @@ const SERVICES = [
         subtitle: '& diagnóstico',
         description: 'Análise profunda do seu momento atual. Definimos arquétipos, narrativa e o plano de ação para alinhar sua imagem aos seus objetivos comerciais.',
         tags: ['Posicionamento', 'Arquétipos', 'Planejamento'],
+        image: '/thumbnails/thumb-01.jpg',
     },
     {
         id: '02',
@@ -18,6 +20,7 @@ const SERVICES = [
         subtitle: 'audiovisual',
         description: 'Construção da identidade visual e sonora da sua marca pessoal. Identidade que transmite nobreza, exclusividade e inovação.',
         tags: ['Identidade Visual', 'Direção de Arte', 'Sound Design'],
+        image: '/thumbnails/thumb-02.jpg',
     },
     {
         id: '03',
@@ -25,6 +28,7 @@ const SERVICES = [
         subtitle: 'roteirizado',
         description: 'Produção de alto nível com roteiros intencionais (REC). Vídeos que educam, engajam e vendem, sem parecer "mais do mesmo".',
         tags: ['Reels Estratégicos', 'Vídeos Longos', 'Roteiro'],
+        image: '/thumbnails/thumb-03.jpg',
     },
     {
         id: '04',
@@ -32,6 +36,7 @@ const SERVICES = [
         subtitle: 'presencial',
         description: 'Captura orgânica da sua rotina. Transformamos o dia a dia em conteúdo de autoridade, com direção de cena e olhar treinado em tempo real.',
         tags: ['Direção de Cena', 'Stories', 'Lifestyle'],
+        image: '/thumbnails/thumb-04.jpg',
     },
     {
         id: '05',
@@ -39,6 +44,7 @@ const SERVICES = [
         subtitle: 'estratégica (tráfego)',
         description: 'Não basta postar, é preciso distribuir. Amplificamos sua mensagem para o público certo através de tráfego pago inteligente.',
         tags: ['Ads Manager', 'Distribuição', 'Análise de Dados'],
+        image: '/thumbnails/thumb-05.jpg',
     },
 ]
 
@@ -47,7 +53,15 @@ function ServiceRow({ service, index }: { service: typeof SERVICES[0]; index: nu
     const arrowRef = useRef<HTMLDivElement>(null)
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
 
+    // Spring values for trailing image
+    const imageX = useSpring(0, { stiffness: 100, damping: 20 })
+    const imageY = useSpring(0, { stiffness: 100, damping: 20 })
+
     const handleMouseMove = (e: React.MouseEvent) => {
+        // Floating image tracking
+        imageX.set(e.clientX)
+        imageY.set(e.clientY)
+
         if (!arrowRef.current) return
         const rect = arrowRef.current.getBoundingClientRect()
         const centerX = rect.left + rect.width / 2
@@ -145,6 +159,22 @@ function ServiceRow({ service, index }: { service: typeof SERVICES[0]; index: nu
                 animate={{ scaleX: hovered ? 1 : 0 }}
                 transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
             />
+
+            {/* Floating Image Reveal */}
+            <motion.div
+                className="fixed top-0 left-0 w-64 h-80 pointer-events-none z-50 overflow-hidden rounded-[4px] shadow-2xl hidden lg:block"
+                style={{
+                    x: imageX,
+                    y: imageY,
+                    translateX: '-50%',
+                    translateY: '-50%',
+                    opacity: hovered ? 1 : 0,
+                    scale: hovered ? 1 : 0.8,
+                }}
+                transition={{ opacity: { duration: 0.4 }, scale: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } }}
+            >
+                <img src={service.image} alt={service.title} className="w-full h-full object-cover" />
+            </motion.div>
         </motion.div>
     )
 }
