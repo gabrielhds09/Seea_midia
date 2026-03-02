@@ -320,16 +320,27 @@ export default function ContentSections() {
 
                 {/* Decorative Line - Vertical connection */}
                 <motion.div
-                    className="absolute left-1/2 bottom-0 w-[1px] h-32 bg-gradient-to-b from-transparent to-[#111111]/10"
+                    className="absolute left-1/2 bottom-0 w-[1px] h-32 bg-gradient-to-b from-transparent to-[#111111]/10 md:to-[#111111]/20"
                     initial={{ scaleY: 0 }}
                     whileInView={{ scaleY: 1 }}
                     transition={{ duration: 1.5 }}
                 />
             </section>
 
+            {/* 3.5 TRANSITIONAL SPACER (Luxury Breathing Room) */}
+            <div className="relative h-[15vh] md:h-[20vh] bg-[#faf9f7] overflow-hidden">
+                {/* Smooth fade-out to black */}
+                <div className="absolute inset-x-0 bottom-0 h-full bg-gradient-to-b from-transparent to-[#111111]" />
 
-            {/* 4.5. NOSSO PORTFÓLIO ($50k GSAP Horizontal Scroll) */}
-            <section id="nosso-acervo">
+                {/* Subtle brand motif */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.05]">
+                    <p className="text-[0.6rem] font-bold uppercase tracking-[0.8em] text-[#431846]">SEEA</p>
+                </div>
+            </div>
+
+
+            {/* 4. NOSSO PORTFÓLIO ($50k GSAP Horizontal Scroll) */}
+            <section id="nosso-acervo" className="relative">
                 <PremiumPortfolio items={PORTFOLIO_ITEMS} />
             </section>
 
