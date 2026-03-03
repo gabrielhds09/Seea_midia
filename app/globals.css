@@ -491,4 +491,19 @@ body::after {
   .apple-mask-reveal-active {
     background-position: 0% 0;
   }
+
+  /* 🍏 Apple Static Mirror Fallback */
+  .apple-mirror-static {
+    background: linear-gradient(135deg, #fafafa 0%, #f2f2f2 50%, #ebebeb 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .apple-mirror-static::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% -20%, rgba(255, 255, 255, 0.8) 0%, transparent 70%);
+    pointer-events: none;
+  }
 }

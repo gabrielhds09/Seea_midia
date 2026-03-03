@@ -14,11 +14,24 @@ export default function HeroBackgroundCanvas() {
         const canvas = canvasRef.current
         if (!canvas) return
 
-        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl') as WebGLRenderingContext
+        const gl = canvas.getContext('webgl', {
+            alpha: true,
+            antialias: false, // Better performance on mobile
+            depth: false,
+            stencil: false,
+            preserveDrawingBuffer: false
+        }) as WebGLRenderingContext
         if (!gl) return
 
-        let width = canvas.width = window.innerWidth
-        let height = canvas.height = window.innerHeight
+        // -- PERFORMANCE TUNING --
+        // Use a lower DPR for higher FPS on mobile
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+        const dpr = isMobile ? Math.min(window.devicePixelRatio, 1.2) : Math.min(window.devicePixelRatio, 1.5)
+
+        let width = canvas.width = window.innerWidth * dpr
+        let height = canvas.height = window.innerHeight * dpr
+        canvas.style.width = '100%'
+        canvas.style.height = '100%'
 
         const mouse = { x: 0.5, y: 0.5, targetX: 0.5, targetY: 0.5 }
 
@@ -28,8 +41,8 @@ export default function HeroBackgroundCanvas() {
         }
 
         const onResize = () => {
-            width = canvas.width = window.innerWidth
-            height = canvas.height = window.innerHeight
+            width = canvas.width = window.innerWidth * dpr
+            height = canvas.height = window.innerHeight * dpr
             gl.viewport(0, 0, width, height)
         }
 
@@ -44,62 +57,34 @@ export default function HeroBackgroundCanvas() {
             }
         `
 
-        // Fragment Shader: Silk Flow Simulation
+        // Optimized Fragment Shader: Liquid Silk
         const fragmentShaderSource = `
-            precision highp float;
+            precision mediump float;
             uniform float u_time;
             uniform vec2 u_resolution;
             uniform vec2 u_mouse;
 
-            // Simple noise function
-            float noise(vec2 p) {
-                return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453);
-            }
-
-            // Perlin-like fbm for fluid motion
-            float fbm(vec2 p) {
-                float v = 0.0;
-                float a = 0.5;
-                for (int i = 0; i < 4; i++) {
-                    v += a * noise(p);
-                    p *= 2.0;
-                    a *= 0.5;
-                }
-                return v;
-            }
-
             void main() {
                 vec2 uv = gl_FragCoord.xy / u_resolution.xy;
-                float dist = distance(uv, u_mouse);
                 
-                // Luxury Flow Logic: Monochromatic Silk
-                float t = u_time * 0.15;
-                vec2 p = uv * 3.0; // Scale
+                // Optimized math for silk-like waves
+                float t = u_time * 0.12;
+                vec2 p = uv * 2.5 + u_mouse * 0.15;
                 
-                // Add mouse influence as a subtle wind
-                p += u_mouse * 0.2;
-                
-                float n = 0.0;
-                n += 0.5 * sin(p.x * 2.0 + t + sin(p.y * 3.0 + t));
-                n += 0.3 * sin(p.y * 4.0 - t * 0.5 + p.x * 2.0);
-                n += 0.2 * sin(distance(p, u_mouse * 5.0) - t);
+                float n = sin(p.x * 2.0 + t) * 0.5;
+                n += sin(p.y * 1.5 - t * 0.8) * 0.3;
+                n += cos(distance(uv, u_mouse * 0.8) * 4.0 - t);
 
-                // Luxury color palette: Silk White / Off-white / Very faint SEEA Purple
-                float brightness = smoothstep(-1.0, 1.0, n);
+                // Luxury White/Platinum palette
+                float brightness = smoothstep(-1.2, 1.2, n);
                 
-                // Base colors
-                vec3 silkWhite = vec3(0.98, 0.97, 0.95);
-                vec3 warmShadow = vec3(0.92, 0.90, 0.88);
-                vec3 luxuryPurpleHaze = vec3(0.26, 0.09, 0.27); // Very subtle #431846
+                vec3 silkBase = vec3(0.98, 0.98, 0.97); // White
+                vec3 silkShadow = vec3(0.93, 0.92, 0.94); // Very light grey/purple hint
                 
-                // Mixing
-                vec3 color = mix(warmShadow, silkWhite, brightness);
+                vec3 color = mix(silkShadow, silkBase, brightness);
                 
-                // Inject purple haze only in deep ripples
-                color = mix(color, luxuryPurpleHaze, smoothstep(0.4, 0.0, brightness) * 0.04);
-                
-                // Depth additive based on mouse
-                color += (1.0 - smoothstep(0.0, 0.8, dist)) * 0.03;
+                // Subtle depth
+                color -= (1.0 - uv.y) * 0.02;
 
                 gl_FragColor = vec4(color, 1.0);
             }
@@ -131,20 +116,20 @@ export default function HeroBackgroundCanvas() {
         const mouseLocation = gl.getUniformLocation(program, 'u_mouse')
 
         let startTime = Date.now()
+        let rafId: number
 
         function render() {
             const time = (Date.now() - startTime) * 0.001
 
-            // Smooth mouse transition
-            mouse.x += (mouse.targetX - mouse.x) * 0.05
-            mouse.y += (mouse.targetY - mouse.y) * 0.05
+            mouse.x += (mouse.targetX - mouse.x) * 0.04
+            mouse.y += (mouse.targetY - mouse.y) * 0.04
 
             gl.uniform1f(timeLocation, time)
-            gl.uniform2f(resolutionLocation, canvas.width, canvas.height)
+            gl.uniform2f(resolutionLocation, width, height)
             gl.uniform2f(mouseLocation, mouse.x, mouse.y)
 
             gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)
-            requestAnimationFrame(render)
+            rafId = requestAnimationFrame(render)
         }
 
         render()
@@ -152,15 +137,16 @@ export default function HeroBackgroundCanvas() {
         return () => {
             window.removeEventListener('mousemove', onMouseMove)
             window.removeEventListener('resize', onResize)
-            // Note: Full WebGL cleanup is complex, but this handles main listeners
+            cancelAnimationFrame(rafId)
+            gl.deleteProgram(program)
+            gl.deleteBuffer(positionBuffer)
         }
     }, [])
 
     return (
         <canvas
             ref={canvasRef}
-            className="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-100 transition-opacity duration-1000"
-            style={{ filter: 'contrast(1.05) saturate(0.95)' }}
+            className="absolute inset-0 w-full h-full pointer-events-none z-0"
         />
     )
 }

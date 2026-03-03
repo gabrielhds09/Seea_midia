@@ -10,14 +10,15 @@ gsap.registerPlugin(ScrollTrigger)
 export default function SmoothScroll() {
     useEffect(() => {
         const lenis = new Lenis({
-            duration: 1.2,
+            duration: 1.1, // Even snappier
             easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             direction: 'vertical',
             gestureDirection: 'vertical',
             smooth: true,
-            mouseMultiplier: 1,
-            smoothTouch: false, // Default native touch is usually better, but if user wants "butter", we can try. 
-            touchMultiplier: 2, // Faster response on touch
+            mouseMultiplier: 1.0,
+            smoothTouch: false,
+            touchMultiplier: 2.5, // High snappiness for Apple touch
+            infinite: false,
         } as any)
 
         function update(time: number) {
@@ -27,7 +28,8 @@ export default function SmoothScroll() {
         lenis.on('scroll', ScrollTrigger.update)
 
         gsap.ticker.add(update)
-        gsap.ticker.lagSmoothing(0)
+        // Remove lagSmoothing to avoid artificial delays
+        // gsap.ticker.lagSmoothing(0) 
 
         return () => {
             gsap.ticker.remove(update)

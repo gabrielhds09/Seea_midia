@@ -211,7 +211,12 @@ export default function HeroCinematic() {
                 }}
             >
                 {/* ── INTERACTIVE SILK BACKGROUND ── */}
-                <HeroBackgroundCanvas />
+                <div className="absolute inset-0 z-0">
+                    <div className="block md:hidden absolute inset-0 apple-mirror-static" />
+                    <div className="hidden md:block absolute inset-0">
+                        <HeroBackgroundCanvas />
+                    </div>
+                </div>
 
                 {/* Warm radial warmth — center */}
                 <div
