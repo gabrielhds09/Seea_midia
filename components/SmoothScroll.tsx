@@ -10,14 +10,15 @@ gsap.registerPlugin(ScrollTrigger)
 export default function SmoothScroll() {
     useEffect(() => {
         const lenis = new Lenis({
-            duration: 1.1, // Even snappier
-            easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            duration: 1.5, // Silkier, longer momentum
+            easing: (t: number) => t === 1 ? 1 : 1 - Math.pow(2, -10 * t), // Classic Expo-Out
             direction: 'vertical',
             gestureDirection: 'vertical',
             smooth: true,
             mouseMultiplier: 1.0,
             smoothTouch: false,
-            touchMultiplier: 2.5, // High snappiness for Apple touch
+            touchMultiplier: 2.0,
+            wheelMultiplier: 1.1, // Slight boost for a "deeper" scroll feel
             infinite: false,
         } as any)
 
