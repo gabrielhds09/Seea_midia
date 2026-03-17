@@ -11,13 +11,13 @@ const NAV_LINKS = [
     { label: 'Projetos', href: '#nosso-acervo' },
     { label: 'Metodologia', href: '#metodologia' },
     { label: 'Quem Somos', href: '#quem-somos' },
-    { label: 'Contato', href: 'https://wa.me/5511999999999' },
+    { label: 'Contato', href: 'https://wa.me/5511913488620' },
 ]
 
 const SOCIAL_LINKS = [
     { label: 'Instagram', href: 'https://instagram.com/seeamidia', icon: Instagram },
     { label: 'LinkedIn', href: '#', icon: Linkedin },
-    { label: 'WhatsApp', href: 'https://wa.me/5511999999999', icon: MessageCircle },
+    { label: 'WhatsApp', href: 'https://wa.me/5511913488620', icon: MessageCircle },
 ]
 
 export default function MegaFooter() {
@@ -74,7 +74,7 @@ export default function MegaFooter() {
 
                                 {/* Minimal CTA with Shimmer */}
                                 <motion.a
-                                    href="https://wa.me/5511999999999"
+                                    href="https://wa.me/5511913488620"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     onMouseMove={(e) => {

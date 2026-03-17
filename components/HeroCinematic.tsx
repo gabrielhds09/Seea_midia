@@ -301,7 +301,7 @@ export default function HeroCinematic() {
                             </p>
                             <a
                                 ref={ctaRef}
-                                href="https://wa.me/5511999999999?text=Olá! Vim pelo site da SEEA e gostaria de agendar uma conversa estratégica."
+                                href="https://wa.me/5511913488620?text=Olá! Vim pelo site da SEEA e gostaria de agendar uma conversa estratégica."
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="group relative inline-flex items-center gap-3 text-[0.75rem] sm:text-[0.8rem] font-medium uppercase tracking-[0.25em] text-neutral-700 transition-all duration-700 hover:text-neutral-900 animate-shimmer"

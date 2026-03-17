@@ -25,7 +25,7 @@ export default function Home() {
 
       {/* Floating REC Button - WhatsApp CTA */}
       <FloatingRecButton
-        whatsappNumber="5511999999999"
+        whatsappNumber="5511913488620"
         message="Olá! Vim pelo site da SEEA e gostaria de agendar uma conversa estratégica."
       />
     </main>

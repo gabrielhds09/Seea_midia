@@ -8,7 +8,7 @@ interface FloatingRecButtonProps {
 }
 
 export default function FloatingRecButton({
-    whatsappNumber = "5511999999999",
+    whatsappNumber = "5511913488620",
     message = "Olá! Vim pelo site e gostaria de saber mais sobre os serviços da SEEA."
 }: FloatingRecButtonProps) {
 
