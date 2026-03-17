@@ -86,16 +86,19 @@ export default function MethodologyTimeline() {
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-center mb-32"
+                    className="text-center mb-16 md:mb-24"
                 >
                     {/* Standardized Label — rendered by parent ContentSections */}
                     <h2
-                        className="font-bold tracking-tight text-[#111111] mb-8 uppercase"
-                        style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', lineHeight: 0.9, letterSpacing: '-0.03em' }}
+                        className="font-extralight tracking-tight text-[#111111] mb-6 md:mb-8"
+                        style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', lineHeight: 0.95, letterSpacing: '-0.03em' }}
                     >
-                        NOSSO processo<br className="hidden md:block" /> NA PRÁTICA.
+                        <span className="uppercase">Nosso </span>
+                        <span className="font-serif italic font-normal text-[#431846]" style={{ fontSize: '1.02em' }}>processo</span>
+                        <br className="hidden md:block" />
+                        <span className="uppercase"> na prática.</span>
                     </h2>
-                    <p className="text-[1.05rem] font-light leading-[1.8] text-black/50 max-w-2xl mx-auto tracking-tight">
+                    <p className="text-[1rem] font-light leading-[1.8] text-black/50 max-w-2xl mx-auto tracking-tight">
                         Da convivência à escala. Uma metodologia proprietária focada em construir autoridade real, onde cada detalhe é esculpido com precisão.
                     </p>
                 </motion.div>

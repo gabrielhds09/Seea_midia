@@ -345,16 +345,6 @@ export default function ContentSections() {
                     />
                 </section>
 
-                {/* 3.5 TRANSITIONAL SPACER (Luxury Breathing Room) */}
-                <div className="relative h-[15vh] md:h-[20vh] bg-[#faf9f7] overflow-hidden">
-                    {/* Smooth fade-out to black */}
-                    <div className="absolute inset-x-0 bottom-0 h-full bg-gradient-to-b from-transparent to-[#111111]" />
-
-                    {/* Subtle brand motif */}
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.05]">
-                        <p className="text-[0.6rem] font-bold uppercase tracking-[0.8em] text-[#431846]">SEEA</p>
-                    </div>
-                </div>
 
 
                 {/* 4. NOSSO PORTFÓLIO ($50k GSAP Horizontal Scroll) */}
@@ -363,7 +353,7 @@ export default function ContentSections() {
                 </section>
 
                 {/* 5. NOSSO PROCESSO (Methodology Timeline) */}
-                <section id="metodologia" className="py-32">
+                <section id="metodologia" className="pt-20 md:pt-28">
                     <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-20 xl:px-28 mb-0">
                         <p className="text-[0.62rem] font-bold uppercase tracking-[0.55em] text-[#431846] mb-8">Metodologia</p>
                         <BrandAccent />
@@ -372,7 +362,7 @@ export default function ContentSections() {
                 </section>
 
                 {/* 6. PROVA SOCIAL (Testimonials) - Validation */}
-                <section id="depoimentos" className="py-32">
+                <section id="depoimentos">
                     <TestimonialsMinimalist />
                 </section>
 
@@ -382,7 +372,7 @@ export default function ContentSections() {
                 </section>
 
                 {/* 8. TIME (Team) - Trust */}
-                <section id="time" className="py-20 md:py-32">
+                <section id="time">
                     <TeamMinimalist />
                 </section>
 

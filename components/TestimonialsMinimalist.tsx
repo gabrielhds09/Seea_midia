@@ -48,14 +48,14 @@ export default function TestimonialsMinimalist() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                    className="text-center mb-16"
+                    className="text-center mb-10"
                 >
                     <h2
-                        className="font-extralight tracking-tight text-[#111111] uppercase"
+                        className="font-extralight tracking-tight text-[#111111]"
                         style={{ fontSize: 'clamp(2.2rem, 6vw, 5rem)', lineHeight: 0.95, letterSpacing: '-0.03em' }}
                     >
-                        O QUE{' '}
-                        <span className="font-serif italic font-normal text-[#431846]" style={{ fontSize: '1.05em' }}>dizem.</span>
+                        O que{' '}
+                        <span className="font-serif italic font-normal text-[#431846]" style={{ fontSize: '1.02em' }}>dizem.</span>
                     </h2>
                 </motion.div>
 
