@@ -112,7 +112,7 @@ export default function MethodologyTimeline() {
                         className="absolute left-[32px] md:left-1/2 top-0 w-[1.5px] bg-gradient-to-b from-[#ed1c24] via-[#431846] to-[#ed1c24] md:-translate-x-1/2 z-20 origin-top"
                     />
 
-                    <div className="space-y-16 md:space-y-32 pb-20">
+                    <div className="space-y-10 md:space-y-32 pb-20">
                         {PROCESS_STEPS.map((step, index) => (
                             <TimelineItem key={index} step={step} index={index} />
                         ))}
@@ -149,24 +149,25 @@ function TimelineItem({ step, index }: { step: typeof PROCESS_STEPS[0], index: n
             </div>
 
             {/* Content Card */}
-            <div className={`w-full md:w-1/2 pl-14 pr-4 md:px-0 ${isEven ? 'md:pr-32 md:text-right text-center' : 'md:pl-32 md:text-left text-center'}`}>
+            <div className={`w-full md:w-1/2 pl-10 pr-3 md:px-0 ${isEven ? 'md:pr-32 md:text-right text-center' : 'md:pl-32 md:text-left text-center'}`}>
 
-                <div className={`relative group p-10 rounded-[2.5rem] bg-white/20 backdrop-blur-[40px] border border-white/40 hover:border-[#431846]/30 transition-all duration-700 hover:-translate-y-3 shadow-[0_20px_50px_rgba(0,0,0,0.02)] hover:shadow-[0_40px_80px_rgba(67,24,70,0.06)]`}>
+                <div className={`relative group p-6 md:p-10 rounded-[1.5rem] md:rounded-[2.5rem] bg-white/20 backdrop-blur-[40px] border border-white/40 hover:border-[#431846]/30 transition-all duration-700 hover:-translate-y-3 shadow-[0_20px_50px_rgba(0,0,0,0.02)] hover:shadow-[0_40px_80px_rgba(67,24,70,0.06)]`}>
 
                     {/* Highly Refined Glass Glow */}
                     <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-[2.5rem]" />
                     <div className="absolute inset-0 bg-gradient-to-tl from-[#ed1c24]/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-[2.5rem]" />
 
                     <div className={`relative z-10 flex flex-col items-center ${isEven ? 'md:items-end' : 'md:items-start'}`}>
-                        <div className="w-16 h-16 rounded-2xl bg-white/50 backdrop-blur-sm border border-white/20 flex items-center justify-center mb-8 text-[#431846] shadow-sm group-hover:bg-[#431846] group-hover:text-white group-hover:scale-110 transition-all duration-700">
-                            <step.icon size={30} strokeWidth={1.5} />
+                        <div className="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-white/50 backdrop-blur-sm border border-white/20 flex items-center justify-center mb-5 md:mb-8 text-[#431846] shadow-sm group-hover:bg-[#431846] group-hover:text-white group-hover:scale-110 transition-all duration-700">
+                            <step.icon size={22} strokeWidth={1.5} className="md:hidden" />
+                            <step.icon size={30} strokeWidth={1.5} className="hidden md:block" />
                         </div>
 
-                        <h3 className="text-2xl md:text-3xl font-bold text-[#111111] mb-5 uppercase tracking-[0.05em]">
+                        <h3 className="text-xl md:text-3xl font-bold text-[#111111] mb-3 md:mb-5 uppercase tracking-[0.03em] md:tracking-[0.05em]">
                             {step.title}
                         </h3>
 
-                        <p className="text-black/50 text-[1.02rem] font-light leading-relaxed mb-8 max-w-md">
+                        <p className="text-black/50 text-[0.9rem] md:text-[1.02rem] font-light leading-relaxed mb-5 md:mb-8 max-w-md">
                             {step.description}
                         </p>
 

@@ -42,6 +42,23 @@ export default function TestimonialsMinimalist() {
 
             <div className="max-w-6xl w-full mx-auto relative z-10 flex flex-col items-center justify-center min-h-[400px]">
 
+                {/* Editorial Section Title */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                    className="text-center mb-16"
+                >
+                    <h2
+                        className="font-extralight tracking-tight text-[#111111] uppercase"
+                        style={{ fontSize: 'clamp(2.2rem, 6vw, 5rem)', lineHeight: 0.95, letterSpacing: '-0.03em' }}
+                    >
+                        O QUE{' '}
+                        <span className="font-serif italic font-normal text-[#431846]" style={{ fontSize: '1.05em' }}>dizem.</span>
+                    </h2>
+                </motion.div>
+
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={current}
@@ -55,9 +72,9 @@ export default function TestimonialsMinimalist() {
                         <blockquote
                             className="font-serif italic font-light text-[#111111] mb-12 max-w-4xl mx-auto"
                             style={{
-                                fontSize: 'clamp(1.8rem, 4.5vw, 3.5rem)',
-                                lineHeight: '1.25',
-                                letterSpacing: '-0.02em'
+                                fontSize: 'clamp(1.15rem, 3.5vw, 3rem)',
+                                lineHeight: '1.35',
+                                letterSpacing: '-0.01em'
                             }}
                         >
                             {TESTIMONIALS[current].quote}
