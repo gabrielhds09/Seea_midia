@@ -39,9 +39,12 @@ export default function HeroCinematic() {
         if (!heroRef.current || !headlineRef.current) return
 
         const ctx = gsap.context(() => {
-            // ═══ ENTRANCE — aligned with preloader (~9.6s) ═══
+            // Smart Intro detection
+            const hasSeen = typeof window !== 'undefined' && sessionStorage.getItem('seea_intro_seen')
+            const introDelay = hasSeen ? 8.0 : 10.5
+
             const tl = gsap.timeline({
-                delay: 9.6,
+                delay: introDelay,
                 defaults: { ease: 'expo.out' },
             })
 
@@ -441,9 +444,9 @@ function GlowFrame() {
     return (
         <div className="fixed inset-0 pointer-events-none z-[8000] overflow-hidden">
             <div className="absolute inset-0 border-[0.5px] border-white/5 box-content" />
-            <div className="absolute inset-0 shadow-[inset_0_0_120px_rgba(67,24,70,0.15)] opacity-60" />
-            <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-[#431846]/10 to-transparent opacity-20" />
-            <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#431846]/10 to-transparent opacity-20" />
+            <div className="absolute inset-0 shadow-[inset_0_0_150px_rgba(17,17,17,0.08)] opacity-40" />
+            <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-white/10 to-transparent opacity-10" />
+            <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-black/5 to-transparent opacity-10" />
         </div>
     )
 }

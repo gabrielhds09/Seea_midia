@@ -45,12 +45,38 @@ export default function MethodologyTimeline() {
     const height = useTransform(scrollYProgress, [0, 1], ["0%", "100%"])
 
     return (
-        <section ref={containerRef} className="relative w-full py-20 md:py-48 px-6 overflow-hidden bg-[#faf9f7]">
+        <section ref={containerRef} className="relative w-full pb-20 md:pb-48 px-6 overflow-hidden bg-[#faf9f7]">
 
-            {/* Background Glows (Subtle for Light Mode) */}
-            <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-[#431846]/[0.03] rounded-full blur-[140px]" />
-                <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-[#ed1c24]/[0.02] rounded-full blur-[140px]" />
+            {/* Premium Dynamic Background (Apple/Awwwards inspired) */}
+            <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                <motion.div 
+                    animate={{ 
+                        x: [0, 40, 0], 
+                        y: [0, -30, 0],
+                        scale: [1, 1.1, 1]
+                    }}
+                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                    className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#431846]/[0.02] rounded-full blur-[120px]" 
+                />
+                <motion.div 
+                    animate={{ 
+                        x: [0, -50, 0], 
+                        y: [0, 40, 0],
+                        scale: [1, 1.2, 1]
+                    }}
+                    transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+                    className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-[#ed1c24]/[0.015] rounded-full blur-[140px]" 
+                />
+                
+                {/* Floating Glass Orbs */}
+                <motion.div 
+                    style={{ y: useTransform(scrollYProgress, [0, 1], [0, -150]) }}
+                    className="absolute top-[20%] right-[15%] w-64 h-64 bg-white/10 rounded-full blur-[80px] border border-white/20"
+                />
+                <motion.div 
+                    style={{ y: useTransform(scrollYProgress, [0, 1], [0, 200]) }}
+                    className="absolute bottom-[30%] left-[10%] w-96 h-96 bg-[#431846]/5 rounded-full blur-[100px]"
+                />
             </div>
 
             <div className="max-w-6xl mx-auto relative z-10">
@@ -62,21 +88,15 @@ export default function MethodologyTimeline() {
                     viewport={{ once: true }}
                     className="text-center mb-32"
                 >
-                    {/* Standardized Label */}
-                    <p className="text-[0.62rem] font-bold uppercase tracking-[0.55em] text-[#431846] mb-8">
-                        Metodologia
-                    </p>
-
+                    {/* Standardized Label — rendered by parent ContentSections */}
                     <h2
-                        className="font-extralight tracking-tight text-[#111111] mb-6 uppercase"
-                        style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', lineHeight: 0.95 }}
+                        className="font-bold tracking-tight text-[#111111] mb-8 uppercase"
+                        style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', lineHeight: 0.9, letterSpacing: '-0.03em' }}
                     >
-                        <span className="font-sans">NOSSO </span>
-                        <span className="font-serif italic font-normal serif-luxury text-[#431846] lowercase" style={{ fontSize: '1.08em', margin: '0 0.1em' }}>processo,</span>
-                        <span className="font-sans"> NA PRÁTICA.</span>
+                        NOSSO processo<br className="hidden md:block" /> NA PRÁTICA.
                     </h2>
-                    <p className="text-[0.95rem] font-light leading-[1.8] text-black/60 max-w-2xl mx-auto tracking-tight">
-                        Da convivência à escala. Uma metodologia proprietária focada em construir autoridade real.
+                    <p className="text-[1.05rem] font-light leading-[1.8] text-black/50 max-w-2xl mx-auto tracking-tight">
+                        Da convivência à escala. Uma metodologia proprietária focada em construir autoridade real, onde cada detalhe é esculpido com precisão.
                     </p>
                 </motion.div>
 
@@ -84,12 +104,12 @@ export default function MethodologyTimeline() {
                 <div className="relative">
 
                     {/* Central Line Background */}
-                    <div className="absolute left-[20px] md:left-1/2 top-0 bottom-0 w-[1.5px] bg-[#431846]/[0.05] md:-translate-x-1/2" />
+                    <div className="absolute left-[32px] md:left-1/2 top-0 bottom-0 w-[1.5px] bg-[#431846]/[0.05] md:-translate-x-1/2" />
 
                     {/* Active Beam Line */}
                     <motion.div
                         style={{ height: height }}
-                        className="absolute left-[20px] md:left-1/2 top-0 w-[1.5px] bg-gradient-to-b from-[#ed1c24] via-[#431846] to-[#ed1c24] md:-translate-x-1/2 z-20 origin-top"
+                        className="absolute left-[32px] md:left-1/2 top-0 w-[1.5px] bg-gradient-to-b from-[#ed1c24] via-[#431846] to-[#ed1c24] md:-translate-x-1/2 z-20 origin-top"
                     />
 
                     <div className="space-y-16 md:space-y-32 pb-20">
@@ -99,7 +119,7 @@ export default function MethodologyTimeline() {
                     </div>
 
                     {/* End Dot */}
-                    <div className="absolute bottom-0 left-[20px] md:left-1/2 w-3 h-3 rounded-full bg-[#431846]/20 md:-translate-x-1/2" />
+                    <div className="absolute bottom-0 left-[32px] md:left-1/2 w-3 h-3 rounded-full bg-[#431846]/20 md:-translate-x-1/2" />
                 </div>
 
             </div>
@@ -112,36 +132,41 @@ function TimelineItem({ step, index }: { step: typeof PROCESS_STEPS[0], index: n
 
     return (
         <motion.div
-            initial={{ opacity: 0, x: isEven ? -100 : 100, y: 30 }}
-            whileInView={{ opacity: 1, x: 0, y: 0 }}
-            viewport={{ once: true, margin: "-10%" }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: index * 0.1 }}
+            initial={{ opacity: 0, x: isEven ? -60 : 60, y: 40, scale: 0.98 }}
+            whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+            viewport={{ once: true, margin: "-15%" }}
+            transition={{ 
+                duration: 1.4, 
+                ease: [0.16, 1, 0.3, 1], 
+                delay: index * 0.15 
+            }}
             className={`relative flex flex-col md:flex-row items-center gap-8 md:gap-0 ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'}`}
         >
 
             {/* Center Node */}
-            <div className="absolute left-[20px] md:left-1/2 top-0 md:top-8 w-4.5 h-4.5 rounded-full border-[3px] border-[#faf9f7] bg-[#431846] z-30 -translate-x-1/2 shadow-[0_4px_10px_rgba(67,24,70,0.15)]">
+            <div className="absolute left-[32px] md:left-1/2 top-0 md:top-8 w-4.5 h-4.5 rounded-full border-[3px] border-[#faf9f7] bg-[#431846] z-30 -translate-x-1/2 shadow-[0_4px_10px_rgba(67,24,70,0.15)]">
                 <div className="absolute inset-0 rounded-full bg-[#ed1c24] opacity-30 animate-pulse" />
             </div>
 
             {/* Content Card */}
-            <div className={`w-full md:w-1/2 px-4 md:px-0 ${isEven ? 'md:pr-24 md:text-right text-center' : 'md:pl-24 md:text-left text-center'}`}>
+            <div className={`w-full md:w-1/2 pl-14 pr-4 md:px-0 ${isEven ? 'md:pr-32 md:text-right text-center' : 'md:pl-32 md:text-left text-center'}`}>
 
-                <div className={`relative group p-8 rounded-3xl bg-white/40 backdrop-blur-md border border-[#431846]/[0.06] hover:border-[#431846]/20 transition-all duration-500 hover:-translate-y-2 shadow-[0_10px_30px_rgba(67,24,70,0.02)]`}>
+                <div className={`relative group p-10 rounded-[2.5rem] bg-white/20 backdrop-blur-[40px] border border-white/40 hover:border-[#431846]/30 transition-all duration-700 hover:-translate-y-3 shadow-[0_20px_50px_rgba(0,0,0,0.02)] hover:shadow-[0_40px_80px_rgba(67,24,70,0.06)]`}>
 
-                    {/* Hover Glow */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#431846]/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
+                    {/* Highly Refined Glass Glow */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-[2.5rem]" />
+                    <div className="absolute inset-0 bg-gradient-to-tl from-[#ed1c24]/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-[2.5rem]" />
 
                     <div className={`relative z-10 flex flex-col items-center ${isEven ? 'md:items-end' : 'md:items-start'}`}>
-                        <div className="w-14 h-14 rounded-2xl bg-[#431846]/[0.04] flex items-center justify-center mb-6 text-[#431846] group-hover:bg-[#431846] group-hover:text-white transition-all duration-500">
-                            <step.icon size={28} />
+                        <div className="w-16 h-16 rounded-2xl bg-white/50 backdrop-blur-sm border border-white/20 flex items-center justify-center mb-8 text-[#431846] shadow-sm group-hover:bg-[#431846] group-hover:text-white group-hover:scale-110 transition-all duration-700">
+                            <step.icon size={30} strokeWidth={1.5} />
                         </div>
 
-                        <h3 className="text-2xl font-bold text-[#111111] mb-4 uppercase tracking-wide">
+                        <h3 className="text-2xl md:text-3xl font-bold text-[#111111] mb-5 uppercase tracking-[0.05em]">
                             {step.title}
                         </h3>
 
-                        <p className="text-black/50 leading-relaxed mb-6">
+                        <p className="text-black/50 text-[1.02rem] font-light leading-relaxed mb-8 max-w-md">
                             {step.description}
                         </p>
 

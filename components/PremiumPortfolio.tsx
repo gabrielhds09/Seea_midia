@@ -113,14 +113,37 @@ export default function PremiumPortfolio({ items }: PremiumPortfolioProps) {
                             <p className="text-[1.15rem] md:text-[1.4rem] font-light leading-[1.6] text-[#faf9f7]/50 italic font-serif max-w-sm">
                                 Profissionais incríveis que passaram pelas nossas lentes.
                             </p>
+
+                            {/* Portfolio Scroll Indicator - Vertical Hint */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 10 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: 0.5, duration: 1.2 }}
+                                className="mt-8 flex items-center gap-4 group"
+                            >
+                                <div className="relative w-[1px] h-12 bg-[#431846]/40 overflow-hidden">
+                                    <div
+                                        className="absolute left-0 top-0 w-full bg-[#ed1c24]"
+                                        style={{
+                                            height: '40%',
+                                            animation: 'portfolio-scroll-v 2.5s cubic-bezier(0.19, 1, 0.22, 1) infinite'
+                                        }}
+                                    />
+                                </div>
+                                <span className="text-[0.6rem] font-bold uppercase tracking-[0.4em] text-[#431846]/60 group-hover:text-[#431846] transition-colors">
+                                    Role para explorar
+                                </span>
+                            </motion.div>
                         </div>
                     </div>
+
 
                     {/* The Portfolio Cards */}
                     {items.map((item, index) => (
                         <div
                             key={index}
-                            className="portfolio-card group relative h-[52vh] md:h-[65vh] aspect-[3/4.2] overflow-hidden rounded-[2px]"
+                            className="portfolio-card group relative h-[52vh] md:h-[65vh] aspect-[3/4.2] overflow-hidden rounded-[24px] shadow-2xl"
                             style={{ flexShrink: 0 }}
                         >
                             <div className="absolute inset-0 overflow-hidden bg-[#1a1a1a]">
@@ -134,6 +157,8 @@ export default function PremiumPortfolio({ items }: PremiumPortfolioProps) {
                                             muted
                                             loop
                                             playsInline
+                                            preload="none"
+                                            poster={item.src}
                                         />
                                     ) : (
                                         <Image

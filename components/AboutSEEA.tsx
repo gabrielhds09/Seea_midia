@@ -2,6 +2,7 @@
 
 import React, { useRef, useEffect } from 'react'
 import { motion, animate, useInView } from 'framer-motion'
+import { BrandAccent } from './ContentSections'
 
 const VALUES = [
     { num: '01', title: 'Narrativa', desc: 'Cada cliente tem uma história única. Construímos narrativas que comunicam com precisão, gerando conexão real com o público certo.' },
@@ -18,7 +19,7 @@ const STATS = [
 
 function StatItem({ value, suffix, label }: { value: number; suffix: string; label: string }) {
     const ref = useRef<HTMLParagraphElement>(null)
-    const isInView = useInView(ref, { once: true, margin: "-10%" })
+    const isInView = useInView(ref, { once: true, margin: "0%" })
 
     useEffect(() => {
         if (isInView && ref.current) {
@@ -84,20 +85,7 @@ export default function AboutSEEA() {
                                         </p>
 
                                         {/* Red double-bar accent */}
-                                        <div className="flex flex-col gap-[6px] mb-12">
-                                            <motion.div
-                                                className="w-16 h-[2.5px] bg-[#ed1c24]/50"
-                                                initial={{ scaleX: 0 }}
-                                                whileInView={{ scaleX: 1 }}
-                                                transition={{ duration: 1, delay: 0.5 }}
-                                            />
-                                            <motion.div
-                                                className="w-10 h-[2.5px] bg-[#431846]/50"
-                                                initial={{ scaleX: 0 }}
-                                                whileInView={{ scaleX: 1 }}
-                                                transition={{ duration: 1, delay: 0.7 }}
-                                            />
-                                        </div>
+                                        <BrandAccent />
 
                                         <div className="space-y-2">
                                             <div className="overflow-hidden">

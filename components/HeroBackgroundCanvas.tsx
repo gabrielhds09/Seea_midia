@@ -117,8 +117,16 @@ export default function HeroBackgroundCanvas() {
 
         let startTime = Date.now()
         let rafId: number
+        let paused = false
+
+        const onVisibilityChange = () => {
+            paused = document.hidden
+            if (!paused) render()
+        }
+        document.addEventListener('visibilitychange', onVisibilityChange)
 
         function render() {
+            if (paused) return
             const time = (Date.now() - startTime) * 0.001
 
             mouse.x += (mouse.targetX - mouse.x) * 0.04
@@ -137,6 +145,7 @@ export default function HeroBackgroundCanvas() {
         return () => {
             window.removeEventListener('mousemove', onMouseMove)
             window.removeEventListener('resize', onResize)
+            document.removeEventListener('visibilitychange', onVisibilityChange)
             cancelAnimationFrame(rafId)
             gl.deleteProgram(program)
             gl.deleteBuffer(positionBuffer)

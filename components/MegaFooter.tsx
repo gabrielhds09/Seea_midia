@@ -4,19 +4,18 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { Instagram, Linkedin, MessageCircle, Mail, MapPin, ArrowUpRight } from 'lucide-react'
-import { gsap } from 'gsap'
 
 const NAV_LINKS = [
-    { label: 'Home', href: '#' },
-    { label: 'Serviços', href: '#servicos' },
-    { label: 'Projetos', href: '#projetos' },
-    { label: 'Sobre', href: '#sobre' },
-    { label: 'FAQ', href: '#faq' },
-    { label: 'Contato', href: '#contato' },
+    { label: 'Home', href: '#inicio' },
+    { label: 'O Conceito', href: '#o-conceito' },
+    { label: 'Projetos', href: '#nosso-acervo' },
+    { label: 'Metodologia', href: '#metodologia' },
+    { label: 'Quem Somos', href: '#quem-somos' },
+    { label: 'Contato', href: 'https://wa.me/5511999999999' },
 ]
 
 const SOCIAL_LINKS = [
-    { label: 'Instagram', href: '#', icon: Instagram },
+    { label: 'Instagram', href: 'https://instagram.com/seeamidia', icon: Instagram },
     { label: 'LinkedIn', href: '#', icon: Linkedin },
     { label: 'WhatsApp', href: 'https://wa.me/5511999999999', icon: MessageCircle },
 ]

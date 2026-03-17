@@ -38,15 +38,17 @@ const PHRASES = [
     },
 ]
 
-const PHRASE_SHOW = 1900
-const FADE_TIME = 600
-const TOTAL = PHRASES.length * (PHRASE_SHOW + FADE_TIME) + 2100 // Extra long
+const PHRASE_SHOW = 3000
+const FADE_TIME = 1000
+const DEFAULT_TOTAL = PHRASES.length * (PHRASE_SHOW + FADE_TIME) + 2500
 
 export default function Preloader() {
     const [visible, setVisible] = useState(true)
     const [exiting, setExiting] = useState(false)
     const [activePhrase, setActivePhrase] = useState(0)
     const [phraseVisible, setPhraseVisible] = useState(false)
+    const [duration, setDuration] = useState(DEFAULT_TOTAL)
+    const [isReturning, setIsReturning] = useState(false)
 
     const containerRef = useRef<HTMLDivElement>(null)
     const logoRef = useRef<HTMLDivElement>(null)
@@ -58,6 +60,18 @@ export default function Preloader() {
         if (!containerRef.current || !logoRef.current) return
 
         const ctx = gsap.context(() => {
+            // Scroll to top on refresh
+            window.scrollTo(0, 0);
+
+            const hasSeen = sessionStorage.getItem('seea_intro_seen')
+            if (hasSeen) {
+                setDuration(8000) // Restore time for phrases even on repeat - ~8s total
+                setIsReturning(true)
+            }
+
+            const handleBeforeUnload = () => window.scrollTo(0, 0);
+            window.addEventListener('pagehide', handleBeforeUnload);
+
             const tl = gsap.timeline({ delay: 0.3 })
 
             // Stunning logo reveal: slide up + scale down + fade in, much more editorial
@@ -82,7 +96,7 @@ export default function Preloader() {
                     { scaleX: 0 },
                     {
                         scaleX: 1,
-                        duration: (TOTAL - 500) / 1000,
+                        duration: (duration - 500) / 1000,
                         ease: 'power1.inOut',
                         transformOrigin: 'left center',
                         delay: 0.5,
@@ -92,12 +106,13 @@ export default function Preloader() {
         }, containerRef)
 
         return () => ctx.revert()
-    }, [])
+    }, [duration])
 
     // Phrase rotation
     useEffect(() => {
         if (!visible || exiting) return
-        const t0 = setTimeout(() => setPhraseVisible(true), 1500)
+        const initialDelay = isReturning ? 800 : 1500
+        const t0 = setTimeout(() => setPhraseVisible(true), initialDelay)
         const interval = setInterval(() => {
             setPhraseVisible(false)
             setTimeout(() => {
@@ -112,10 +127,11 @@ export default function Preloader() {
     useEffect(() => {
         const timer = setTimeout(() => {
             setExiting(true)
+            sessionStorage.setItem('seea_intro_seen', 'true')
             setTimeout(() => setVisible(false), 1000)
-        }, TOTAL)
+        }, duration)
         return () => clearTimeout(timer)
-    }, [])
+    }, [duration])
 
     if (!visible) return null
 

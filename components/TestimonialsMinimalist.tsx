@@ -39,12 +39,6 @@ export default function TestimonialsMinimalist() {
         >
             {/* Extremely subtle background texture/noise could go here, but keeping pure clean is also luxury */}
 
-            {/* Tiny Top Label */}
-            <div className="absolute top-24 left-1/2 -translate-x-1/2 text-center">
-                <span className="text-[0.55rem] font-bold uppercase tracking-[0.6em] text-[#431846]/40">
-                    Perspectivas
-                </span>
-            </div>
 
             <div className="max-w-6xl w-full mx-auto relative z-10 flex flex-col items-center justify-center min-h-[400px]">
 

@@ -12,6 +12,9 @@ export default function OverlayNav() {
     const [activeSection, setActiveSection] = useState('')
     const [scrolled, setScrolled] = useState(false)
 
+    const logoRef = React.useRef<HTMLDivElement>(null)
+    const menuRef = React.useRef<HTMLButtonElement>(null)
+
     useEffect(() => {
         const handleScroll = () => {
             setScrolled(window.scrollY > 50)
@@ -50,14 +53,39 @@ export default function OverlayNav() {
 
         // GSAP Intro
         const ctx = gsap.context(() => {
+            const hasSeen = sessionStorage.getItem('seea_intro_seen')
+            const baseDelay = hasSeen ? 0.8 : 9.6
+
             gsap.fromTo('.nav-logo',
                 { clipPath: 'inset(100% 0 0 0)', y: 20, scale: 1.05, opacity: 0 },
-                { clipPath: 'inset(0% 0 0 0)', y: 0, scale: 1, opacity: 1, duration: 2.2, ease: 'expo.out', delay: 9.6 }
+                { clipPath: 'inset(0% 0 0 0)', y: 0, scale: 1, opacity: 1, duration: 2.2, ease: 'expo.out', delay: baseDelay }
             )
             gsap.fromTo('.nav-menu',
                 { y: -30, opacity: 0 },
-                { y: 0, opacity: 1, duration: 2.2, ease: 'expo.out', delay: 9.8 }
+                { y: 0, opacity: 1, duration: 2.2, ease: 'expo.out', delay: baseDelay + 0.2 }
             )
+
+            // Magnetic Logic
+            const makeMagnetic = (el: HTMLElement, strength = 0.3) => {
+                const onMouseMove = (e: MouseEvent) => {
+                    const rect = el.getBoundingClientRect()
+                    const x = e.clientX - rect.left - rect.width / 2
+                    const y = e.clientY - rect.top - rect.height / 2
+                    gsap.to(el, { x: x * strength, y: y * strength, duration: 0.6, ease: 'power2.out' })
+                }
+                const onMouseLeave = () => {
+                    gsap.to(el, { x: 0, y: 0, duration: 1, ease: 'elastic.out(1, 0.3)' })
+                }
+                el.addEventListener('mousemove', onMouseMove)
+                el.addEventListener('mouseleave', onMouseLeave)
+                return () => {
+                    el.removeEventListener('mousemove', onMouseMove)
+                    el.removeEventListener('mouseleave', onMouseLeave)
+                }
+            }
+
+            if (logoRef.current) makeMagnetic(logoRef.current, 0.2)
+            if (menuRef.current) makeMagnetic(menuRef.current, 0.4)
         })
 
         return () => {
@@ -78,12 +106,18 @@ export default function OverlayNav() {
     return (
         <>
             {/* Valid for all pages - Fixed Header */}
-            <header className={`fixed top-0 left-0 w-full z-[9999] flex justify-between items-center px-6 md:px-12 py-5 transition-all duration-700 ease-in-out will-change-[backdrop-filter,background-color] ${scrolled ? 'bg-white/[0.03] backdrop-blur-[40px] border-b border-white/5 md:border-none shadow-[0_8px_32px_rgba(0,0,0,0.02)] ring-1 ring-inset ring-white/5' : 'bg-transparent'}`}>
+            <header
+                className={`fixed top-0 left-0 w-full z-[9999] flex justify-between items-center px-6 md:px-12 py-5 transition-all duration-700 ease-in-out will-change-[backdrop-filter,background-color] ${scrolled ? 'bg-white/[0.08] backdrop-blur-[40px] border-b border-black/[0.03] md:border-none shadow-[0_8px_32px_rgba(0,0,0,0.02)] ring-1 ring-inset ring-white/10' : 'bg-transparent'}`}
+                style={{
+                    WebkitBackdropFilter: scrolled ? 'blur(40px)' : 'none',
+                    transform: 'translateZ(0)' // Force GPU layer and fix positioning context
+                }}
+            >
 
                 {/* Logo Area */}
-                <div className="z-50 nav-logo opacity-0 will-change-[transform,opacity,clip-path]">
+                <div ref={logoRef} className="z-50 nav-logo opacity-0 will-change-[transform,opacity,clip-path]">
                     <Image
-                        src="/logo-seea-dark.png"
+                        src={activeSection === 'NOSSO ACERVO' ? '/logo-seea.png' : '/logo-seea-dark.png'}
                         alt="SEEA"
                         width={180}
                         height={60}
@@ -110,6 +144,7 @@ export default function OverlayNav() {
                     </AnimatePresence>
 
                     <button
+                        ref={menuRef}
                         onClick={() => setIsOpen(true)}
                         aria-label="Abrir menu de navegação"
                         aria-expanded={isOpen}
