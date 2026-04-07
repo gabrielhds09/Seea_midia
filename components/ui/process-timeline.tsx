@@ -9,7 +9,7 @@ import {
   motion,
   useScroll,
   useTransform,
-} from "framer-motion" // Adjusted from motion/react for stability if needed
+} from "framer-motion"
 
 import { cn } from "@/lib/utils"
 
@@ -38,13 +38,6 @@ interface ContainerScrollContextValue {
   scrollYProgress: MotionValue<number>
 }
 
-interface ProcessCardProps
-  extends HTMLMotionProps<"div">,
-    VariantProps<typeof processCardVariants> {
-  itemsLength: number
-  index: number
-}
-
 const ContainerScrollContext = React.createContext<
   ContainerScrollContextValue | undefined
 >(undefined)
@@ -67,12 +60,13 @@ export const ContainerScroll = ({
   const scrollRef = React.useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
     target: scrollRef,
+    offset: ["start start", "end end"]
   })
   return (
     <ContainerScrollContext.Provider value={{ scrollYProgress }}>
       <div
         ref={scrollRef}
-        className={cn("relative min-h-[120vh]", className)}
+        className={cn("relative", className)}
         {...props}
       >
         {children}
@@ -87,11 +81,43 @@ export const ContainerSticky = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("sticky left-0 top-0 w-full overflow-hidden", className)}
+    className={cn("sticky top-0 h-screen w-full flex items-center overflow-hidden", className)}
     {...props}
   />
 ))
 ContainerSticky.displayName = "ContainerSticky"
+
+export const ProcessTrack = ({ children, className }: { children: React.ReactNode, className?: string }) => {
+  const { scrollYProgress } = useContainerScrollContext()
+  const [ref, { width }] = useMeasure()
+  const [windowWidth, setWindowWidth] = React.useState(0)
+
+  React.useEffect(() => {
+    setWindowWidth(window.innerWidth)
+    const handleResize = () => setWindowWidth(window.innerWidth)
+    window.addEventListener("resize", handleResize)
+    return () => window.removeEventListener("resize", handleResize)
+  }, [])
+
+  // Calculate the amount to move. We want the end of the track (width) 
+  // to be visible when scrollYProgress is 1.
+  // x: from 0 to -(width - windowWidth)
+  const x = useTransform(
+    scrollYProgress,
+    [0.1, 0.9], // Start moving at 10% and finish at 90% of container scroll
+    [0, -(width - windowWidth + 64)] // Plus extra gap
+  )
+
+  return (
+    <motion.div
+      ref={ref}
+      style={{ x }}
+      className={cn("flex flex-nowrap gap-6 md:gap-12 px-6 md:px-[15vw]", className)}
+    >
+      {children}
+    </motion.div>
+  )
+}
 
 export const ProcessCardTitle = React.forwardRef<
   HTMLDivElement,
@@ -113,43 +139,14 @@ export const ProcessCardBody = React.forwardRef<
 ))
 ProcessCardBody.displayName = "ProcessCardBody"
 
-export const ProcessCard: React.FC<ProcessCardProps> = ({
+export const ProcessCard: React.FC<HTMLMotionProps<"div"> & VariantProps<typeof processCardVariants>> = ({
   className,
-  style,
   variant,
   size,
-  itemsLength,
-  index,
   ...props
 }) => {
-  const { scrollYProgress } = useContainerScrollContext()
-  const start = index / itemsLength
-  const end = start + 1 / itemsLength
-  const [ref, { width }] = useMeasure()
-  
-  // Use a stable value for innerWidth or handle it in useEffect for SSR safety
-  const [innerWidth, setInnerWidth] = React.useState(0)
-  
-  React.useEffect(() => {
-    setInnerWidth(window.innerWidth)
-    const handleResize = () => setInnerWidth(window.innerWidth)
-    window.addEventListener("resize", handleResize)
-    return () => window.removeEventListener("resize", handleResize)
-  }, [])
-
-  const x = useTransform(
-    scrollYProgress,
-    [start, end],
-    [innerWidth, -((width ?? 0) * index) + 32 * index] // Gap of 32px
-  )
-  
   return (
     <motion.div
-      ref={ref}
-      style={{
-        x: index > 0 ? x : 0,
-        ...style,
-      }}
       className={cn(processCardVariants({ variant, size }), className)}
       {...props}
     />
