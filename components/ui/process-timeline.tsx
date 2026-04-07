@@ -9,17 +9,17 @@ import {
   motion,
   useScroll,
   useTransform,
-} from "framer-motion"
+} from "motion/react"
 
 import { cn } from "@/lib/utils"
 
-const processCardVariants = cva("flex border backdrop-blur-lg rounded-2xl md:rounded-3xl", {
+const processCardVariants = cva("flex border backdrop-blur-lg rounded-3xl", {
   variants: {
     variant: {
       indigo:
         "flex border text-slate-50 border-slate-700/30 backdrop-blur-lg bg-gradient-to-br from-[rgba(15,23,42,0.7)_40%] to-[#3730a3_120%]",
       light: "shadow bg-white/80 border-stone-200 text-stone-900",
-      heritage: "flex border text-[#efebe6] border-[#312338]/20 backdrop-blur-xl bg-gradient-to-br from-[#312338]/90 to-[#431846]/80",
+      heritage: "flex border text-[#efebe6] border-[#312338]/20 backdrop-blur-xl bg-gradient-to-br from-[#312338]/95 to-[#431846]/85",
     },
     size: {
       sm: "min-w-[40%] max-w-[40%] md:min-w-[25%] md:max-w-[25%]",
@@ -38,11 +38,18 @@ interface ContainerScrollContextValue {
   scrollYProgress: MotionValue<number>
 }
 
+interface ProcessCardProps
+  extends HTMLMotionProps<"div">,
+    VariantProps<typeof processCardVariants> {
+  itemsLength: number
+  index: number
+}
+
 const ContainerScrollContext = React.createContext<
   ContainerScrollContextValue | undefined
 >(undefined)
 
-export function useContainerScrollContext() {
+function useContainerScrollContext() {
   const context = React.useContext(ContainerScrollContext)
   if (!context) {
     throw new Error(
@@ -56,21 +63,18 @@ export const ContainerScroll = React.forwardRef<
   HTMLDivElement,
   React.HtmlHTMLAttributes<HTMLDivElement>
 >(({ children, className, ...props }, ref) => {
-  const localRef = React.useRef<HTMLDivElement>(null)
-  
-  // Combine forwarded ref and local ref
-  const scrollRef = (ref as React.RefObject<HTMLDivElement>) || localRef
+  const scrollRef = React.useRef<HTMLDivElement>(null)
+  const effectiveRef = (ref as React.RefObject<HTMLDivElement>) || scrollRef
   
   const { scrollYProgress } = useScroll({
-    target: scrollRef,
-    offset: ["start start", "end end"]
+    target: effectiveRef,
   })
   
   return (
     <ContainerScrollContext.Provider value={{ scrollYProgress }}>
       <div
-        ref={scrollRef}
-        className={cn("relative", className)}
+        ref={effectiveRef}
+        className={cn("relative min-h-[120vh]", className)}
         {...props}
       >
         {children}
@@ -86,46 +90,17 @@ export const ContainerSticky = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("sticky top-0 h-screen w-full flex items-center overflow-hidden", className)}
+    className={cn("sticky left-0 top-0 h-screen w-full flex items-center overflow-hidden", className)}
     {...props}
   />
 ))
 ContainerSticky.displayName = "ContainerSticky"
 
-export const ProcessTrack = ({ children, className }: { children: React.ReactNode, className?: string }) => {
-  const { scrollYProgress } = useContainerScrollContext()
-  const [ref, { width }] = useMeasure()
-  const [windowWidth, setWindowWidth] = React.useState(0)
-
-  React.useEffect(() => {
-    setWindowWidth(window.innerWidth)
-    const handleResize = () => setWindowWidth(window.innerWidth)
-    window.addEventListener("resize", handleResize)
-    return () => window.removeEventListener("resize", handleResize)
-  }, [])
-
-  const x = useTransform(
-    scrollYProgress,
-    [0.1, 0.9], 
-    [0, -(width - windowWidth + 64)] 
-  )
-
-  return (
-    <motion.div
-      ref={ref}
-      style={{ x }}
-      className={cn("flex flex-nowrap gap-6 md:gap-12 px-6 md:px-[15vw]", className)}
-    >
-      {children}
-    </motion.div>
-  )
-}
-
 export const ProcessCardTitle = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("p-4 md:p-6", className)} {...props} />
+  <div ref={ref} className={cn("p-6", className)} {...props} />
 ))
 ProcessCardTitle.displayName = "ProcessCardTitle"
 
@@ -135,20 +110,51 @@ export const ProcessCardBody = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("flex flex-col gap-4 md:gap-8 p-6 md:p-10", className)}
+    className={cn("flex flex-col gap-8 p-6", className)}
     {...props}
   />
 ))
 ProcessCardBody.displayName = "ProcessCardBody"
 
-export const ProcessCard: React.FC<HTMLMotionProps<"div"> & VariantProps<typeof processCardVariants>> = ({
+export const ProcessCard: React.FC<ProcessCardProps> = ({
   className,
+  style,
   variant,
   size,
+  itemsLength,
+  index,
   ...props
 }) => {
+  const { scrollYProgress } = useContainerScrollContext()
+  const [ref, { width }] = useMeasure()
+  const [screenWidth, setScreenWidth] = React.useState(0)
+
+  // SSR Safe: Only access window on mount
+  React.useEffect(() => {
+    setScreenWidth(window.innerWidth)
+    const handleResize = () => setScreenWidth(window.innerWidth)
+    window.addEventListener("resize", handleResize)
+    return () => window.removeEventListener("resize", handleResize)
+  }, [])
+
+  const start = index / itemsLength
+  const end = start + 1 / itemsLength
+
+  // Motion Mapping from user-provided logic
+  // x goes from window edge to final position
+  const x = useTransform(
+    scrollYProgress,
+    [start, end],
+    [screenWidth || 2000, -((width ?? 0) * index) + 64 * index]
+  )
+
   return (
     <motion.div
+      ref={ref}
+      style={{
+        x: index > 0 ? x : 0, // First card is static, others slide in
+        ...style,
+      }}
       className={cn(processCardVariants({ variant, size }), className)}
       {...props}
     />
