@@ -24,7 +24,8 @@ function FlipCard({ src, index, total, progress, containerSize }: FlipCardProps)
     const isMobile = containerSize.width < 768;
     
     // 1. Phase 1: Circle
-    const circleRadius = isMobile ? 320 : 420;
+    // Ajustado dinamicamente para caber na largura do celular
+    const circleRadius = isMobile ? containerSize.width * 0.42 : 420;
     const circleAngle = (index / total) * 360;
     const circleRad = (circleAngle * Math.PI) / 180;
     const circleX = Math.cos(circleRad) * circleRadius;
@@ -32,10 +33,11 @@ function FlipCard({ src, index, total, progress, containerSize }: FlipCardProps)
     const circleRot = circleAngle + 90;
 
     // 2. Phase 2: Arc
-    const baseRadius = containerSize.width * (isMobile ? 1.5 : 1.25);
-    const arcApexY = containerSize.height * (isMobile ? 0.38 : 0.28);
+    // Ajustado para o mobile para manter a curvatura mas dentro da tela
+    const baseRadius = containerSize.width * (isMobile ? 1.05 : 1.25);
+    const arcApexY = containerSize.height * (isMobile ? 0.35 : 0.28);
     const arcCenterY = arcApexY + baseRadius;
-    const spreadAngle = isMobile ? 100 : 135;
+    const spreadAngle = isMobile ? 120 : 135;
     const startAngle = -90 - (spreadAngle / 2);
     const currentArcAngle = startAngle + (index * (spreadAngle / (total - 1)));
     const arcRad = (currentArcAngle * Math.PI) / 180;
@@ -45,16 +47,14 @@ function FlipCard({ src, index, total, progress, containerSize }: FlipCardProps)
 
     // 3. Phase 3: Final Dispersal
     const stripeX = (index / (total - 1)) * containerSize.width - containerSize.width / 2;
-    const finalX = stripeX * 1.15;
-    const finalY = containerSize.height * 0.45;
+    const finalX = stripeX * (isMobile ? 1.25 : 1.15);
+    const finalY = containerSize.height * (isMobile ? 0.42 : 0.45);
 
     // --- Reactive Transforms ---
-    // t: 0 -> 0.5 (Circle to Arc)
-    // t: 0.6 -> 1.0 (Arc to Final)
     const x = useTransform(progress, [0, 0.5, 0.6, 1], [circleX, arcX, arcX, finalX]);
     const y = useTransform(progress, [0, 0.5, 0.6, 1], [circleY, arcY, arcY, finalY]);
     const rotate = useTransform(progress, [0, 0.5, 0.6, 1], [circleRot, arcRot, arcRot, 0]);
-    const scale = useTransform(progress, [0, 0.5, 0.6, 1], [1, isMobile ? 1.5 : 1.8, isMobile ? 1.5 : 1.8, 0.9]);
+    const scale = useTransform(progress, [0, 0.5, 0.6, 1], [1, isMobile ? 1.05 : 1.8, isMobile ? 1.05 : 1.8, 0.9]);
     const opacity = useTransform(progress, [0, 0.6, 0.9, 1], [1, 1, 0.15, 0.05]);
 
     useEffect(() => {
@@ -102,7 +102,6 @@ const VIDEOS = [
     "/video/video-13.MP4", "/video/video-01.mp4", "/video/video-02.mp4", "/video/video-03.mp4",
     "/video/video-04.mp4", "/video/video-13.MP4", "/video/video-02.mp4", "/video/video-03.mp4"
 ];
-const TOTAL = VIDEOS.length;
 
 export default function UnifiedHeroMorph() {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -110,12 +109,31 @@ export default function UnifiedHeroMorph() {
     const smoothProgress = useSpring(scrollYProgress, { stiffness: 45, damping: 25 });
 
     const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
+    const [hasMounted, setHasMounted] = useState(false);
+
     useEffect(() => {
-        const updateSize = () => { setContainerSize({ width: window.innerWidth, height: window.innerHeight }); };
+        setHasMounted(true);
+        const updateSize = () => { 
+            setContainerSize({ 
+                width: window.innerWidth, 
+                height: window.innerHeight 
+            }); 
+        };
         updateSize();
         window.addEventListener("resize", updateSize);
         return () => window.removeEventListener("resize", updateSize);
     }, []);
+
+    const isMobile = containerSize.width > 0 && containerSize.width < 768;
+
+    // --- Performance Optimization: Balanced count for mobile ---
+    const visibleVideos = useMemo(() => {
+        if (!isMobile) return VIDEOS;
+        // Aumentado para 13 vídeos no mobile, garantindo impacto sem perder a fluidez
+        return VIDEOS.slice(0, 13);
+    }, [isMobile]);
+
+    const total = visibleVideos.length;
 
     // --- Narrative Transforms ---
     const bgGradient = useTransform(smoothProgress, [0.7, 1], ["var(--color-marble-white)", "#FAFAF9"]);
@@ -160,7 +178,7 @@ export default function UnifiedHeroMorph() {
                         opacity: useTransform(smoothProgress, [0.75, 0.85], [0, 1]),
                         y: useTransform(smoothProgress, [0.75, 1], [40, 0])
                     }}
-                    className="absolute z-10 flex flex-col items-center text-center pointer-events-none"
+                    className="absolute z-10 flex flex-col items-center text-center pointer-events-none px-4"
                 >
                     <h2 className="text-[clamp(2.5rem,8vw,6rem)] leading-[0.95] font-light tracking-[-0.04em] text-stone-900">
                         <span className="serif-luxury italic text-[var(--color-heritage-purple)]" style={{ fontSize: '1.05em' }}>Como</span>
@@ -178,20 +196,22 @@ export default function UnifiedHeroMorph() {
                 </motion.div>
 
                 {/* --- Cards Implementation (Reactive Pattern) --- */}
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
-                    <div className="relative w-full h-full flex items-center justify-center">
-                        {VIDEOS.map((src, i) => (
-                            <FlipCard 
-                                key={`${src}-${i}`} 
-                                src={src} 
-                                index={i} 
-                                total={TOTAL} 
-                                progress={smoothProgress} 
-                                containerSize={containerSize} 
-                            />
-                        ))}
+                {hasMounted && containerSize.width > 0 && (
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
+                        <div className="relative w-full h-full flex items-center justify-center">
+                            {visibleVideos.map((src, i) => (
+                                <FlipCard 
+                                    key={`${src}-${i}`} 
+                                    src={src} 
+                                    index={i} 
+                                    total={total} 
+                                    progress={smoothProgress} 
+                                    containerSize={containerSize} 
+                                />
+                            ))}
+                        </div>
                     </div>
-                </div>
+                )}
 
                 <div className="absolute inset-0 pointer-events-none opacity-[0.03]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='6'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)'/%3E%3C/svg%3E")` }} />
             </motion.div>
