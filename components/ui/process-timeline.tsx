@@ -42,7 +42,7 @@ const ContainerScrollContext = React.createContext<
   ContainerScrollContextValue | undefined
 >(undefined)
 
-function useContainerScrollContext() {
+export function useContainerScrollContext() {
   const context = React.useContext(ContainerScrollContext)
   if (!context) {
     throw new Error(
@@ -52,16 +52,20 @@ function useContainerScrollContext() {
   return context
 }
 
-export const ContainerScroll = ({
-  children,
-  className,
-  ...props
-}: React.HtmlHTMLAttributes<HTMLDivElement>) => {
-  const scrollRef = React.useRef<HTMLDivElement>(null)
+export const ContainerScroll = React.forwardRef<
+  HTMLDivElement,
+  React.HtmlHTMLAttributes<HTMLDivElement>
+>(({ children, className, ...props }, ref) => {
+  const localRef = React.useRef<HTMLDivElement>(null)
+  
+  // Combine forwarded ref and local ref
+  const scrollRef = (ref as React.RefObject<HTMLDivElement>) || localRef
+  
   const { scrollYProgress } = useScroll({
     target: scrollRef,
     offset: ["start start", "end end"]
   })
+  
   return (
     <ContainerScrollContext.Provider value={{ scrollYProgress }}>
       <div
@@ -73,7 +77,8 @@ export const ContainerScroll = ({
       </div>
     </ContainerScrollContext.Provider>
   )
-}
+})
+ContainerScroll.displayName = "ContainerScroll"
 
 export const ContainerSticky = React.forwardRef<
   HTMLDivElement,
@@ -99,13 +104,10 @@ export const ProcessTrack = ({ children, className }: { children: React.ReactNod
     return () => window.removeEventListener("resize", handleResize)
   }, [])
 
-  // Calculate the amount to move. We want the end of the track (width) 
-  // to be visible when scrollYProgress is 1.
-  // x: from 0 to -(width - windowWidth)
   const x = useTransform(
     scrollYProgress,
-    [0.1, 0.9], // Start moving at 10% and finish at 90% of container scroll
-    [0, -(width - windowWidth + 64)] // Plus extra gap
+    [0.1, 0.9], 
+    [0, -(width - windowWidth + 64)] 
   )
 
   return (
