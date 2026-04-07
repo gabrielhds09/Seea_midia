@@ -10,30 +10,26 @@ interface FlipCardProps {
     total: number;
     progress: MotionValue<number>;
     containerSize: { width: number; height: number };
+    cardSize: { width: number; height: number };
 }
 
-// --- FlipCard Component (Reactive & Performant) ---
-const IMG_WIDTH = 75;  
-const IMG_HEIGHT = 105; 
-
-function FlipCard({ src, index, total, progress, containerSize }: FlipCardProps) {
+// --- FlipCard Component (Premium UX & Spacing) ---
+function FlipCard({ src, index, total, progress, containerSize, cardSize }: FlipCardProps) {
     const videoRef = useRef<HTMLVideoElement>(null);
     const [isHovered, setIsHovered] = useState(false);
 
-    // --- Dynamic Morphing Logic ---
     const isMobile = containerSize.width < 768;
     
-    // 1. Phase 1: Circle
-    // Ajustado dinamicamente para caber na largura do celular
-    const circleRadius = isMobile ? containerSize.width * 0.42 : 420;
+    // 1. Phase 1: Circle (UX Expansion for Breathing Room)
+    // Mobile: Expandimos o raio para 52% da largura para afastar do texto
+    const circleRadius = isMobile ? containerSize.width * 0.52 : 420;
     const circleAngle = (index / total) * 360;
     const circleRad = (circleAngle * Math.PI) / 180;
     const circleX = Math.cos(circleRad) * circleRadius;
     const circleY = Math.sin(circleRad) * circleRadius;
     const circleRot = circleAngle + 90;
 
-    // 2. Phase 2: Arc
-    // Ajustado para o mobile para manter a curvatura mas dentro da tela
+    // 2. Phase 2: Arc (Responsive Jewelry Display)
     const baseRadius = containerSize.width * (isMobile ? 1.05 : 1.25);
     const arcApexY = containerSize.height * (isMobile ? 0.35 : 0.28);
     const arcCenterY = arcApexY + baseRadius;
@@ -50,7 +46,6 @@ function FlipCard({ src, index, total, progress, containerSize }: FlipCardProps)
     const finalX = stripeX * (isMobile ? 1.25 : 1.15);
     const finalY = containerSize.height * (isMobile ? 0.42 : 0.45);
 
-    // --- Reactive Transforms ---
     const x = useTransform(progress, [0, 0.5, 0.6, 1], [circleX, arcX, arcX, finalX]);
     const y = useTransform(progress, [0, 0.5, 0.6, 1], [circleY, arcY, arcY, finalY]);
     const rotate = useTransform(progress, [0, 0.5, 0.6, 1], [circleRot, arcRot, arcRot, 0]);
@@ -71,7 +66,7 @@ function FlipCard({ src, index, total, progress, containerSize }: FlipCardProps)
 
     return (
         <motion.div
-            style={{ x, y, rotate, scale, opacity, position: "absolute", width: IMG_WIDTH, height: IMG_HEIGHT, transformStyle: "preserve-3d", perspective: "1000px" }}
+            style={{ x, y, rotate, scale, opacity, position: "absolute", width: cardSize.width, height: cardSize.height, transformStyle: "preserve-3d", perspective: "1000px" }}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             className="cursor-pointer group z-20"
@@ -106,19 +101,16 @@ const VIDEOS = [
 export default function UnifiedHeroMorph() {
     const containerRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
-    const smoothProgress = useSpring(scrollYProgress, { stiffness: 45, damping: 25 });
+    
+    // Snappiness Adjustment: Mais stiffness e menos damping para resposta imediata
+    const smoothProgress = useSpring(scrollYProgress, { stiffness: 70, damping: 30 });
 
     const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
     const [hasMounted, setHasMounted] = useState(false);
 
     useEffect(() => {
         setHasMounted(true);
-        const updateSize = () => { 
-            setContainerSize({ 
-                width: window.innerWidth, 
-                height: window.innerHeight 
-            }); 
-        };
+        const updateSize = () => { setContainerSize({ width: window.innerWidth, height: window.innerHeight }); };
         updateSize();
         window.addEventListener("resize", updateSize);
         return () => window.removeEventListener("resize", updateSize);
@@ -126,28 +118,31 @@ export default function UnifiedHeroMorph() {
 
     const isMobile = containerSize.width > 0 && containerSize.width < 768;
 
-    // --- Performance Optimization: Balanced count for mobile ---
+    // --- Responsive Scaling (UX Pro Max Skill) ---
+    const cardSize = useMemo(() => {
+        if (isMobile) return { width: 56, height: 78 }; // ~25% menor no mobile
+        return { width: 75, height: 105 }; // Escala desktop premium
+    }, [isMobile]);
+
     const visibleVideos = useMemo(() => {
         if (!isMobile) return VIDEOS;
-        // Aumentado para 13 vídeos no mobile, garantindo impacto sem perder a fluidez
-        return VIDEOS.slice(0, 13);
+        return VIDEOS.slice(0, 13); // Mantendo 13 para impacto, mas reduzindo escala individual
     }, [isMobile]);
 
     const total = visibleVideos.length;
 
-    // --- Narrative Transforms ---
     const bgGradient = useTransform(smoothProgress, [0.7, 1], ["var(--color-marble-white)", "#FAFAF9"]);
 
     return (
         <section ref={containerRef} className="relative h-[300vh] bg-[var(--color-marble-white)]">
             <motion.div style={{ backgroundColor: bgGradient }} className="sticky top-0 h-screen w-full overflow-hidden flex flex-col items-center justify-center">
                 
-                {/* Stage 1: UM TIME QUE */}
+                {/* Stage 1: UM TIME QUE (Com Glow de Legibilidade) */}
                 <motion.div 
                     style={{ opacity: useTransform(smoothProgress, [0, 0.25, 0.35], [1, 1, 0]), scale: useTransform(smoothProgress, [0, 0.35], [1, 0.95]) }}
-                    className="absolute z-10 flex flex-col items-center text-center pointer-events-none"
+                    className="absolute z-10 flex flex-col items-center text-center pointer-events-none drop-shadow-[0_0_25px_rgba(255,255,255,0.8)]"
                 >
-                    <h1 className="text-[clamp(1.8rem,6vw,4.5rem)] font-light tracking-tight text-stone-900">
+                    <h1 className="text-[clamp(1.6rem,5.5vw,4.5rem)] font-light tracking-tight text-stone-900">
                         UM <span className="serif-luxury italic font-normal text-[var(--color-heritage-purple)]">TIME</span> QUE
                     </h1>
                     <div className="mt-8 flex flex-col items-center gap-2">
@@ -164,10 +159,10 @@ export default function UnifiedHeroMorph() {
                     }}
                     className="absolute z-10 top-[22%] flex flex-col items-center text-center pointer-events-none px-6"
                 >
-                    <h2 className="text-[clamp(1.8rem,6vw,4.5rem)] font-light text-stone-900 tracking-tight mb-4 uppercase">
+                    <h2 className="text-[clamp(1.6rem,5.5vw,4.5rem)] font-light text-stone-900 tracking-tight mb-4 uppercase">
                         Enxerga cada <span className="serif-luxury italic capitalize text-[var(--color-heritage-purple)]">projeto</span>
                     </h2>
-                    <p className="text-[0.65rem] sm:text-[0.75rem] font-bold text-stone-500 tracking-[0.3em] uppercase max-w-md">
+                    <p className="text-[0.6rem] sm:text-[0.75rem] font-bold text-stone-500 tracking-[0.3em] uppercase max-w-md">
                         Onde a estratégia encontra a alma das marcas.
                     </p>
                 </motion.div>
@@ -180,11 +175,11 @@ export default function UnifiedHeroMorph() {
                     }}
                     className="absolute z-10 flex flex-col items-center text-center pointer-events-none px-4"
                 >
-                    <h2 className="text-[clamp(2.5rem,8vw,6rem)] leading-[0.95] font-light tracking-[-0.04em] text-stone-900">
+                    <h2 className="text-[clamp(2.3rem,7.5vw,6rem)] leading-[0.95] font-light tracking-[-0.04em] text-stone-900">
                         <span className="serif-luxury italic text-[var(--color-heritage-purple)]" style={{ fontSize: '1.05em' }}>Como</span>
                         <span className="font-sans uppercase"> uma</span>
                     </h2>
-                    <h2 className="text-[clamp(2.5rem,8vw,6rem)] leading-[0.95] font-light tracking-[-0.04em] text-stone-900 uppercase mt-2">
+                    <h2 className="text-[clamp(2.3rem,7.5vw,6rem)] leading-[0.95] font-light tracking-[-0.04em] text-stone-900 uppercase mt-2">
                         <span className="font-sans">história</span>
                         <span className="text-[var(--color-heritage-red)]">.</span>
                     </h2>
@@ -207,6 +202,7 @@ export default function UnifiedHeroMorph() {
                                     total={total} 
                                     progress={smoothProgress} 
                                     containerSize={containerSize} 
+                                    cardSize={cardSize}
                                 />
                             ))}
                         </div>
