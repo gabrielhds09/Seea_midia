@@ -4,6 +4,7 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import MethodologyTimeline from './MethodologyTimeline'
+import MetodologiaPremium from './MetodologiaPremium'
 
 import TeamMinimalist from './TeamMinimalist'
 import TestimonialsMinimalist from './TestimonialsMinimalist'
@@ -352,13 +353,9 @@ export default function ContentSections() {
                     <PremiumPortfolio items={PORTFOLIO_ITEMS} />
                 </section>
 
-                {/* 5. NOSSO PROCESSO (Methodology Timeline) */}
-                <section id="metodologia" className="pt-20 md:pt-28 bg-[var(--color-background)]">
-                    <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-20 xl:px-28 mb-0">
-                        <p className="text-[0.62rem] font-bold font-sans uppercase tracking-[0.55em] text-[var(--color-category)] mb-8">Metodologia</p>
-                        <BrandAccent />
-                    </div>
-                    <MethodologyTimeline />
+                {/* 5. NOSSO PROCESSO (Metodologia Premium Slideshow) */}
+                <section id="metodologia">
+                    <MetodologiaPremium />
                 </section>
 
                 {/* 6. PROVA SOCIAL (Testimonials) - Validation */}
