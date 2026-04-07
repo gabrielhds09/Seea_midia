@@ -4,7 +4,7 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import MethodologyTimeline from './MethodologyTimeline'
-import MetodologiaPremium from './MetodologiaPremium'
+import ProcessoHorizontal from './ProcessoHorizontal'
 
 import TeamMinimalist from './TeamMinimalist'
 import TestimonialsMinimalist from './TestimonialsMinimalist'
@@ -353,9 +353,9 @@ export default function ContentSections() {
                     <PremiumPortfolio items={PORTFOLIO_ITEMS} />
                 </section>
 
-                {/* 5. NOSSO PROCESSO (Metodologia Premium Slideshow) */}
+                {/* 5. NOSSO PROCESSO (Processo Horizontal Scroll) */}
                 <section id="metodologia">
-                    <MetodologiaPremium />
+                    <ProcessoHorizontal />
                 </section>
 
                 {/* 6. PROVA SOCIAL (Testimonials) - Validation */}
