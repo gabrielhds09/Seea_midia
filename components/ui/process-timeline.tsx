@@ -13,19 +13,16 @@ import {
 
 import { cn } from "@/lib/utils"
 
-const processCardVariants = cva("flex border backdrop-blur-lg rounded-3xl", {
+const processCardVariants = cva("flex border backdrop-blur-xl rounded-[2.5rem] md:rounded-[4rem]", {
   variants: {
     variant: {
-      indigo:
-        "flex border text-slate-50 border-slate-700/30 backdrop-blur-lg bg-gradient-to-br from-[rgba(15,23,42,0.7)_40%] to-[#3730a3_120%]",
-      light: "shadow bg-white/80 border-stone-200 text-stone-900",
-      heritage: "flex border text-[#efebe6] border-[#312338]/20 backdrop-blur-xl bg-gradient-to-br from-[#312338]/95 to-[#431846]/85",
+      heritage: "flex border text-[#efebe6] border-[#312338]/10 bg-gradient-to-br from-[#312338]/95 to-[#431846]/85",
+      light: "shadow-xl bg-white/90 border-stone-100 text-stone-900",
     },
     size: {
-      sm: "min-w-[40%] max-w-[40%] md:min-w-[25%] md:max-w-[25%]",
-      md: "min-w-[85%] max-w-[85%] md:min-w-[50%] md:max-w-[50%]",
-      lg: "min-w-[90%] max-w-[90%] md:min-w-[75%] md:max-w-[75%]",
-      xl: "min-w-full max-w-full",
+      sm: "min-w-[40vw] max-w-[40vw] md:min-w-[25vw]",
+      md: "min-w-[85vw] max-w-[85vw] md:min-w-[55vw]",
+      lg: "min-w-[90vw] max-w-[90vw] md:min-w-[75vw]",
     },
   },
   defaultVariants: {
@@ -36,13 +33,6 @@ const processCardVariants = cva("flex border backdrop-blur-lg rounded-3xl", {
 
 interface ContainerScrollContextValue {
   scrollYProgress: MotionValue<number>
-}
-
-interface ProcessCardProps
-  extends HTMLMotionProps<"div">,
-    VariantProps<typeof processCardVariants> {
-  itemsLength: number
-  index: number
 }
 
 const ContainerScrollContext = React.createContext<
@@ -63,18 +53,27 @@ export const ContainerScroll = React.forwardRef<
   HTMLDivElement,
   React.HtmlHTMLAttributes<HTMLDivElement>
 >(({ children, className, ...props }, ref) => {
-  const scrollRef = React.useRef<HTMLDivElement>(null)
-  const effectiveRef = (ref as React.RefObject<HTMLDivElement>) || scrollRef
-  
+  const [mounted, setMounted] = React.useState(false)
+  const localRef = React.useRef<HTMLDivElement>(null)
+  const effectiveRef = (ref as React.RefObject<HTMLDivElement>) || localRef
+
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
+
   const { scrollYProgress } = useScroll({
     target: effectiveRef,
+    offset: ["start start", "end end"]
   })
-  
+
+  // Evita renderização de filhos que dependem do contexto antes da montagem
+  if (!mounted) return <div className={className} {...props} />
+
   return (
     <ContainerScrollContext.Provider value={{ scrollYProgress }}>
       <div
         ref={effectiveRef}
-        className={cn("relative min-h-[120vh]", className)}
+        className={cn("relative", className)}
         {...props}
       >
         {children}
@@ -90,11 +89,43 @@ export const ContainerSticky = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("sticky left-0 top-0 h-screen w-full flex items-center overflow-hidden", className)}
+    className={cn("sticky top-0 h-screen w-full flex items-center overflow-hidden", className)}
     {...props}
   />
 ))
 ContainerSticky.displayName = "ContainerSticky"
+
+export const ProcessTrack = ({ children, className }: { children: React.ReactNode, className?: string }) => {
+  const { scrollYProgress } = useContainerScrollContext()
+  const [ref, { width }] = useMeasure()
+  const [windowWidth, setWindowWidth] = React.useState(0)
+
+  React.useEffect(() => {
+    setWindowWidth(window.innerWidth)
+    const handleResize = () => setWindowWidth(window.innerWidth)
+    window.addEventListener("resize", handleResize)
+    return () => window.removeEventListener("resize", handleResize)
+  }, [])
+
+  // Movimento Cinematográfico Contínuo (Luxury Standard)
+  // Mapeia 0-100% de scroll diretamente para o deslocamento total do trilho
+  // Deixa uma margem de segurança no final (15vw) para respiro
+  const x = useTransform(
+    scrollYProgress,
+    [0.05, 0.95], 
+    [0, -(width - windowWidth + (windowWidth * 0.15))] 
+  )
+
+  return (
+    <motion.div
+      ref={ref}
+      style={{ x }}
+      className={cn("flex flex-nowrap items-center gap-12 md:gap-[15vw] px-[10vw] md:px-[20vw]", className)}
+    >
+      {children}
+    </motion.div>
+  )
+}
 
 export const ProcessCardTitle = React.forwardRef<
   HTMLDivElement,
@@ -110,51 +141,20 @@ export const ProcessCardBody = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("flex flex-col gap-8 p-6", className)}
+    className={cn("flex flex-col gap-6 md:gap-10 p-8 md:p-14", className)}
     {...props}
   />
 ))
 ProcessCardBody.displayName = "ProcessCardBody"
 
-export const ProcessCard: React.FC<ProcessCardProps> = ({
+export const ProcessCard: React.FC<HTMLMotionProps<"div"> & VariantProps<typeof processCardVariants>> = ({
   className,
-  style,
   variant,
   size,
-  itemsLength,
-  index,
   ...props
 }) => {
-  const { scrollYProgress } = useContainerScrollContext()
-  const [ref, { width }] = useMeasure()
-  const [screenWidth, setScreenWidth] = React.useState(0)
-
-  // SSR Safe: Only access window on mount
-  React.useEffect(() => {
-    setScreenWidth(window.innerWidth)
-    const handleResize = () => setScreenWidth(window.innerWidth)
-    window.addEventListener("resize", handleResize)
-    return () => window.removeEventListener("resize", handleResize)
-  }, [])
-
-  const start = index / itemsLength
-  const end = start + 1 / itemsLength
-
-  // Motion Mapping from user-provided logic
-  // x goes from window edge to final position
-  const x = useTransform(
-    scrollYProgress,
-    [start, end],
-    [screenWidth || 2000, -((width ?? 0) * index) + 64 * index]
-  )
-
   return (
     <motion.div
-      ref={ref}
-      style={{
-        x: index > 0 ? x : 0, // First card is static, others slide in
-        ...style,
-      }}
       className={cn(processCardVariants({ variant, size }), className)}
       {...props}
     />

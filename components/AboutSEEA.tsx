@@ -48,7 +48,7 @@ function StatItem({ value, suffix, label }: { value: number; suffix: string; lab
                 </p>
                 <span className="text-[var(--color-category)]/40 font-serif italic text-[1.8rem] -translate-y-2">{suffix}</span>
             </div>
-            <p className="text-[0.6rem] font-bold font-sans uppercase tracking-[0.4em] text-black/30 -mt-2">
+            <p className="text-[0.6rem] font-bold font-sans uppercase tracking-[0.4em] text-[var(--color-text)]/50 -mt-2">
                 {label}
             </p>
         </div>
@@ -104,7 +104,7 @@ export default function AboutSEEA() {
                                         </div>
                                     </div>
 
-                                    <p className="text-[0.95rem] font-light font-sans leading-[1.8] text-black/60 max-w-2xl mb-16 tracking-tight">
+                                    <p className="text-[0.95rem] font-light font-sans leading-[1.8] text-[var(--color-text)]/65 max-w-2xl mb-16 tracking-tight">
                                         {"A SEEA foi fundada por Aline Vitória, profissional do audiovisual desde os 18 anos. A empresa nasceu da percepção de que conteúdo genérico não sustenta autoridade. Hoje, atuamos com um modelo exclusivo, baseado em personalização e leitura estratégica de comportamento.".split(" ").map((word, i) => (
                                             <motion.span
                                                 key={i}
@@ -140,14 +140,14 @@ export default function AboutSEEA() {
                                             transition={{ duration: 1, ease: [0.19, 1, 0.22, 1], delay: i * 0.1 }}
                                             className="relative flex gap-8 py-12 border-b border-[var(--color-secondary)]/10 group cursor-default"
                                         >
-                                            <span className="flex-shrink-0 text-[0.6rem] font-bold font-sans tracking-[0.4em] text-[var(--color-category)]/40 group-hover:text-[var(--color-category)] transition-colors pt-1.5 duration-500">
+                                            <span className="flex-shrink-0 text-[0.6rem] font-bold font-sans tracking-[0.4em] text-[var(--color-category)]/60 group-hover:text-[var(--color-category)] transition-colors pt-1.5 duration-500">
                                                 {v.num}
                                             </span>
                                             <div className="group-hover:translate-x-1 transition-transform duration-500">
                                                 <h3 className="font-sans font-light text-[1.25rem] tracking-tight text-[var(--color-text)] mb-3">
                                                     {v.title}
                                                 </h3>
-                                                <p className="text-[0.85rem] font-light font-sans leading-[1.8] text-black/40 group-hover:text-black/60 transition-colors duration-500">
+                                                <p className="text-[0.85rem] font-light font-sans leading-[1.8] text-[var(--color-text)]/55 group-hover:text-[var(--color-text)]/70 transition-colors duration-500">
                                                     {v.desc}
                                                 </p>
                                             </div>

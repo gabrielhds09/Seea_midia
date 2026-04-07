@@ -30,7 +30,6 @@ export default function PremiumPortfolio({ items }: PremiumPortfolioProps) {
         const ctx = gsap.context(() => {
             const track = trackRef.current!
 
-            // Calculate total width to scroll
             const getScrollAmount = () => {
                 const trackWidth = track.scrollWidth
                 return -(trackWidth - window.innerWidth)
@@ -47,14 +46,14 @@ export default function PremiumPortfolio({ items }: PremiumPortfolioProps) {
                 end: () => `+=${getScrollAmount() * -1}`,
                 pin: true,
                 animation: tween,
-                scrub: 1.5, // Increased scrub for iPhone-style inertial feel
+                scrub: 1.5,
                 invalidateOnRefresh: true,
-                anticipatePin: 1, // Fixes abrupt jumping when pinning
+                anticipatePin: 1,
             })
 
-            // Entrance reveal for the whole track to avoid "pop-in"
+            // Entrance reveal
             gsap.fromTo(track,
-                { opacity: 0, x: 100 },
+                { opacity: 0, x: 80 },
                 {
                     opacity: 1,
                     x: 0,
@@ -67,54 +66,45 @@ export default function PremiumPortfolio({ items }: PremiumPortfolioProps) {
                     }
                 }
             )
-
-            // Parallax effect for images inside the track (Luxury feel)
-            const cards = gsap.utils.toArray('.portfolio-card-image-inner') as HTMLElement[]
-            cards.forEach((inner) => {
-                gsap.to(inner, {
-                    xPercent: 20, // Slightly reduced for more natural feel on smaller screens
-                    ease: 'none',
-                    scrollTrigger: {
-                        trigger: sectionRef.current,
-                        start: 'top top',
-                        end: () => `+=${getScrollAmount() * -1}`,
-                        scrub: 1.5, // Match main track scrub
-                        invalidateOnRefresh: true,
-                    }
-                })
-            })
-
         }, sectionRef)
 
         return () => ctx.revert()
     }, [items])
 
     return (
-        <section ref={sectionRef} id="portfolio" className="relative h-[100svh] w-full bg-[var(--color-background-dark)] text-[var(--color-primary)] overflow-hidden flex flex-col justify-center">
+        <section
+            ref={sectionRef}
+            id="portfolio"
+            className="relative h-[100svh] w-full bg-[var(--color-background)] text-[var(--color-text)] overflow-hidden"
+        >
+            {/* Textura sutil de fundo */}
+            <div className="absolute inset-0 pointer-events-none" style={{
+                backgroundImage: "radial-gradient(ellipse at 30% 60%, rgba(67,24,70,0.025) 0%, transparent 55%)"
+            }} />
 
-            {/* GSAP Horizontal Track Container */}
+            {/* Track container — centralizado verticalmente */}
             <div className="w-full h-full flex items-center">
-                <div ref={trackRef} className="flex h-max items-center w-max pl-6 sm:pl-12 lg:pl-20 xl:pl-28 gap-8 md:gap-16">
+                <div ref={trackRef} className="flex h-max items-end w-max pl-6 sm:pl-12 lg:pl-20 xl:pl-28 gap-5 md:gap-8 lg:gap-10 pb-8">
 
-                    {/* 1. Intro Column (Left Side) - Aligned with SEEA Brand */}
-                    <div className="flex flex-col gap-6 w-[35vw] md:w-[32vw] min-w-[300px] flex-shrink-0 pr-12 md:pr-16">
+                    {/* ═══ INTRO COLUMN ═══ */}
+                    <div className="flex flex-col gap-6 w-[38vw] md:w-[30vw] min-w-[300px] flex-shrink-0 pr-8 md:pr-14 self-center">
                         <div className="space-y-5">
                             <p className="text-[0.65rem] md:text-[0.75rem] font-bold font-sans uppercase tracking-[0.6em] text-[var(--color-category)]">
                                 Portfólio Seletivo
                             </p>
                             <h2
-                                className="font-extralight font-sans tracking-tighter text-[var(--color-primary)]"
+                                className="font-extralight font-sans tracking-tighter text-[var(--color-text)]"
                                 style={{ fontSize: 'clamp(3.5rem, 7vw, 6rem)', lineHeight: 0.85 }}
                             >
                                 <span className="uppercase">NOSSO</span><br />
                                 <span className="font-serif italic font-normal serif-luxury text-[var(--color-category)]" style={{ fontSize: '1.1em' }}>acervo</span>
                             </h2>
                             <div className="w-16 h-[1.5px] bg-[var(--color-category)]/40 mt-10 mb-6" />
-                            <p className="text-[1.15rem] md:text-[1.4rem] font-light leading-[1.6] text-[var(--color-primary)]/50 italic font-serif max-w-sm">
+                            <p className="text-[1.15rem] md:text-[1.4rem] font-light leading-[1.6] text-[var(--color-text)]/60 italic font-serif max-w-sm">
                                 Profissionais incríveis que passaram pelas nossas lentes.
                             </p>
 
-                            {/* Portfolio Scroll Indicator - Vertical Hint */}
+                            {/* Scroll hint */}
                             <motion.div
                                 initial={{ opacity: 0, y: 10 }}
                                 whileInView={{ opacity: 1, y: 0 }}
@@ -138,59 +128,70 @@ export default function PremiumPortfolio({ items }: PremiumPortfolioProps) {
                         </div>
                     </div>
 
-
-                    {/* The Portfolio Cards */}
+                    {/* ═══ VIDEO CARDS ═══ */}
                     {items.map((item, index) => (
                         <div
                             key={index}
-                            className="portfolio-card group relative h-[52vh] md:h-[65vh] aspect-[3/4.2] overflow-hidden rounded-[24px] shadow-2xl"
-                            style={{ flexShrink: 0 }}
+                            className="portfolio-card group relative flex-shrink-0 overflow-hidden rounded-[1.25rem] md:rounded-[1.5rem]
+                                       shadow-[0_12px_40px_-8px_rgba(49,35,56,0.12)]
+                                       hover:shadow-[0_24px_60px_-10px_rgba(49,35,56,0.22)]
+                                       transition-all duration-700 ease-out
+                                       hover:-translate-y-1"
+                            style={{
+                                width: 'clamp(200px, 22vw, 320px)',
+                                aspectRatio: '9 / 16',
+                            }}
                         >
-                            <div className="absolute inset-0 overflow-hidden bg-[var(--color-background-darker)]">
-                                {/* Inner wrapper for horizontal parallax */}
-                                <div className="portfolio-card-image-inner absolute inset-0 w-[130%] h-full -left-[15%] origin-center will-change-transform translate-z-0">
-                                    {item.video ? (
-                                        <video
-                                            src={item.video}
-                                            className="w-full h-full object-cover transition-transform duration-[2s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.05]"
-                                            autoPlay
-                                            muted
-                                            loop
-                                            playsInline
-                                            preload="none"
-                                            poster={item.src}
-                                        />
-                                    ) : (
-                                        <Image
-                                            src={item.src}
-                                            alt={item.alt}
-                                            fill
-                                            className="object-cover transition-transform duration-[2s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.05]"
-                                            sizes="(max-width: 768px) 80vw, 40vw"
-                                        />
-                                    )}
-                                </div>
+                            {/* Video / Image — proporção garantida, sem distorção */}
+                            <div className="absolute inset-0 bg-[#F0ECE6]">
+                                {item.video ? (
+                                    <video
+                                        src={item.video}
+                                        className="absolute inset-0 w-full h-full object-cover object-center
+                                                   transition-transform duration-[1.8s] ease-[cubic-bezier(0.16,1,0.3,1)]
+                                                   group-hover:scale-[1.04]"
+                                        autoPlay
+                                        muted
+                                        loop
+                                        playsInline
+                                        preload="metadata"
+                                        poster={item.src}
+                                    />
+                                ) : (
+                                    <Image
+                                        src={item.src}
+                                        alt={item.alt}
+                                        fill
+                                        className="object-cover object-center
+                                                   transition-transform duration-[1.8s] ease-[cubic-bezier(0.16,1,0.3,1)]
+                                                   group-hover:scale-[1.04]"
+                                        sizes="(max-width: 768px) 60vw, 22vw"
+                                    />
+                                )}
                             </div>
 
-                            {/* Refined Minimalist Info (Apple Style) */}
-                            <div className="absolute inset-0 flex flex-col justify-end p-8 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
-                                <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
-                                    <p className="text-[0.6rem] font-bold font-sans uppercase tracking-[0.45em] text-[var(--color-cta)] mb-3">
-                                        {item.category || "CASE STUDY"}
+                            {/* Hover overlay — editorial info */}
+                            <div className="absolute inset-0 flex flex-col justify-end p-5 md:p-6
+                                           bg-gradient-to-t from-[#312338]/80 via-[#312338]/20 to-transparent
+                                           opacity-0 group-hover:opacity-100
+                                           transition-opacity duration-500 pointer-events-none">
+                                <div className="translate-y-3 group-hover:translate-y-0 transition-transform duration-600 ease-[cubic-bezier(0.16,1,0.3,1)]">
+                                    <p className="text-[0.5rem] font-bold font-sans uppercase tracking-[0.4em] text-[#CA8A04] mb-2">
+                                        {item.category || "Case Study"}
                                     </p>
-                                    <h3 className="text-2xl md:text-3xl font-light text-[var(--color-primary)] mb-1 font-serif italic tracking-tight">
+                                    <h3 className="text-lg md:text-xl font-light text-white/90 font-serif italic tracking-tight leading-tight">
                                         {item.title || item.alt}
                                     </h3>
                                 </div>
                             </div>
 
-                            {/* Subtle border for separation */}
-                            <div className="absolute inset-0 border border-white/5 pointer-events-none" />
+                            {/* Borda sutil de luxo */}
+                            <div className="absolute inset-0 rounded-[inherit] border border-[#312338]/[0.06] pointer-events-none" />
                         </div>
                     ))}
 
-                    {/* End Spacer */}
-                    <div className="w-[15vw] h-full flex items-center justify-center flex-shrink-0" />
+                    {/* End spacer */}
+                    <div className="w-[10vw] h-full flex-shrink-0" />
                 </div>
             </div>
         </section>

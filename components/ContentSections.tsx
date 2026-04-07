@@ -130,6 +130,8 @@ export default function ContentSections() {
     }, [])
 
     return (
+        <>
+        {/* Bloco 1: Seções antes da Metodologia (overflow-hidden safe) */}
         <div className="text-[var(--color-text)] relative overflow-hidden bg-[var(--color-background)]">
             {/* ═══ SECTION: ABOUT / INTRO ═══ */}
 
@@ -168,7 +170,7 @@ export default function ContentSections() {
                                 {/* Red accent bar — from the S letterform */}
                                 <BrandAccent />
 
-                                <p className="text-xl sm:text-2xl font-light font-sans leading-[1.7] text-black/60 tracking-tight">
+                                <p className="text-xl sm:text-2xl font-light font-sans leading-[1.7] text-[var(--color-text)]/70 tracking-tight">
                                     {"Muitos profissionais de alto nível caem na armadilha da rotina: a excelência se torna hábito e deixa de ser notada por quem está imerso nela. Você faz muito, mas o mundo vê pouco.".split(" ").map((word, i) => (
                                         <motion.span
                                             key={i}
@@ -184,7 +186,7 @@ export default function ContentSections() {
                                 </p>
                             </div>
                             <div className="lg:pt-14">
-                                <p className="text-lg sm:text-xl font-light font-sans leading-[1.8] text-black/40 mb-10">
+                                <p className="text-lg sm:text-xl font-light font-sans leading-[1.8] text-[var(--color-text)]/55 mb-10">
                                     {"Não inventamos personagens. Revelamos a autoridade que já existe na sua rotina, transformando momentos comuns em narrativas que posicionam, conectam e vendem.".split(" ").map((word, i) => (
                                         <motion.span
                                             key={i}
@@ -325,7 +327,7 @@ export default function ContentSections() {
                                         >
                                             <div className="flex items-center gap-3 mb-2">
                                                 <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-cta)]/40" />
-                                                <p className="text-[0.65rem] uppercase font-sans tracking-[0.4em] text-[var(--color-text)]/40 font-bold">Essência</p>
+                                                <p className="text-[0.65rem] uppercase font-sans tracking-[0.4em] text-[var(--color-text)]/60 font-bold">Essência</p>
                                             </div>
                                             <p className="text-[1.1rem] font-light font-sans leading-relaxed text-[var(--color-text)]/80">
                                                 Identificamos para quem você precisa falar e como comunicar de forma intencional e verdadeira. Cada trajetória é única e carrega valor.
@@ -353,10 +355,28 @@ export default function ContentSections() {
                     <PremiumPortfolio items={PORTFOLIO_ITEMS} />
                 </section>
 
-                {/* 5. NOSSO PROCESSO (Processo Horizontal Scroll) */}
-                <section id="metodologia">
-                    <ProcessoHorizontal />
-                </section>
+        </div>
+
+        {/* ═══ DIVIDER: Portfólio → Metodologia ═══ */}
+        <div className="w-full py-1 bg-[var(--color-background)]">
+            <div className="max-w-7xl mx-auto flex items-center gap-6 px-6 sm:px-12 lg:px-20">
+                <div className="flex-1 h-[0.5px] bg-gradient-to-r from-transparent via-[#CA8A04]/20 to-transparent" />
+            </div>
+        </div>
+        {/* Fim do Bloco 1 */}
+
+        {/* Bloco 2: Metodologia — FORA do overflow-hidden para que sticky funcione */}
+        <ProcessoHorizontal />
+
+        {/* ═══ DIVIDER: Metodologia → Depoimentos ═══ */}
+        <div className="w-full py-1 bg-[var(--color-background)]">
+            <div className="max-w-7xl mx-auto flex items-center gap-6 px-6 sm:px-12 lg:px-20">
+                <div className="flex-1 h-[0.5px] bg-gradient-to-r from-transparent via-[#CA8A04]/20 to-transparent" />
+            </div>
+        </div>
+
+        {/* Bloco 3: Seções após a Metodologia (overflow-hidden safe) */}
+        <div className="text-[var(--color-text)] relative overflow-hidden bg-[var(--color-background)]">
 
                 {/* 6. PROVA SOCIAL (Testimonials) - Validation */}
                 <section id="depoimentos">
@@ -378,5 +398,7 @@ export default function ContentSections() {
                 <MegaFooter />
 
         </div>
+        {/* Fim do Bloco 3 */}
+        </>
     )
 }

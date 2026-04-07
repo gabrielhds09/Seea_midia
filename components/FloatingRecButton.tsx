@@ -27,21 +27,21 @@ export default function FloatingRecButton({
             whileTap={{ scale: 0.95 }}
             aria-label="Iniciar conversa no WhatsApp"
         >
-            {/* Subtle Glow */}
-            <div className="absolute inset-0 bg-[#ed1c24] rounded-full blur-lg opacity-30 group-hover:opacity-50 transition-opacity" />
+            {/* Heritage Glow — roxo profundo */}
+            <div className="absolute inset-0 bg-[#431846] rounded-full blur-lg opacity-25 group-hover:opacity-45 transition-opacity duration-500" />
 
-            {/* Button - Minimalist */}
-            <div className="relative flex items-center gap-2 px-4 py-2.5 bg-[#ed1c24] rounded-full shadow-md group-hover:shadow-lg group-hover:shadow-[#ed1c24]/20 transition-all duration-300">
+            {/* Button — Heritage Design System */}
+            <div className="relative flex items-center gap-2.5 px-5 py-3 bg-gradient-to-r from-[#312338] to-[#431846] rounded-full shadow-[0_8px_24px_-4px_rgba(49,35,56,0.3)] group-hover:shadow-[0_12px_32px_-4px_rgba(49,35,56,0.4)] transition-all duration-500 border border-white/[0.08]">
 
-                {/* Pulsing Dot */}
+                {/* Pulsing Gold Dot */}
                 <motion.div
-                    className="w-2 h-2 bg-white rounded-full"
-                    animate={{ opacity: [1, 0.4, 1] }}
-                    transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
+                    className="w-2 h-2 bg-[#CA8A04] rounded-full shadow-[0_0_6px_rgba(202,138,4,0.4)]"
+                    animate={{ opacity: [1, 0.3, 1], scale: [1, 0.85, 1] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
                 />
 
-                {/* REC Text */}
-                <span className="text-white font-semibold text-xs tracking-wider">
+                {/* REC Text — Gold accent */}
+                <span className="text-[#F0ECE6] font-bold text-[0.65rem] tracking-[0.2em] uppercase font-sans">
                     REC
                 </span>
             </div>
