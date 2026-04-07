@@ -5,10 +5,10 @@ import { gsap } from 'gsap'
 import Image from 'next/image'
 
 /**
- * SEEA PRELOADER — Ultra-Luxury Marble White
+ * SEEA PRELOADER — Heritage Luxury Update
  *
- * White marble texture entry, fast and deliberate.
- * Total ~4.2s. Logo in, 2 elegant phrases, clean exit.
+ * Estilo: Liquid Editorial (Marble White)
+ * Tempo: ~4.5s total para fluidez premium.
  */
 
 const PHRASES = [
@@ -38,9 +38,9 @@ const PHRASES = [
     },
 ]
 
-const PHRASE_SHOW = 3000
-const FADE_TIME = 1000
-const DEFAULT_TOTAL = PHRASES.length * (PHRASE_SHOW + FADE_TIME) + 2500
+const PHRASE_SHOW = 1200
+const FADE_TIME = 600
+const DEFAULT_TOTAL = 4500
 
 export default function Preloader() {
     const [visible, setVisible] = useState(true)
@@ -140,7 +140,7 @@ export default function Preloader() {
             ref={containerRef}
             className="fixed inset-0 z-[60] flex items-center justify-center overflow-hidden"
             style={{
-                background: 'linear-gradient(170deg, var(--color-seea-bg) 0%, var(--color-seea-bg-warm) 100%)',
+                background: 'var(--color-background)',
                 transform: exiting ? 'translateY(-100%)' : 'translateY(0)',
                 transition: 'transform 1.4s cubic-bezier(0.77, 0, 0.175, 1)',
                 pointerEvents: exiting ? 'none' : 'auto',
@@ -166,7 +166,7 @@ export default function Preloader() {
             <div
                 className="absolute inset-0 pointer-events-none"
                 style={{
-                    background: 'radial-gradient(ellipse 60% 50% at 50% 50%, rgba(255,252,248,0.6) 0%, transparent 100%)',
+                    background: 'radial-gradient(ellipse 60% 50% at 50% 50%, rgba(202, 138, 4, 0.04) 0%, transparent 100%)',
                 }}
             />
 
@@ -175,13 +175,10 @@ export default function Preloader() {
 
                 {/* Logo — brand hero moment */}
                 <div ref={logoRef} className="mb-14">
-                    <Image
-                        src="/logo-seea-dark.png"
+                    <img
+                        src="/black.svg"
                         alt="SEEA Mídia"
-                        width={400}
-                        height={130}
-                        className="w-[220px] sm:w-[280px] h-auto object-contain"
-                        priority
+                        className="w-[200px] sm:w-[240px] h-auto object-contain"
                     />
                 </div>
 
@@ -222,14 +219,14 @@ export default function Preloader() {
                 {/* Loading bar */}
                 <div
                     className="mt-12 w-[120px] sm:w-[150px] h-[0.5px] rounded-full overflow-hidden"
-                    style={{ background: '#e0dcd8' }}
+                    style={{ background: 'var(--color-secondary)' }}
                 >
                     <div
                         ref={barRef}
                         className="h-full rounded-full origin-left"
                         style={{
                             transform: 'scaleX(0)',
-                            background: 'linear-gradient(90deg, #c8a882 0%, #431846 100%)',
+                            background: 'linear-gradient(90deg, var(--color-cta) 0%, var(--color-heritage-purple) 100%)',
                         }}
                     />
                 </div>

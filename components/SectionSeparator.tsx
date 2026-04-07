@@ -22,7 +22,7 @@ export default function SectionSeparator({ className = '', showDiamond = true }:
             <div
                 className="absolute top-0 left-0 w-full h-[120px] pointer-events-none"
                 style={{
-                    background: 'linear-gradient(180deg, rgba(17,17,17,0.03) 0%, transparent 100%)'
+                    background: 'linear-gradient(180deg, var(--color-background-darker)/3 0%, transparent 100%)'
                 }}
             />
 
@@ -30,7 +30,7 @@ export default function SectionSeparator({ className = '', showDiamond = true }:
             <div
                 className="w-full h-[0.5px]"
                 style={{
-                    background: 'linear-gradient(90deg, transparent 0%, rgba(17,17,17,0.08) 50%, transparent 100%)'
+                    background: 'linear-gradient(90deg, transparent 0%, var(--color-secondary)/8 50%, transparent 100%)'
                 }}
             />
 
@@ -38,13 +38,13 @@ export default function SectionSeparator({ className = '', showDiamond = true }:
             {showDiamond && (
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
                     <motion.div
-                        className="w-2.5 h-2.5 rotate-45 border border-[#431846]/40 bg-[#faf9f7] overflow-hidden group"
+                        className="w-2.5 h-2.5 rotate-45 border border-[var(--color-category)]/40 bg-[var(--color-background)] overflow-hidden group"
                         initial={{ opacity: 0, scale: 0.5 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                     >
-                        <div className="absolute inset-[2.5px] bg-[#431846]/25" />
+                        <div className="absolute inset-[2.5px] bg-[var(--color-category)]/25" />
                         {/* SPECULAR GLINT */}
                         <motion.div
                             className="absolute inset-0 bg-white/80 -skew-x-12 translate-x-[-150%]"

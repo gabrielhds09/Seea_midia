@@ -9,11 +9,10 @@ import HeroBackgroundCanvas from './HeroBackgroundCanvas'
 gsap.registerPlugin(ScrollTrigger)
 
 /**
- * SEEA HERO — White Marble + Clean Dark Bridge
- *
- * Hero: white marble textured background, dark editorial typography.
- * Statement section: gradient bridge white → clean dark (#111111).
- * Animation delay aligned with Preloader (~9.6s).
+ * SEEA HERO — Heritage Luxury Update
+ * 
+ * Estilo: Liquid Editorial Luxury
+ * Paleta: Stone Black (#1C1917) + Warm White (#FAFAF9) + Heritage Accents
  */
 
 const LuxuryLineText = ({ text, className, style }: { text: string; className?: string; style?: React.CSSProperties }) => (
@@ -210,7 +209,7 @@ export default function HeroCinematic() {
                 ref={heroRef}
                 className="relative flex flex-col justify-center min-h-[100dvh] overflow-hidden"
                 style={{
-                    background: 'linear-gradient(175deg, var(--color-seea-bg) 0%, var(--color-seea-bg-warm) 100%)',
+                    background: 'var(--color-background)',
                 }}
             >
                 {/* ── INTERACTIVE SILK BACKGROUND ── */}
@@ -225,49 +224,52 @@ export default function HeroCinematic() {
                 <div
                     className="absolute inset-0 pointer-events-none z-[1]"
                     style={{
-                        background: 'radial-gradient(ellipse 70% 60% at 50% 40%, rgba(255,252,248,0.3) 0%, transparent 100%)',
+                        background: 'radial-gradient(ellipse 70% 60% at 50% 40%, rgba(202, 138, 4, 0.03) 0%, transparent 100%)',
                     }}
                 />
 
-                {/* BRAND CHARM LIGHTS — Subtle purple flares */}
+                {/* BRAND CHARM LIGHTS — Heritage purple/red glints */}
                 <div className="absolute inset-0 z-[2] pointer-events-none overflow-hidden">
-                    <div className="absolute top-[20%] -right-32 w-[600px] h-[600px] bg-[#431846]/[0.015] rounded-full blur-[160px]" />
-                    <div className="absolute bottom-0 -left-20 w-[400px] h-[400px] bg-[#431846]/[0.012] rounded-full blur-[120px]" />
+                    <div className="absolute top-[20%] -right-32 w-[600px] h-[600px] bg-heritage-purple/5 rounded-full blur-[160px]" />
+                    <div className="absolute bottom-0 -left-20 w-[400px] h-[400px] bg-heritage-red/3 rounded-full blur-[120px]" />
                 </div>
 
                 {/* ── Layout Grid ── */}
                 <div className="relative z-[2] w-full px-6 sm:px-12 lg:px-20 xl:px-28 pt-[18vh] sm:pt-[22vh] pb-16">
 
-                    {/* Top Rule */}
-                    <div
-                        ref={ruleRef}
-                        className="w-full h-[0.5px] mb-10 sm:mb-14 origin-left"
-                        style={{
-                            background: 'linear-gradient(90deg, #c0bbb4 0%, transparent 100%)',
-                        }}
-                    />
+                    {/* Top Logo / Rule container */}
+                    <div className="flex justify-between items-center mb-10 sm:mb-14">
+                        <img src="/white.svg" alt="SEEA" className="h-6 sm:h-8 w-auto opacity-90" />
+                        <div
+                            ref={ruleRef}
+                            className="flex-1 h-[0.5px] ml-10 origin-left"
+                            style={{
+                                background: 'linear-gradient(90deg, var(--color-secondary) 0%, transparent 100%)',
+                            }}
+                        />
+                    </div>
 
                     {/* ── HEADLINE ── */}
                     <div ref={headlineRef} className="mb-12 sm:mb-16">
                         <h1 className="text-[clamp(2.6rem,8.5vw,7.5rem)] leading-[0.95] font-light tracking-[-0.04em] flex flex-wrap gap-x-[0.22em] gap-y-[0.1em] items-end">
-                            <LuxuryLineText text="UM TIME" className="font-sans text-[#111111]" />
+                            <LuxuryLineText text="UM TIME" className="font-sans text-primary" />
                             <div className="basis-full h-0" />
-                            <LuxuryLineText text="QUE" className="font-sans text-[#111111]" />
-                            <LuxuryLineText text="enxerga cada" className="font-serif italic font-normal serif-luxury text-[#431846]/90 relative" style={{ fontSize: '1.08em', top: '0.12em' }} />
+                            <LuxuryLineText text="QUE" className="font-sans text-primary" />
+                            <LuxuryLineText text="enxerga cada" className="font-serif italic font-normal text-heritage-purple/80 relative" style={{ fontSize: '1.08em', top: '0.12em' }} />
                             <div className="basis-full h-0" />
-                            <LuxuryLineText text="PROJETO" className="font-sans text-[#111111]" />
-                            <LuxuryLineText text="como uma" className="font-serif italic font-normal serif-luxury text-[#431846]/90 relative" style={{ fontSize: '1.08em', top: '0.12em' }} />
+                            <LuxuryLineText text="PROJETO" className="font-sans text-primary" />
+                            <LuxuryLineText text="como uma" className="font-serif italic font-normal text-heritage-purple/80 relative" style={{ fontSize: '1.08em', top: '0.12em' }} />
                             <div className="basis-full h-0" />
-                            <LuxuryLineText text="HISTÓRIA" className="font-sans text-[#111111]" />
+                            <LuxuryLineText text="HISTÓRIA" className="font-sans text-primary" />
 
-                            {/* Living Dot */}
+                            {/* Heritage Dot */}
                             <span className="inline-block overflow-hidden pt-4 pb-4 -mt-4 -mb-4">
                                 <span
-                                    className="signature-dot hero-line inline-block text-[#431846] font-bold relative will-change-transform z-10 cursor-default translate-y-[120%]"
+                                    className="signature-dot hero-line inline-block text-heritage-red font-bold relative will-change-transform z-10 cursor-default translate-y-[120%]"
                                     style={{ transformOrigin: '50% 100%' }}
                                 >
                                     .
-                                    <span className="living-glow absolute left-1/2 bottom-[0.25em] -translate-x-1/2 w-[0.25em] h-[0.25em] bg-[#431846] rounded-full blur-[4px] opacity-0 -z-10 pointer-events-none"></span>
+                                    <span className="living-glow absolute left-1/2 bottom-[0.25em] -translate-x-1/2 w-[0.25em] h-[0.25em] bg-heritage-purple rounded-full blur-[4px] opacity-0 -z-10 pointer-events-none"></span>
                                 </span>
                             </span>
                         </h1>
@@ -279,14 +281,14 @@ export default function HeroCinematic() {
 
                         {/* Left: Services */}
                         <div ref={metaLeftRef} className="flex flex-col gap-3">
-                            <p className="text-[0.6rem] sm:text-[0.65rem] font-bold uppercase tracking-[0.55em] text-[#431846]">
+                            <p className="text-[0.6rem] sm:text-[0.65rem] font-bold uppercase tracking-[0.55em] text-cta">
                                 O que fazemos
                             </p>
                             <div className="flex flex-wrap gap-x-5 gap-y-1">
                                 {['Branding', 'Conteúdo', 'Estratégia', 'Tráfego'].map((s) => (
                                     <span
                                         key={s}
-                                        className="text-[0.72rem] sm:text-[0.78rem] font-light tracking-[0.15em] uppercase text-neutral-400 hover:text-[#431846] transition-colors cursor-default"
+                                        className="text-[0.72rem] sm:text-[0.78rem] font-light tracking-[0.15em] uppercase text-secondary hover:text-cta transition-colors cursor-default"
                                     >
                                         {s}
                                     </span>
@@ -296,7 +298,7 @@ export default function HeroCinematic() {
 
                         {/* Right: CTA + Meta */}
                         <div ref={metaRightRef} className="flex flex-col items-start sm:items-end gap-4">
-                            <p className="text-[0.62rem] font-bold uppercase tracking-[0.55em] text-[#431846]">
+                            <p className="text-[0.62rem] font-bold uppercase tracking-[0.55em] text-heritage-purple/60">
                                 SÃO PAULO — BRASIL / EST. 2024
                             </p>
                             <a
@@ -304,11 +306,11 @@ export default function HeroCinematic() {
                                 href="https://wa.me/5511913488620?text=Olá! Vim pelo site da SEEA e gostaria de agendar uma conversa estratégica."
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="group relative inline-flex items-center gap-3 text-[0.75rem] sm:text-[0.8rem] font-medium uppercase tracking-[0.25em] text-neutral-700 transition-all duration-700 hover:text-neutral-900 animate-shimmer"
+                                className="group relative inline-flex items-center gap-3 text-[0.75rem] sm:text-[0.8rem] font-medium uppercase tracking-[0.25em] text-primary transition-all duration-700 hover:text-cta animate-shimmer"
                             >
                                 <span className="relative">
                                     Agendar Conversa
-                                    <span className="absolute left-0 bottom-[-3px] w-0 h-[1px] bg-neutral-700 transition-all duration-700 group-hover:w-full" />
+                                    <span className="absolute left-0 bottom-[-3px] w-0 h-[1px] bg-cta transition-all duration-700 group-hover:w-full" />
                                 </span>
                                 <svg
                                     width="16"
@@ -330,18 +332,18 @@ export default function HeroCinematic() {
                     className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 z-[3] flex flex-col items-center gap-2"
                 >
                     <div className="flex items-center gap-2">
-                        <span className="text-[0.5rem] text-[#431846] opacity-40">[</span>
-                        <span className="text-[0.55rem] font-medium uppercase tracking-[0.5em] text-neutral-400">
+                        <span className="text-[0.5rem] text-cta opacity-40">[</span>
+                        <span className="text-[0.55rem] font-medium uppercase tracking-[0.5em] text-secondary">
                             Scroll
                         </span>
-                        <span className="text-[0.5rem] text-[#431846] opacity-40">]</span>
+                        <span className="text-[0.5rem] text-cta opacity-40">]</span>
                     </div>
-                    <div className="w-[1px] h-12 bg-neutral-200 relative overflow-hidden">
+                    <div className="w-[1px] h-12 bg-secondary/20 relative overflow-hidden">
                         <div
                             className="absolute top-0 left-0 w-full"
                             style={{
                                 height: '35%',
-                                background: 'linear-gradient(180deg, transparent, #431846)',
+                                background: 'linear-gradient(180deg, transparent, var(--color-cta))',
                                 animation: 'scrollLine 3.2s cubic-bezier(0.19, 1, 0.22, 1) infinite',
                             }}
                         />
@@ -372,7 +374,7 @@ export default function HeroCinematic() {
             <section
                 className="relative py-36 sm:py-48 xl:py-60 px-6 sm:px-12 lg:px-20 xl:px-28 overflow-hidden"
                 style={{
-                    background: 'linear-gradient(180deg, #f3f0ec 0%, #dedad5 22%, #b0aaa4 42%, #5a5552 60%, #222020 78%, #111111 100%)',
+                    background: 'linear-gradient(180deg, #FAFAF9 0%, #dedad5 22%, #b0aaa4 42%, #5a5552 60%, #1C1917 100%)',
                 }}
             >
                 {/* Marble texture — fades out with background */}
@@ -416,7 +418,7 @@ export default function HeroCinematic() {
                                 <h2 className="text-[clamp(1.8rem,5vw,4.5rem)] leading-[1.06] font-extralight tracking-[-0.03em] text-white">
                                     <span className="font-serif italic font-light text-white/40 lowercase" style={{ fontSize: '0.9em' }}>para quem quer ir </span>
                                     <span className="font-sans uppercase">além do óbvio</span>
-                                    <span className="text-[#431846]">.</span>
+                                    <span className="text-heritage-red">.</span>
                                 </h2>
                             </div>
                         </div>

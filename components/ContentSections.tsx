@@ -81,13 +81,13 @@ const PORTFOLIO_ITEMS = [
 export const BrandAccent = ({ className = "" }: { className?: string }) => (
     <div className={`flex flex-col gap-[6px] mb-10 ${className}`}>
         <motion.div
-            className="w-10 h-[2.5px] bg-[#ed1c24]/50"
+            className="w-10 h-[2.5px] bg-[var(--color-cta)]/50"
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             transition={{ duration: 1, ease: [0.19, 1, 0.22, 1] }}
         />
         <motion.div
-            className="w-6 h-[2.5px] bg-[#431846]/50"
+            className="w-6 h-[2.5px] bg-[var(--color-category)]/50"
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             transition={{ duration: 1, delay: 0.2, ease: [0.19, 1, 0.22, 1] }}
@@ -97,7 +97,7 @@ export const BrandAccent = ({ className = "" }: { className?: string }) => (
 
 // Shared Section Wrapper for consistent padding/layout
 const Section = ({ children, className = '', id }: { children: React.ReactNode; className?: string, id?: string }) => (
-    <section id={id} className={`px-6 py-32 sm:px-12 lg:px-24 ${className}`}>
+    <section id={id} className={`px-6 py-32 sm:px-12 lg:px-24 border-b border-[var(--color-secondary)]/10 ${className}`}>
         <div className="mx-auto max-w-7xl">
             {children}
         </div>
@@ -129,34 +129,34 @@ export default function ContentSections() {
     }, [])
 
     return (
-        <div className="text-[#111111] relative overflow-hidden bg-[#faf9f7]">
+        <div className="text-[var(--color-text)] relative overflow-hidden bg-[var(--color-background)]">
             {/* ═══ SECTION: ABOUT / INTRO ═══ */}
 
                 {/* 1. VISÃO ALÉM DO AGORA — Ultra-Editorial */}
-                <section id="perspectiva" className="relative overflow-hidden py-32 md:py-48 px-6 sm:px-12 lg:px-20 xl:px-28">
-                    <div className="absolute inset-0 bg-[#f2f0ec]" />
+                <section id="perspectiva" className="relative overflow-hidden py-32 md:py-48 px-6 sm:px-12 lg:px-20 xl:px-28 bg-[var(--color-background)]">
+                    <div className="absolute inset-0 bg-[var(--color-background)]" />
 
                     {/* Subtle horizontal rule glow */}
-                    <div className="absolute top-0 left-0 right-0 h-[0.5px]" style={{ background: 'linear-gradient(90deg, transparent 0%, rgba(67,24,70,0.25) 30%, rgba(17,17,17,0.04) 70%, transparent 100%)' }} />
+                    <div className="absolute top-0 left-0 right-0 h-[0.5px]" style={{ background: 'linear-gradient(90deg, transparent 0%, var(--color-heritage-purple-light) 30%, var(--color-background-darker) 70%, transparent 100%)' }} />
 
                     <div className="relative z-10 max-w-7xl mx-auto">
                         {/* Label */}
-                        <p className="text-[0.62rem] font-bold uppercase tracking-[0.55em] text-[#431846] mb-16">
+                        <p className="text-[0.62rem] font-bold font-sans uppercase tracking-[0.55em] text-[var(--color-category)] mb-16">
                             Perspectiva
                         </p>
 
                         {/* Headline — editorial split */}
                         <div className="mb-20 max-w-5xl headline-reveal">
                             <div className="overflow-hidden mb-2">
-                                <h2 className="text-[clamp(2rem,6vw,5.5rem)] leading-[1.04] font-extralight tracking-[-0.03em] text-[#111111] apple-mask-reveal">
-                                    <span className="font-sans">VISÃO ALÉM </span>
-                                    <span className="font-serif italic font-normal serif-luxury text-[#431846]/70" style={{ fontSize: '1.08em', marginLeft: '0.1em' }}>do</span>
+                                <h2 className="text-[clamp(2rem,6vw,5.5rem)] leading-[1.04] font-extralight font-sans tracking-[-0.03em] text-[var(--color-text)] apple-mask-reveal">
+                                    <span>VISÃO ALÉM </span>
+                                    <span className="font-serif italic font-normal serif-luxury text-[var(--color-heritage-purple)]/70" style={{ fontSize: '1.08em', marginLeft: '0.1em' }}>do</span>
                                 </h2>
                             </div>
                             <div className="overflow-hidden">
-                                <h2 className="text-[clamp(2rem,6vw,5.5rem)] leading-[1.04] font-extralight tracking-[-0.03em] apple-mask-reveal">
-                                    <span className="font-sans text-[#111111]">AGORA</span>
-                                    <span className="text-[#431846]">.</span>
+                                <h2 className="text-[clamp(2rem,6vw,5.5rem)] leading-[1.04] font-extralight font-sans tracking-[-0.03em] apple-mask-reveal">
+                                    <span className="text-[var(--color-text)]">AGORA</span>
+                                    <span className="text-[var(--color-cta)]">.</span>
                                 </h2>
                             </div>
                         </div>
@@ -167,7 +167,7 @@ export default function ContentSections() {
                                 {/* Red accent bar — from the S letterform */}
                                 <BrandAccent />
 
-                                <p className="text-xl sm:text-2xl font-light leading-[1.7] text-black/60 tracking-tight">
+                                <p className="text-xl sm:text-2xl font-light font-sans leading-[1.7] text-black/60 tracking-tight">
                                     {"Muitos profissionais de alto nível caem na armadilha da rotina: a excelência se torna hábito e deixa de ser notada por quem está imerso nela. Você faz muito, mas o mundo vê pouco.".split(" ").map((word, i) => (
                                         <motion.span
                                             key={i}
@@ -183,7 +183,7 @@ export default function ContentSections() {
                                 </p>
                             </div>
                             <div className="lg:pt-14">
-                                <p className="text-lg sm:text-xl font-light leading-[1.8] text-black/40 mb-10">
+                                <p className="text-lg sm:text-xl font-light font-sans leading-[1.8] text-black/40 mb-10">
                                     {"Não inventamos personagens. Revelamos a autoridade que já existe na sua rotina, transformando momentos comuns em narrativas que posicionam, conectam e vendem.".split(" ").map((word, i) => (
                                         <motion.span
                                             key={i}
@@ -198,7 +198,7 @@ export default function ContentSections() {
                                     ))}
                                 </p>
                                 <motion.p
-                                    className="text-[0.85rem] font-bold uppercase tracking-[0.55em] text-[#431846]"
+                                    className="text-[0.85rem] font-bold font-sans uppercase tracking-[0.55em] text-[var(--color-category)]"
                                     initial={{ opacity: 0, x: -10 }}
                                     whileInView={{ opacity: 1, x: 0 }}
                                     transition={{ duration: 1, delay: 1.5 }}
@@ -213,7 +213,7 @@ export default function ContentSections() {
 
 
                 {/* 2. SEEA — THE CINEMATIC MANIFESTO (Editorial Refinement) */}
-                <section id="o-conceito" className="relative flex flex-col justify-center py-32 md:py-48 bg-[#faf9f7] overflow-hidden isolate transition-colors duration-1000">
+                <section id="o-conceito" className="relative flex flex-col justify-center py-32 md:py-48 bg-[var(--color-background)] overflow-hidden isolate transition-colors duration-1000">
 
                     {/* 1. Background Atmosphere: Layered Ghost Typography & Grain */}
                     <div className="hidden md:block absolute inset-0 pointer-events-none opacity-[0.03] contrast-125 brightness-110 mix-blend-multiply">
@@ -247,17 +247,17 @@ export default function ContentSections() {
                             {/* 2. Headline: The "Olhar Treinado" Reveal */}
                             <div className="max-w-5xl">
                                 <motion.p
-                                    className="text-[0.65rem] font-bold uppercase tracking-[0.8em] text-[#431846] mb-12 flex items-center gap-4"
+                                    className="text-[0.65rem] font-bold font-sans uppercase tracking-[0.8em] text-[var(--color-category)] mb-12 flex items-center gap-4"
                                     initial={{ opacity: 0, x: -20 }}
                                     whileInView={{ opacity: 1, x: 0 }}
                                     transition={{ duration: 1 }}
                                 >
-                                    <span className="w-8 h-[1px] bg-[#431846]/30" />
+                                    <span className="w-8 h-[1px] bg-[var(--color-category)]/30" />
                                     O Conceito
                                 </motion.p>
                                 <BrandAccent className="mb-8" />
 
-                                <h2 className="font-extralight tracking-tight text-[#111111] space-y-2 headline-reveal">
+                                <h2 className="font-extralight font-sans tracking-tight text-[var(--color-text)] space-y-2 headline-reveal">
                                     <div className="overflow-hidden">
                                         <motion.span
                                             className="block text-[clamp(2.5rem,6vw,4.8rem)] leading-[1.05] opacity-90 apple-mask-reveal"
@@ -282,7 +282,7 @@ export default function ContentSections() {
                                     </div>
                                     <div className="overflow-hidden py-4 -ml-1 md:-ml-3">
                                         <motion.span
-                                            className="block text-[clamp(5.5rem,13vw,11rem)] leading-[0.85] font-serif italic text-[#431846] relative text-luxury-glow apple-mask-reveal"
+                                            className="block text-[clamp(5.5rem,13vw,11rem)] leading-[0.85] font-serif italic text-[var(--color-category)] relative text-luxury-glow apple-mask-reveal"
                                             initial={{ y: "20%", skewY: 5, opacity: 0 }}
                                             whileInView={{ y: 0, skewY: 0, opacity: 1 }}
                                             viewport={{ once: true }}
@@ -305,7 +305,7 @@ export default function ContentSections() {
                                             transition={{ duration: 1, delay: 0.5 }}
                                         />
                                         <motion.p
-                                            className="text-[1.35rem] md:text-[1.6rem] font-light leading-[1.7] text-[#111111]/80 italic font-serif"
+                                            className="text-[1.35rem] md:text-[1.6rem] font-light leading-[1.7] text-[var(--color-text)]/80 italic font-serif"
                                             initial={{ opacity: 0, y: 20 }}
                                             whileInView={{ opacity: 1, y: 0 }}
                                             viewport={{ once: true }}
@@ -315,7 +315,7 @@ export default function ContentSections() {
                                         </motion.p>
                                     </div>
 
-                                    <div className="pt-12 border-t border-[#431846]/10 max-w-sm">
+                                    <div className="pt-12 border-t border-[var(--color-category)]/10 max-w-sm">
                                         <motion.div
                                             className="space-y-4"
                                             initial={{ opacity: 0 }}
@@ -323,10 +323,10 @@ export default function ContentSections() {
                                             transition={{ duration: 1, delay: 0.6 }}
                                         >
                                             <div className="flex items-center gap-3 mb-2">
-                                                <div className="w-1.5 h-1.5 rounded-full bg-[#ed1c24]/40" />
-                                                <p className="text-[0.65rem] uppercase tracking-[0.4em] text-[#111111]/40 font-bold">Essência</p>
+                                                <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-cta)]/40" />
+                                                <p className="text-[0.65rem] uppercase font-sans tracking-[0.4em] text-[var(--color-text)]/40 font-bold">Essência</p>
                                             </div>
-                                            <p className="text-[1.1rem] font-light leading-relaxed text-[#111111]/80">
+                                            <p className="text-[1.1rem] font-light font-sans leading-relaxed text-[var(--color-text)]/80">
                                                 Identificamos para quem você precisa falar e como comunicar de forma intencional e verdadeira. Cada trajetória é única e carrega valor.
                                             </p>
                                         </motion.div>
@@ -353,9 +353,9 @@ export default function ContentSections() {
                 </section>
 
                 {/* 5. NOSSO PROCESSO (Methodology Timeline) */}
-                <section id="metodologia" className="pt-20 md:pt-28">
+                <section id="metodologia" className="pt-20 md:pt-28 bg-[var(--color-background)]">
                     <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-20 xl:px-28 mb-0">
-                        <p className="text-[0.62rem] font-bold uppercase tracking-[0.55em] text-[#431846] mb-8">Metodologia</p>
+                        <p className="text-[0.62rem] font-bold font-sans uppercase tracking-[0.55em] text-[var(--color-category)] mb-8">Metodologia</p>
                         <BrandAccent />
                     </div>
                     <MethodologyTimeline />

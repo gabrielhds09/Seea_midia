@@ -90,7 +90,7 @@ export default function PremiumPortfolio({ items }: PremiumPortfolioProps) {
     }, [items])
 
     return (
-        <section ref={sectionRef} id="portfolio" className="relative h-[100svh] w-full bg-[#111111] text-[#faf9f7] overflow-hidden flex flex-col justify-center">
+        <section ref={sectionRef} id="portfolio" className="relative h-[100svh] w-full bg-[var(--color-background-dark)] text-[var(--color-primary)] overflow-hidden flex flex-col justify-center">
 
             {/* GSAP Horizontal Track Container */}
             <div className="w-full h-full flex items-center">
@@ -99,18 +99,18 @@ export default function PremiumPortfolio({ items }: PremiumPortfolioProps) {
                     {/* 1. Intro Column (Left Side) - Aligned with SEEA Brand */}
                     <div className="flex flex-col gap-6 w-[35vw] md:w-[32vw] min-w-[300px] flex-shrink-0 pr-12 md:pr-16">
                         <div className="space-y-5">
-                            <p className="text-[0.65rem] md:text-[0.75rem] font-bold uppercase tracking-[0.6em] text-[#431846]">
+                            <p className="text-[0.65rem] md:text-[0.75rem] font-bold font-sans uppercase tracking-[0.6em] text-[var(--color-category)]">
                                 Portfólio Seletivo
                             </p>
                             <h2
-                                className="font-extralight tracking-tighter text-[#faf9f7]"
+                                className="font-extralight font-sans tracking-tighter text-[var(--color-primary)]"
                                 style={{ fontSize: 'clamp(3.5rem, 7vw, 6rem)', lineHeight: 0.85 }}
                             >
-                                <span className="font-sans uppercase">NOSSO</span><br />
-                                <span className="font-serif italic font-normal serif-luxury text-[#431846]" style={{ fontSize: '1.1em' }}>acervo</span>
+                                <span className="uppercase">NOSSO</span><br />
+                                <span className="font-serif italic font-normal serif-luxury text-[var(--color-category)]" style={{ fontSize: '1.1em' }}>acervo</span>
                             </h2>
-                            <div className="w-16 h-[1.5px] bg-[#431846]/40 mt-10 mb-6" />
-                            <p className="text-[1.15rem] md:text-[1.4rem] font-light leading-[1.6] text-[#faf9f7]/50 italic font-serif max-w-sm">
+                            <div className="w-16 h-[1.5px] bg-[var(--color-category)]/40 mt-10 mb-6" />
+                            <p className="text-[1.15rem] md:text-[1.4rem] font-light leading-[1.6] text-[var(--color-primary)]/50 italic font-serif max-w-sm">
                                 Profissionais incríveis que passaram pelas nossas lentes.
                             </p>
 
@@ -122,16 +122,16 @@ export default function PremiumPortfolio({ items }: PremiumPortfolioProps) {
                                 transition={{ delay: 0.5, duration: 1.2 }}
                                 className="mt-8 flex items-center gap-4 group"
                             >
-                                <div className="relative w-[1px] h-12 bg-[#431846]/40 overflow-hidden">
+                                <div className="relative w-[1px] h-12 bg-[var(--color-category)]/40 overflow-hidden">
                                     <div
-                                        className="absolute left-0 top-0 w-full bg-[#ed1c24]"
+                                        className="absolute left-0 top-0 w-full bg-[var(--color-cta)]"
                                         style={{
                                             height: '40%',
                                             animation: 'portfolio-scroll-v 2.5s cubic-bezier(0.19, 1, 0.22, 1) infinite'
                                         }}
                                     />
                                 </div>
-                                <span className="text-[0.6rem] font-bold uppercase tracking-[0.4em] text-[#431846]/60 group-hover:text-[#431846] transition-colors">
+                                <span className="text-[0.6rem] font-bold font-sans uppercase tracking-[0.4em] text-[var(--color-category)]/60 group-hover:text-[var(--color-category)] transition-colors">
                                     Role para explorar
                                 </span>
                             </motion.div>
@@ -146,7 +146,7 @@ export default function PremiumPortfolio({ items }: PremiumPortfolioProps) {
                             className="portfolio-card group relative h-[52vh] md:h-[65vh] aspect-[3/4.2] overflow-hidden rounded-[24px] shadow-2xl"
                             style={{ flexShrink: 0 }}
                         >
-                            <div className="absolute inset-0 overflow-hidden bg-[#1a1a1a]">
+                            <div className="absolute inset-0 overflow-hidden bg-[var(--color-background-darker)]">
                                 {/* Inner wrapper for horizontal parallax */}
                                 <div className="portfolio-card-image-inner absolute inset-0 w-[130%] h-full -left-[15%] origin-center will-change-transform translate-z-0">
                                     {item.video ? (
@@ -175,10 +175,10 @@ export default function PremiumPortfolio({ items }: PremiumPortfolioProps) {
                             {/* Refined Minimalist Info (Apple Style) */}
                             <div className="absolute inset-0 flex flex-col justify-end p-8 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
                                 <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
-                                    <p className="text-[0.6rem] font-bold uppercase tracking-[0.45em] text-[#ed1c24] mb-3">
+                                    <p className="text-[0.6rem] font-bold font-sans uppercase tracking-[0.45em] text-[var(--color-cta)] mb-3">
                                         {item.category || "CASE STUDY"}
                                     </p>
-                                    <h3 className="text-2xl md:text-3xl font-light text-white mb-1 font-serif italic tracking-tight">
+                                    <h3 className="text-2xl md:text-3xl font-light text-[var(--color-primary)] mb-1 font-serif italic tracking-tight">
                                         {item.title || item.alt}
                                     </h3>
                                 </div>

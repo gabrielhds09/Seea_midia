@@ -1,20 +1,20 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Playfair_Display } from "next/font/google";
+import { Jost, Bodoni_Moda } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import Preloader from "@/components/Preloader";
 import NoiseTexture from "@/components/NoiseTexture";
 
-const jakarta = Plus_Jakarta_Sans({
+const jost = Jost({
   subsets: ["latin"],
-  weight: ["200", "300", "400", "500", "600"],
+  weight: ["200", "300", "400", "500", "600", "700"],
   variable: "--font-sans",
   display: "swap",
 });
 
-const playfair = Playfair_Display({
+const bodoni = Bodoni_Moda({
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: ["400", "500", "600", "700"],
   style: ["normal", "italic"],
   variable: "--font-serif",
   display: "swap",
@@ -66,8 +66,8 @@ export default function RootLayout({
 
 }>) {
   return (
-    <html lang="pt-BR" suppressHydrationWarning className={`${jakarta.variable} ${playfair.variable}`}>
-      <body className={jakarta.className} suppressHydrationWarning>
+    <html lang="pt-BR" suppressHydrationWarning className={`${jost.variable} ${bodoni.variable}`}>
+      <body className={jost.className} suppressHydrationWarning>
         <Preloader />
         <NoiseTexture />
         <SmoothScroll />

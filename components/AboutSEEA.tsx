@@ -37,18 +37,18 @@ function StatItem({ value, suffix, label }: { value: number; suffix: string; lab
     }, [isInView, value])
 
     return (
-        <div className="flex flex-col py-6 border-l border-black/[0.05] pl-8 first:border-0 first:pl-0">
+        <div className="flex flex-col py-6 border-l border-[var(--color-secondary)]/10 pl-8 first:border-0 first:pl-0">
             <div className="flex items-baseline gap-1">
                 <p
                     ref={ref}
-                    className="font-light tracking-[-0.05em] text-[#111111]"
+                    className="font-light font-sans tracking-[-0.05em] text-[var(--color-text)]"
                     style={{ fontSize: 'clamp(3rem, 5vw, 4.5rem)' }}
                 >
                     0
                 </p>
-                <span className="text-[#431846]/40 font-serif italic text-[1.8rem] -translate-y-2">{suffix}</span>
+                <span className="text-[var(--color-category)]/40 font-serif italic text-[1.8rem] -translate-y-2">{suffix}</span>
             </div>
-            <p className="text-[0.6rem] font-semibold uppercase tracking-[0.4em] text-black/30 -mt-2">
+            <p className="text-[0.6rem] font-bold font-sans uppercase tracking-[0.4em] text-black/30 -mt-2">
                 {label}
             </p>
         </div>
@@ -61,10 +61,10 @@ export default function AboutSEEA() {
     return (
         <section
             ref={containerRef}
-            className="relative w-full py-40 md:py-64 px-6 sm:px-12 lg:px-20 xl:px-28 overflow-hidden bg-[#faf9f7]"
+            className="relative w-full py-40 md:py-64 px-6 sm:px-12 lg:px-20 xl:px-28 overflow-hidden bg-[var(--color-background)]"
         >
             {/* Top hairline */}
-            <div className="absolute top-0 left-0 right-0 h-[0.5px]" style={{ background: 'linear-gradient(90deg, transparent, rgba(237,28,36,0.15), rgba(17,17,17,0.04), transparent)' }} />
+            <div className="absolute top-0 left-0 right-0 h-[0.5px]" style={{ background: 'linear-gradient(90deg, transparent, var(--color-cta)/15, var(--color-background-darker)/4, transparent)' }} />
 
             <div className="max-w-7xl mx-auto relative z-10">
                 <div className="grid lg:grid-cols-12 gap-24 lg:gap-32">
@@ -80,7 +80,7 @@ export default function AboutSEEA() {
                                     transition={{ duration: 1.5, ease: [0.19, 1, 0.22, 1] }}
                                 >
                                     <div className="mb-20">
-                                        <p className="text-[0.62rem] font-bold uppercase tracking-[0.55em] text-[#431846] mb-10">
+                                        <p className="text-[0.62rem] font-bold font-sans uppercase tracking-[0.55em] text-[var(--color-category)] mb-10">
                                             Nossa Identidade
                                         </p>
 
@@ -89,22 +89,22 @@ export default function AboutSEEA() {
 
                                         <div className="space-y-2">
                                             <div className="overflow-hidden">
-                                                <motion.h2
-                                                    initial={{ opacity: 0, x: -20 }}
-                                                    whileInView={{ opacity: 1, x: 0 }}
-                                                    viewport={{ once: true }}
-                                                    transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
-                                                    className="font-extralight tracking-tight text-[#111111]"
-                                                    style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', lineHeight: 0.95 }}
-                                                >
-                                                    <span className="font-sans">SOBRE A </span>
-                                                    <span className="font-serif italic font-normal serif-luxury text-[#431846] lowercase" style={{ fontSize: '1.08em', marginLeft: '0.1em' }}>seea</span>
-                                                </motion.h2>
+                                                    <motion.h2
+                                                        initial={{ opacity: 0, x: -20 }}
+                                                        whileInView={{ opacity: 1, x: 0 }}
+                                                        viewport={{ once: true }}
+                                                        transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
+                                                        className="font-extralight font-sans tracking-tight text-[var(--color-text)]"
+                                                        style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', lineHeight: 0.95 }}
+                                                    >
+                                                        <span>SOBRE A </span>
+                                                        <span className="font-serif italic font-normal serif-luxury text-[var(--color-category)] lowercase" style={{ fontSize: '1.08em', marginLeft: '0.1em' }}>seea</span>
+                                                    </motion.h2>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <p className="text-[0.95rem] font-light leading-[1.8] text-black/60 max-w-2xl mb-16 tracking-tight">
+                                    <p className="text-[0.95rem] font-light font-sans leading-[1.8] text-black/60 max-w-2xl mb-16 tracking-tight">
                                         {"A SEEA foi fundada por Aline Vitória, profissional do audiovisual desde os 18 anos. A empresa nasceu da percepção de que conteúdo genérico não sustenta autoridade. Hoje, atuamos com um modelo exclusivo, baseado em personalização e leitura estratégica de comportamento.".split(" ").map((word, i) => (
                                             <motion.span
                                                 key={i}
@@ -120,7 +120,7 @@ export default function AboutSEEA() {
                                     </p>
 
                                     {/* Stats — Horizontal grid */}
-                                    <div className="flex gap-12 lg:gap-24 flex-wrap border-t border-black/[0.05] pt-12">
+                                    <div className="flex gap-12 lg:gap-24 flex-wrap border-t border-[var(--color-secondary)]/10 pt-12">
                                         {STATS.map(s => (
                                             <StatItem key={s.label} {...s} />
                                         ))}
@@ -130,7 +130,7 @@ export default function AboutSEEA() {
 
                             {/* Right — Values Column */}
                             <div className="lg:col-span-5">
-                                <div className="border-t border-black/[0.08]">
+                                <div className="border-t border-[var(--color-secondary)]/10">
                                     {VALUES.map((v, i) => (
                                         <motion.div
                                             key={v.num}
@@ -138,16 +138,16 @@ export default function AboutSEEA() {
                                             whileInView={{ opacity: 1, x: 0 }}
                                             viewport={{ once: true, margin: '-5%' }}
                                             transition={{ duration: 1, ease: [0.19, 1, 0.22, 1], delay: i * 0.1 }}
-                                            className="relative flex gap-8 py-12 border-b border-black/[0.08] group cursor-default"
+                                            className="relative flex gap-8 py-12 border-b border-[var(--color-secondary)]/10 group cursor-default"
                                         >
-                                            <span className="flex-shrink-0 text-[0.6rem] font-bold tracking-[0.4em] text-[#431846]/40 group-hover:text-[#431846] transition-colors pt-1.5 duration-500">
+                                            <span className="flex-shrink-0 text-[0.6rem] font-bold font-sans tracking-[0.4em] text-[var(--color-category)]/40 group-hover:text-[var(--color-category)] transition-colors pt-1.5 duration-500">
                                                 {v.num}
                                             </span>
                                             <div className="group-hover:translate-x-1 transition-transform duration-500">
-                                                <h3 className="font-sans font-light text-[1.25rem] tracking-tight text-[#111111] mb-3">
+                                                <h3 className="font-sans font-light text-[1.25rem] tracking-tight text-[var(--color-text)] mb-3">
                                                     {v.title}
                                                 </h3>
-                                                <p className="text-[0.85rem] font-light leading-[1.8] text-black/40 group-hover:text-black/60 transition-colors duration-500">
+                                                <p className="text-[0.85rem] font-light font-sans leading-[1.8] text-black/40 group-hover:text-black/60 transition-colors duration-500">
                                                     {v.desc}
                                                 </p>
                                             </div>

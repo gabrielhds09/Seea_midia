@@ -13,42 +13,42 @@ const TEAM_MEMBERS = [
         name: "ALINE V.",
         role: "Fundadora & CEO",
         bio: "Profissional do audiovisual desde os 18 anos, criadora do método SEEA.",
-        image: "/team/aline.jpg",
+        image: "/team/aline.png",
         social: { instagram: "#", linkedin: "#" }
     },
     {
         name: "DOUGLAS D.",
         role: "Videomaker",
         bio: "Produção audiovisual com excelência técnica e artística.",
-        image: "/team/douglas.jpg",
+        image: "/team/douglas.png",
         social: { instagram: "#", linkedin: "#" }
     },
     {
         name: "MAISA O.",
         role: "Videomaker",
         bio: "Direção e produção de conteúdo visual estratégico.",
-        image: "/team/maisa.jpg",
+        image: "/team/maisa.png",
         social: { instagram: "#", linkedin: "#" }
     },
     {
         name: "GABRIEL H.",
         role: "Lead Developer",
         bio: "Especialista em experiências digitais de alto impacto.",
-        image: "/team/gabriel.jpg",
+        image: "/team/gabriel.png",
         social: { instagram: "#", linkedin: "#" }
     },
     {
         name: "LEONIDAS S.",
         role: "Videomaker",
         bio: "Captura de imagens que contam histórias memoráveis.",
-        image: "/team/leonidas.jpg",
+        image: "/team/leonidas.png",
         social: { instagram: "#", linkedin: "#" }
     },
     {
         name: "SABRINA B.",
         role: "Videomaker",
         bio: "Olhar criativo para produções audiovisuais de impacto.",
-        image: "/team/sabrina.jpg",
+        image: "/team/sabrina.png",
         social: { instagram: "#", linkedin: "#" }
     }
 ]
@@ -134,7 +134,7 @@ export default function TeamMinimalist() {
     }
 
     return (
-        <section className="relative w-full py-20 md:py-32 overflow-hidden bg-[#f2f0ec]">
+        <section className="relative w-full py-20 md:py-32 overflow-hidden bg-[var(--color-background)]">
             {/* Top hairline */}
             <div className="absolute top-0 left-0 right-0 h-[0.5px]" style={{ background: 'linear-gradient(90deg, transparent, rgba(17,17,17,0.08), transparent)' }} />
 
@@ -142,10 +142,10 @@ export default function TeamMinimalist() {
                 {/* Header & Controls */}
                 <div className="mb-16 md:mb-24 flex flex-col md:flex-row items-center justify-between gap-8">
                     <div className="text-center md:text-left">
-                        <p className="text-[0.62rem] font-bold uppercase tracking-[0.55em] text-[#431846] mb-10">Equipe</p>
+                        <p className="text-[0.62rem] font-bold font-sans uppercase tracking-[0.55em] text-[var(--color-category)] mb-10">Equipe</p>
                         <div className="flex flex-col items-center md:items-start gap-[6px] mb-12">
-                            <div className="w-16 h-[2.5px] bg-[#ed1c24]/50" />
-                            <div className="w-10 h-[2.5px] bg-[#431846]/50" />
+                            <div className="w-16 h-[2.5px] bg-[var(--color-cta)]/50" />
+                            <div className="w-10 h-[2.5px] bg-[var(--color-category)]/50" />
                         </div>
                         <div className="overflow-hidden mb-1">
                             <motion.h2
@@ -153,11 +153,11 @@ export default function TeamMinimalist() {
                                 whileInView={{ opacity: 1, x: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
-                                className="font-extralight tracking-tight text-[#111111]"
+                                className="font-extralight font-sans tracking-tight text-[var(--color-text)]"
                                 style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', lineHeight: 0.95 }}
                             >
-                                <span className="font-sans tracking-tight">MENTES </span>
-                                <span className="font-serif italic font-normal serif-luxury text-[#431846]" style={{ fontSize: '1.08em', marginLeft: '0.1em' }}>criativas</span>.
+                                <span className="tracking-tight">MENTES </span>
+                                <span className="font-serif italic font-normal serif-luxury text-[var(--color-category)]" style={{ fontSize: '1.08em', marginLeft: '0.1em' }}>criativas</span>.
                             </motion.h2>
                         </div>
                     </div>
@@ -166,7 +166,7 @@ export default function TeamMinimalist() {
                     <div className="hidden md:flex gap-4">
                         <button
                             onClick={scrollPrev}
-                            className="w-16 h-16 rounded-full border border-black/[0.1] flex items-center justify-center hover:bg-[#111111] hover:text-white transition-all duration-300 group"
+                            className="w-16 h-16 rounded-full border border-black/[0.1] flex items-center justify-center hover:bg-[var(--color-background-dark)] hover:text-white transition-all duration-300 group"
                             aria-label="Anterior">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-black/50 group-hover:text-white transition-colors">
                                 <path d="m15 18-6-6 6-6" />
@@ -174,7 +174,7 @@ export default function TeamMinimalist() {
                         </button>
                         <button
                             onClick={scrollNext}
-                            className="w-16 h-16 rounded-full border border-black/[0.1] flex items-center justify-center hover:bg-[#111111] hover:text-white transition-all duration-300 group"
+                            className="w-16 h-16 rounded-full border border-black/[0.1] flex items-center justify-center hover:bg-[var(--color-background-dark)] hover:text-white transition-all duration-300 group"
                             aria-label="Próximo">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-black/50 group-hover:text-white transition-colors">
                                 <path d="m9 18 6-6-6-6" />
@@ -227,17 +227,17 @@ export default function TeamMinimalist() {
                                         sizes="(max-width: 768px) 300px, 400px"
                                     />
                                     {/* Purple overlay effect from reference */}
-                                    <div className="absolute inset-0 bg-[#431846]/15 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                    <div className="absolute inset-0 bg-[var(--color-category)]/15 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                                     <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60 opacity-60" />
                                 </div>
                             </motion.div>
 
                             {/* Name & Role - Centered Below */}
                             <div className="text-center">
-                                <h3 className="text-2xl md:text-3xl font-bold text-[#111111] mb-2 uppercase tracking-wide">
+                                <h3 className="text-2xl md:text-3xl font-bold font-sans text-[var(--color-text)] mb-2 uppercase tracking-wide">
                                     {member.name.split(' ')[0]}
                                 </h3>
-                                <p className="text-black/40 text-xs md:text-sm font-bold tracking-[0.2em] uppercase group-hover:text-[#431846] transition-colors">
+                                <p className="text-black/40 text-xs md:text-sm font-bold font-sans tracking-[0.2em] uppercase group-hover:text-[var(--color-category)] transition-colors">
                                     {member.role}
                                 </p>
                             </div>
@@ -252,7 +252,7 @@ export default function TeamMinimalist() {
                             key={index}
                             onClick={() => scrollToCard(index)}
                             className={`h-2 rounded-full transition-all duration-300 ${index === activeIndex
-                                ? 'w-8 bg-[#431846]'
+                                ? 'w-8 bg-[var(--color-category)]'
                                 : 'w-2 bg-black/20'
                                 }`}
                             aria-label={`Ver membro ${index + 1}`}

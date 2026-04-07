@@ -45,7 +45,7 @@ export default function MethodologyTimeline() {
     const height = useTransform(scrollYProgress, [0, 1], ["0%", "100%"])
 
     return (
-        <section ref={containerRef} className="relative w-full pb-20 md:pb-48 px-6 overflow-hidden bg-[#faf9f7]">
+        <section ref={containerRef} className="relative w-full pb-20 md:pb-48 px-6 overflow-hidden bg-[var(--color-background)]">
 
             {/* Premium Dynamic Background (Apple/Awwwards inspired) */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -56,7 +56,7 @@ export default function MethodologyTimeline() {
                         scale: [1, 1.1, 1]
                     }}
                     transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                    className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#431846]/[0.02] rounded-full blur-[120px]" 
+                    className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-[var(--color-heritage-purple)]/[0.02] rounded-full blur-[120px]" 
                 />
                 <motion.div 
                     animate={{ 
@@ -65,7 +65,7 @@ export default function MethodologyTimeline() {
                         scale: [1, 1.2, 1]
                     }}
                     transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                    className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-[#ed1c24]/[0.015] rounded-full blur-[140px]" 
+                    className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-[var(--color-cta)]/[0.015] rounded-full blur-[140px]" 
                 />
                 
                 {/* Floating Glass Orbs */}
@@ -75,7 +75,7 @@ export default function MethodologyTimeline() {
                 />
                 <motion.div 
                     style={{ y: useTransform(scrollYProgress, [0, 1], [0, 200]) }}
-                    className="absolute bottom-[30%] left-[10%] w-96 h-96 bg-[#431846]/5 rounded-full blur-[100px]"
+                    className="absolute bottom-[30%] left-[10%] w-96 h-96 bg-[var(--color-heritage-purple)]/5 rounded-full blur-[100px]"
                 />
             </div>
 
@@ -90,11 +90,11 @@ export default function MethodologyTimeline() {
                 >
                     {/* Standardized Label — rendered by parent ContentSections */}
                     <h2
-                        className="font-extralight tracking-tight text-[#111111] mb-6 md:mb-8"
+                        className="font-extralight font-sans tracking-tight text-[var(--color-text)] mb-6 md:mb-8"
                         style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', lineHeight: 0.95, letterSpacing: '-0.03em' }}
                     >
                         <span className="uppercase">Nosso </span>
-                        <span className="font-serif italic font-normal text-[#431846]" style={{ fontSize: '1.02em' }}>processo</span>
+                        <span className="font-serif italic font-normal text-[var(--color-category)]" style={{ fontSize: '1.02em' }}>processo</span>
                         <br className="hidden md:block" />
                         <span className="uppercase"> na prática.</span>
                     </h2>
@@ -107,12 +107,12 @@ export default function MethodologyTimeline() {
                 <div className="relative">
 
                     {/* Central Line Background */}
-                    <div className="absolute left-[32px] md:left-1/2 top-0 bottom-0 w-[1.5px] bg-[#431846]/[0.05] md:-translate-x-1/2" />
+                    <div className="absolute left-[32px] md:left-1/2 top-0 bottom-0 w-[1.5px] bg-[var(--color-category)]/[0.05] md:-translate-x-1/2" />
 
                     {/* Active Beam Line */}
                     <motion.div
                         style={{ height: height }}
-                        className="absolute left-[32px] md:left-1/2 top-0 w-[1.5px] bg-gradient-to-b from-[#ed1c24] via-[#431846] to-[#ed1c24] md:-translate-x-1/2 z-20 origin-top"
+                        className="absolute left-[32px] md:left-1/2 top-0 w-[1.5px] bg-gradient-to-b from-[var(--color-cta)] via-[var(--color-category)] to-[var(--color-cta)] md:-translate-x-1/2 z-20 origin-top"
                     />
 
                     <div className="space-y-10 md:space-y-32 pb-20">
@@ -122,7 +122,7 @@ export default function MethodologyTimeline() {
                     </div>
 
                     {/* End Dot */}
-                    <div className="absolute bottom-0 left-[32px] md:left-1/2 w-3 h-3 rounded-full bg-[#431846]/20 md:-translate-x-1/2" />
+                    <div className="absolute bottom-0 left-[32px] md:left-1/2 w-3 h-3 rounded-full bg-[var(--color-category)]/20 md:-translate-x-1/2" />
                 </div>
 
             </div>
@@ -147,30 +147,30 @@ function TimelineItem({ step, index }: { step: typeof PROCESS_STEPS[0], index: n
         >
 
             {/* Center Node */}
-            <div className="absolute left-[32px] md:left-1/2 top-0 md:top-8 w-4.5 h-4.5 rounded-full border-[3px] border-[#faf9f7] bg-[#431846] z-30 -translate-x-1/2 shadow-[0_4px_10px_rgba(67,24,70,0.15)]">
-                <div className="absolute inset-0 rounded-full bg-[#ed1c24] opacity-30 animate-pulse" />
+            <div className="absolute left-[32px] md:left-1/2 top-0 md:top-8 w-4.5 h-4.5 rounded-full border-[3px] border-[var(--color-background)] bg-[var(--color-category)] z-30 -translate-x-1/2 shadow-[0_4px_10px_rgba(67,24,70,0.15)]">
+                <div className="absolute inset-0 rounded-full bg-[var(--color-cta)] opacity-30 animate-pulse" />
             </div>
 
             {/* Content Card */}
             <div className={`w-full md:w-1/2 pl-10 pr-3 md:px-0 ${isEven ? 'md:pr-32 md:text-right text-center' : 'md:pl-32 md:text-left text-center'}`}>
 
-                <div className={`relative group p-6 md:p-10 rounded-[1.5rem] md:rounded-[2.5rem] bg-white/20 backdrop-blur-[40px] border border-white/40 hover:border-[#431846]/30 transition-all duration-700 hover:-translate-y-3 shadow-[0_20px_50px_rgba(0,0,0,0.02)] hover:shadow-[0_40px_80px_rgba(67,24,70,0.06)]`}>
+                <div className={`relative group p-6 md:p-10 rounded-[1.5rem] md:rounded-[2.5rem] bg-white/20 backdrop-blur-[40px] border border-white/40 hover:border-[var(--color-category)]/30 transition-all duration-700 hover:-translate-y-3 shadow-[0_20px_50px_rgba(0,0,0,0.02)] hover:shadow-[0_40px_80px_rgba(67,24,70,0.06)]`}>
 
                     {/* Highly Refined Glass Glow */}
                     <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-[2.5rem]" />
-                    <div className="absolute inset-0 bg-gradient-to-tl from-[#ed1c24]/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-[2.5rem]" />
+                    <div className="absolute inset-0 bg-gradient-to-tl from-[var(--color-cta)]/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-[2.5rem]" />
 
                     <div className={`relative z-10 flex flex-col items-center ${isEven ? 'md:items-end' : 'md:items-start'}`}>
-                        <div className="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-white/50 backdrop-blur-sm border border-white/20 flex items-center justify-center mb-5 md:mb-8 text-[#431846] shadow-sm group-hover:bg-[#431846] group-hover:text-white group-hover:scale-110 transition-all duration-700">
+                        <div className="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-white/50 backdrop-blur-sm border border-white/20 flex items-center justify-center mb-5 md:mb-8 text-[var(--color-category)] shadow-sm group-hover:bg-[var(--color-category)] group-hover:text-white group-hover:scale-110 transition-all duration-700">
                             <step.icon size={22} strokeWidth={1.5} className="md:hidden" />
                             <step.icon size={30} strokeWidth={1.5} className="hidden md:block" />
                         </div>
 
-                        <h3 className="text-xl md:text-3xl font-bold text-[#111111] mb-3 md:mb-5 uppercase tracking-[0.03em] md:tracking-[0.05em]">
+                        <h3 className="text-xl md:text-3xl font-bold font-sans text-[var(--color-text)] mb-3 md:mb-5 uppercase tracking-[0.03em] md:tracking-[0.05em]">
                             {step.title}
                         </h3>
 
-                        <p className="text-black/50 text-[0.9rem] md:text-[1.02rem] font-light leading-relaxed mb-5 md:mb-8 max-w-md">
+                        <p className="text-black/50 text-[0.9rem] md:text-[1.02rem] font-light font-sans leading-relaxed mb-5 md:mb-8 max-w-md">
                             {step.description}
                         </p>
 
@@ -183,7 +183,7 @@ function TimelineItem({ step, index }: { step: typeof PROCESS_STEPS[0], index: n
                                     whileInView={{ opacity: 1, scale: 1 }}
                                     viewport={{ once: true }}
                                     transition={{ duration: 0.5, delay: 0.3 + ti * 0.08 }}
-                                    className="inline-block px-4 py-[6px] rounded-full text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-[#431846] border border-[#431846]/20 bg-[#431846]/5 hover:border-[#ed1c24]/40 hover:text-white hover:bg-[#ed1c24]/20 transition-all duration-400 cursor-default"
+                                    className="inline-block px-4 py-[6px] rounded-full text-[0.65rem] font-bold font-sans uppercase tracking-[0.12em] text-[var(--color-category)] border border-[var(--color-category)]/20 bg-[var(--color-category)]/5 hover:border-[var(--color-cta)]/40 hover:text-white hover:bg-[var(--color-cta)]/20 transition-all duration-400 cursor-default"
                                 >
                                     {tag}
                                 </motion.span>

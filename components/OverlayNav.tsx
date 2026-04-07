@@ -116,13 +116,10 @@ export default function OverlayNav() {
 
                 {/* Logo Area */}
                 <div ref={logoRef} className="z-50 nav-logo opacity-0 will-change-[transform,opacity,clip-path]">
-                    <Image
-                        src={activeSection === 'NOSSO ACERVO' ? '/logo-seea.png' : '/logo-seea-dark.png'}
+                    <img
+                        src={scrolled ? "/black.svg" : "/black.svg"} 
                         alt="SEEA"
-                        width={180}
-                        height={60}
-                        className="h-16 w-auto object-contain transition-all duration-500 origin-bottom"
-                        priority
+                        className="h-8 sm:h-10 w-auto object-contain transition-all duration-500 origin-bottom"
                     />
                 </div>
 
@@ -136,7 +133,7 @@ export default function OverlayNav() {
                                 initial={{ opacity: 0, x: 20, filter: 'blur(8px)' }}
                                 animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
                                 exit={{ opacity: 0, x: -20, filter: 'blur(8px)' }}
-                                className="hidden md:block text-[0.62rem] font-bold tracking-[0.45em] text-[#431846]"
+                                className="hidden md:block text-[0.62rem] font-bold tracking-[0.45em] text-cta"
                             >
                                 {activeSection}
                             </motion.span>
@@ -148,10 +145,10 @@ export default function OverlayNav() {
                         onClick={() => setIsOpen(true)}
                         aria-label="Abrir menu de navegação"
                         aria-expanded={isOpen}
-                        className="group flex items-center gap-3 text-[#111111] z-50"
+                        className="group flex items-center gap-3 text-primary z-50"
                     >
-                        <span className="hidden md:block text-xs font-bold tracking-[0.2em] uppercase text-black/45 group-hover:tracking-[0.3em] group-hover:text-[#431846] transition-all">Menu</span>
-                        <div className="p-2 border border-black/[0.12] rounded-full group-hover:bg-[#431846] group-hover:text-white group-hover:border-[#431846] transition-all">
+                        <span className="hidden md:block text-xs font-bold tracking-[0.2em] uppercase text-primary/45 group-hover:tracking-[0.3em] group-hover:text-cta transition-all">Menu</span>
+                        <div className="p-2 border border-primary/[0.12] rounded-full group-hover:bg-primary group-hover:text-background group-hover:border-primary transition-all">
                             <Menu className="w-5 h-5" />
                         </div>
                     </button>
@@ -166,7 +163,7 @@ export default function OverlayNav() {
                         animate={{ clipPath: 'circle(150% at 94% 6%)' }}
                         exit={{ clipPath: 'circle(0% at 94% 6%)' }}
                         transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-                        className="fixed inset-0 z-[10000] bg-[#faf9f7] flex flex-col items-center justify-center text-[#111111]"
+                        className="fixed inset-0 z-[10000] bg-primary flex flex-col items-center justify-center text-background"
                     >
                         {/* LUXURY GRAIN OVERLAY */}
                         <div className="absolute inset-0 pointer-events-none opacity-[0.03] grayscale contrast-150 mix-blend-multiply flex"
@@ -177,7 +174,7 @@ export default function OverlayNav() {
                         <button
                             onClick={() => setIsOpen(false)}
                             aria-label="Fechar menu de navegação"
-                            className="absolute top-6 right-6 md:top-12 md:right-12 p-4 text-black/40 hover:text-[#431846] hover:rotate-90 transition-all duration-700 z-[10001]"
+                            className="absolute top-6 right-6 md:top-12 md:right-12 p-4 text-background/40 hover:text-cta hover:rotate-90 transition-all duration-700 z-[10001]"
                         >
                             <X className="w-10 h-10 font-extralight" />
                         </button>
@@ -192,16 +189,16 @@ export default function OverlayNav() {
                                 >
                                     <motion.a
                                         href={item.href}
-                                        className="group relative inline-block font-sans font-light uppercase tracking-[-0.04em] text-black/30 hover:text-[#111111] transition-colors duration-600"
+                                        className="group relative inline-block font-sans font-extralight uppercase tracking-[-0.04em] text-background/30 hover:text-cta transition-colors duration-600"
                                         style={{ fontSize: 'clamp(3rem, 9vw, 6.5rem)' }}
                                         onClick={() => setIsOpen(false)}
                                         whileHover={{ x: 15 }}
                                     >
                                         <span className="relative">
                                             {item.label}
-                                            {/* Dot motif */}
+                                            {/* Heritage Dot */}
                                             <motion.span
-                                                className="absolute -right-6 bottom-[15%] w-3 h-3 rounded-full bg-[#431846] opacity-0 group-hover:opacity-100 transition-all duration-500"
+                                                className="absolute -right-6 bottom-[15%] w-3 h-3 rounded-full bg-heritage-red opacity-0 group-hover:opacity-100 transition-all duration-500 shadow-[0_0_15px_rgba(237,28,36,0.5)]"
                                                 initial={{ scale: 0 }}
                                                 whileHover={{ scale: 1.5 }}
                                             />
@@ -220,7 +217,7 @@ export default function OverlayNav() {
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.8 + (i * 0.1), duration: 0.8 }}
-                                    className="text-[0.65rem] uppercase tracking-[0.5em] text-black/25 hover:text-[#431846] transition-colors duration-500 font-medium"
+                                    className="text-[0.65rem] uppercase tracking-[0.5em] text-background/25 hover:text-cta transition-colors duration-500 font-medium"
                                 >
                                     {label}
                                 </motion.a>

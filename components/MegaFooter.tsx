@@ -4,6 +4,7 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { Instagram, Linkedin, MessageCircle, Mail, MapPin, ArrowUpRight } from 'lucide-react'
+import { gsap } from 'gsap'
 
 const NAV_LINKS = [
     { label: 'Home', href: '#inicio' },
@@ -24,11 +25,11 @@ export default function MegaFooter() {
     const currentYear = new Date().getFullYear()
 
     return (
-        <footer className="relative bg-[#f2f0ec] text-[#111111] overflow-hidden">
+        <footer className="relative bg-[var(--color-stone-black)] text-[var(--color-marble-white)] overflow-hidden">
             {/* LARGE WATERMARK BACKGROUND */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 select-none overflow-hidden">
                 <span
-                    className="text-[30vw] font-sans font-black text-black/[0.02] leading-none tracking-[-0.08em]"
+                    className="text-[30vw] font-sans font-black text-white/[0.03] leading-none tracking-[-0.08em]"
                     style={{ transform: 'translateY(15%)' }}
                 >
                     SEEA
@@ -53,23 +54,21 @@ export default function MegaFooter() {
                                 transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1] }}
                             >
                                 {/* Logo */}
-                                <Image
-                                    src="/logo-seea-dark.png"
+                                <img
+                                    src="/white.svg"
                                     alt="SEEA Mídia"
-                                    width={120}
-                                    height={40}
-                                    className="h-10 w-auto mb-12 opacity-80"
+                                    className="h-10 w-auto mb-12 select-none"
                                 />
 
                                 {/* Red double-bar */}
                                 <div className="flex flex-col gap-[6px] mb-12">
-                                    <div className="w-16 h-[2.5px] bg-[#431846]/50" />
-                                    <div className="w-10 h-[2.5px] bg-[#431846]/50" />
+                                    <div className="w-16 h-[2.5px] bg-[var(--color-category)]/50" />
+                                    <div className="w-10 h-[2.5px] bg-[var(--color-cta)]/50" />
                                 </div>
 
-                                <p className="text-[0.95rem] font-light leading-[1.8] text-black/60 mb-12 max-w-sm">
+                                <p className="text-[0.95rem] font-light font-sans leading-[1.8] text-white/60 mb-12 max-w-sm">
                                     Gestão de carreira e imagem para quem quer ir{' '}
-                                    <span className="text-black/80 font-normal italic">além do óbvio</span>.
+                                    <span className="text-white/80 font-normal italic font-serif">além do óbvio</span>.
                                 </p>
 
                                 {/* Minimal CTA with Shimmer */}
@@ -86,12 +85,12 @@ export default function MegaFooter() {
                                     onMouseLeave={(e) => {
                                         gsap.to(e.currentTarget, { x: 0, y: 0, duration: 1, ease: 'elastic.out(1, 0.3)' })
                                     }}
-                                    className="animate-shimmer group inline-flex items-center gap-6 py-6 px-10 border border-black/[0.08] rounded-full transition-all duration-500 hover:border-[#431846]/40 hover:bg-white/50 backdrop-blur-md"
+                                    className="animate-shimmer group inline-flex items-center gap-6 py-6 px-10 border border-white/[0.08] rounded-full transition-all duration-500 hover:border-[var(--color-bg-gold)]/40 hover:bg-white/5 backdrop-blur-md"
                                 >
-                                    <span className="text-[0.8rem] font-medium uppercase tracking-[0.4em] text-black/60 group-hover:text-[#111111] transition-colors">
+                                    <span className="text-[0.8rem] font-medium font-sans uppercase tracking-[0.4em] text-white/60 group-hover:text-white transition-colors">
                                         Agendar conversa estratégica
                                     </span>
-                                    <ArrowUpRight className="w-4.5 h-4.5 text-[#431846]/40 group-hover:text-[#ed1c24] transition-all duration-500" />
+                                    <ArrowUpRight className="w-4.5 h-4.5 text-[var(--color-bg-gold)]/40 group-hover:text-[var(--color-cta)] transition-all duration-500" />
                                 </motion.a>
                             </motion.div>
                         </div>
@@ -107,7 +106,7 @@ export default function MegaFooter() {
                                     viewport={{ once: true }}
                                     transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1], delay: 0.1 }}
                                 >
-                                    <p className="text-[0.62rem] font-semibold uppercase tracking-[0.5em] text-[#431846]/35 mb-10">
+                                    <p className="text-[0.62rem] font-semibold font-sans uppercase tracking-[0.5em] text-[var(--color-gold-precision)]/50 mb-10">
                                         Navegação
                                     </p>
                                     <ul className="space-y-5">
@@ -115,9 +114,9 @@ export default function MegaFooter() {
                                             <li key={link.label}>
                                                 <a
                                                     href={link.href}
-                                                    className="group text-[0.95rem] font-light text-black/50 hover:text-[#111111] transition-colors duration-400 flex items-center gap-3"
+                                                    className="group text-[0.95rem] font-light font-sans text-white/50 hover:text-white transition-colors duration-400 flex items-center gap-3"
                                                 >
-                                                    <span className="w-0 h-[0.5px] bg-[#431846]/50 transition-all duration-500 group-hover:w-6" />
+                                                    <span className="w-0 h-[0.5px] bg-[var(--color-category)]/50 transition-all duration-500 group-hover:w-6" />
                                                     {link.label}
                                                 </a>
                                             </li>
@@ -132,7 +131,7 @@ export default function MegaFooter() {
                                     viewport={{ once: true }}
                                     transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1], delay: 0.2 }}
                                 >
-                                    <p className="text-[0.62rem] font-semibold uppercase tracking-[0.5em] text-[#431846]/35 mb-10">
+                                    <p className="text-[0.62rem] font-semibold uppercase tracking-[0.5em] text-[var(--color-heritage-purple)]/70 mb-10">
                                         Conecte-se
                                     </p>
 
@@ -143,7 +142,7 @@ export default function MegaFooter() {
                                                 href={s.href}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="w-12 h-12 rounded-full border border-black/[0.1] flex items-center justify-center text-black/40 hover:border-[#431846]/40 hover:text-[#431846] hover:bg-[#431846]/[0.02] transition-colors duration-500"
+                                                className="w-12 h-12 rounded-full border border-white/[0.1] flex items-center justify-center text-white/40 hover:border-[var(--color-bg-gold)]/40 hover:text-[var(--color-bg-gold)] hover:bg-white/[0.02] transition-colors duration-500"
                                                 aria-label={s.label}
                                                 whileHover={{ y: -5, scale: 1.05 }}
                                                 transition={{ type: 'spring', stiffness: 300, damping: 15 }}
@@ -156,12 +155,12 @@ export default function MegaFooter() {
                                     <div className="space-y-5">
                                         <a
                                             href="mailto:contato@seea.com.br"
-                                            className="flex items-center gap-4 text-[0.88rem] font-light text-black/45 hover:text-[#431846]/70 transition-colors"
+                                            className="flex items-center gap-4 text-[0.88rem] font-light font-sans text-white/45 hover:text-[var(--color-bg-gold)]/70 transition-colors"
                                         >
                                             <Mail className="w-4 h-4 opacity-50" />
                                             contato@seea.com.br
                                         </a>
-                                        <div className="flex items-center gap-4 text-[0.85rem] font-light text-black/35">
+                                        <div className="flex items-center gap-4 text-[0.85rem] font-light font-sans text-white/35">
                                             <MapPin className="w-4 h-4 opacity-40" />
                                             São Paulo, Brasil
                                         </div>
@@ -173,11 +172,11 @@ export default function MegaFooter() {
                 </div>
 
                 {/* Bottom bar */}
-                <div className="border-t border-black/[0.1] py-10 flex flex-col sm:flex-row items-center justify-between gap-6">
-                    <p className="text-black/35 text-[0.7rem] uppercase tracking-[0.3em]">
+                <div className="border-t border-white/[0.1] py-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+                    <p className="text-white/35 text-[0.7rem] uppercase font-sans tracking-[0.3em]">
                         © {currentYear} SEEA Mídia
                     </p>
-                    <p className="text-black/20 text-[0.65rem] uppercase tracking-[0.25em]">
+                    <p className="text-white/20 text-[0.65rem] uppercase font-sans tracking-[0.25em]">
                         Elevating Digital Authority
                     </p>
                 </div>

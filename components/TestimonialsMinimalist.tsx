@@ -1,46 +1,36 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import React from 'react'
+import { motion } from 'framer-motion'
+import CircularTestimonials from './circular-testimonials'
 
 const TESTIMONIALS = [
     {
         quote: 'A SEEA não entrega apenas design; eles esculpem percepções. Nossa marca finalmente respira a autoridade que sempre tivemos no offline.',
-        author: 'Dr. Rafael Mendes',
-        role: 'Cirurgião Plástico',
+        name: 'Dr. Rafael Mendes',
+        designation: 'Cirurgião Plástico',
+        src: '/testimonials/rafael_mendes.png'
     },
     {
         quote: 'Eles entenderam que minha imagem precisava comunicar solidez, não entretenimento. Hoje, meus investidores me veem sob uma nova ótica.',
-        author: 'Marina Costa',
-        role: 'CEO, Grupo Investimentos MC',
+        name: 'Marina Costa',
+        designation: 'CEO, Grupo Investimentos MC',
+        src: '/testimonials/marina_costa.png'
     },
     {
         quote: 'Queria uma equipe que dominasse o universo empresarial com a mesma excelência que domino meus negócios. A SEEA superou o impossível.',
-        author: 'Roberto Alves',
-        role: 'Setor Imobiliário',
+        name: 'Roberto Alves',
+        designation: 'Setor Imobiliário',
+        src: '/testimonials/roberto_alves.png'
     },
 ]
 
 export default function TestimonialsMinimalist() {
-    const [current, setCurrent] = useState(0)
-    const [isAutoPlaying, setIsAutoPlaying] = useState(true)
-
-    useEffect(() => {
-        if (!isAutoPlaying) return
-        const t = setInterval(() => setCurrent(c => (c + 1) % TESTIMONIALS.length), 6500)
-        return () => clearInterval(t)
-    }, [isAutoPlaying])
-
     return (
         <section
-            className="relative w-full min-h-[80vh] bg-[#faf9f7] flex flex-col items-center justify-center px-6 sm:px-12 py-32 overflow-hidden"
-            onMouseEnter={() => setIsAutoPlaying(false)}
-            onMouseLeave={() => setIsAutoPlaying(true)}
+            className="relative w-full min-h-screen bg-[var(--color-background)] flex flex-col items-center justify-center px-6 sm:px-12 py-32 overflow-hidden"
         >
-            {/* Extremely subtle background texture/noise could go here, but keeping pure clean is also luxury */}
-
-
-            <div className="max-w-6xl w-full mx-auto relative z-10 flex flex-col items-center justify-center min-h-[400px]">
+            <div className="max-w-7xl w-full mx-auto relative z-10 flex flex-col items-center justify-center">
 
                 {/* Editorial Section Title */}
                 <motion.div
@@ -48,74 +38,43 @@ export default function TestimonialsMinimalist() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                    className="text-center mb-10"
+                    className="text-center mb-16"
                 >
                     <h2
-                        className="font-extralight tracking-tight text-[#111111]"
+                        className="font-extralight font-sans tracking-tight text-[var(--color-stone-black)]"
                         style={{ fontSize: 'clamp(2.2rem, 6vw, 5rem)', lineHeight: 0.95, letterSpacing: '-0.03em' }}
                     >
                         O que{' '}
-                        <span className="font-serif italic font-normal text-[#431846]" style={{ fontSize: '1.02em' }}>dizem.</span>
+                        <span className="serif-luxury font-normal text-[var(--color-heritage-purple)]" style={{ fontSize: '1.02em' }}>dizem.</span>
                     </h2>
                 </motion.div>
 
-                <AnimatePresence mode="wait">
-                    <motion.div
-                        key={current}
-                        initial={{ opacity: 0, filter: 'blur(10px)', y: 20 }}
-                        animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
-                        exit={{ opacity: 0, filter: 'blur(10px)', y: -20 }}
-                        transition={{ duration: 1.4, ease: [0.19, 1, 0.22, 1] }}
-                        className="flex flex-col items-center text-center w-full"
-                    >
-                        {/* The Editorial Quote */}
-                        <blockquote
-                            className="font-serif italic font-light text-[#111111] mb-12 max-w-4xl mx-auto"
-                            style={{
-                                fontSize: 'clamp(1.15rem, 3.5vw, 3rem)',
-                                lineHeight: '1.35',
-                                letterSpacing: '-0.01em'
-                            }}
-                        >
-                            {TESTIMONIALS[current].quote}
-                        </blockquote>
-
-                        {/* Minimalist Attribution */}
-                        <div className="flex flex-col items-center gap-3">
-                            <div className="w-[1px] h-8 bg-[#431846]/30 mb-2"></div>
-                            <p className="text-[0.65rem] sm:text-[0.75rem] font-bold tracking-[0.3em] uppercase text-[#111111]">
-                                {TESTIMONIALS[current].author}
-                            </p>
-                            <p className="text-[0.6rem] sm:text-[0.65rem] font-medium tracking-[0.2em] uppercase text-[#431846]/60">
-                                {TESTIMONIALS[current].role}
-                            </p>
-                        </div>
-                    </motion.div>
-                </AnimatePresence>
-
-            </div>
-
-            {/* Invisible Pagination Area (Clickable but extremely subtle) */}
-            <div className="absolute bottom-16 left-1/2 -translate-x-1/2 flex items-center gap-6">
-                <div className="flex gap-4">
-                    {TESTIMONIALS.map((_, i) => (
-                        <button
-                            key={i}
-                            onClick={() => { setCurrent(i); setIsAutoPlaying(false) }}
-                            aria-label={`Ver depoimento ${i + 1}`}
-                            className="group py-4 px-1"
-                        >
-                            <div
-                                className="w-1.5 h-1.5 rounded-full transition-all duration-700"
-                                style={{
-                                    backgroundColor: i === current ? '#431846' : 'rgba(17,17,17,0.1)',
-                                    transform: i === current ? 'scale(1)' : 'scale(0.8)'
-                                }}
-                            />
-                        </button>
-                    ))}
+                {/* Circular Testimonials Component */}
+                <div className="w-full flex justify-center">
+                    <CircularTestimonials
+                        testimonials={TESTIMONIALS}
+                        autoplay={true}
+                        colors={{
+                            name: "var(--color-stone-black)",
+                            designation: "var(--color-gold-precision)",
+                            testimony: "var(--color-stone-black)",
+                            arrowBackground: "var(--color-heritage-purple)",
+                            arrowForeground: "var(--color-marble-white)",
+                            arrowHoverBackground: "var(--color-heritage-red)",
+                        }}
+                        fontSizes={{
+                            name: "clamp(1.5rem, 3vw, 2.8rem)",
+                            designation: "clamp(0.75rem, 1.5vw, 1.25rem)",
+                            quote: "clamp(0.95rem, 2vw, 1.5rem)",
+                        }}
+                    />
                 </div>
+
             </div>
+
+            {/* Background Accents */}
+            <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-[var(--color-heritage-purple)]/3 blur-[120px] rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+            <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-[var(--color-heritage-red)]/2 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none" />
         </section>
     )
 }
