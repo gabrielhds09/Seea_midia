@@ -10,71 +10,65 @@ import TeamMinimalist from './TeamMinimalist'
 import TestimonialsMinimalist from './TestimonialsMinimalist'
 import AboutSEEA from './AboutSEEA'
 import MegaFooter from './MegaFooter'
-import PremiumPortfolio from './PremiumPortfolio'
+import { FocusRail, type FocusRailItem } from './ui/focus-rail'
 
 
-// Dados do Portfólio (Edite aqui)
-const PORTFOLIO_ITEMS = [
+// Dados do Portfólio (Design Heritage Edition)
+const PORTFOLIO_ITEMS: FocusRailItem[] = [
     {
-        src: '/thumbnails/thumb-01.jpg',
-        alt: 'Campaign 01',
-        video: '/video/video-01.mp4'
+        id: "seea-case-01",
+        title: "All In Between",
+        meta: "Cinematografia • Especial Carnaval",
+        description: "Captura da essência vibrante e movimento orgânico durante a temporada de 2024.",
+        imageSrc: '/thumbnails/thumb-01.jpg',
+        videoSrc: '/video/video-01.mp4',
+        href: "#portfolio"
     },
     {
-        src: '/thumbnails/thumb-02.jpg',
-        alt: 'Campaign 02',
-        video: '/video/video-02.mp4'
+        id: "seea-case-02",
+        title: "Men's House",
+        meta: "Lifestyle • Corporate",
+        description: "Reposicionamento visual para o Shopping Cidade Jardim com foco em autoridade silenciosa.",
+        imageSrc: '/thumbnails/thumb-02.jpg',
+        videoSrc: '/video/video-02.mp4',
+        href: "#portfolio"
     },
     {
-        src: '/thumbnails/thumb-03.jpg',
-        alt: 'Campaign 03',
-        video: '/video/video-03.mp4'
+        id: "seea-case-03",
+        title: "Marina Costa",
+        meta: "Personal Branding",
+        description: "Série de retratos cinematográficos que traduzem a sofisticação da imagem pessoal.",
+        imageSrc: '/thumbnails/thumb-03.jpg',
+        videoSrc: '/video/video-03.mp4',
+        href: "#portfolio"
     },
     {
-        src: '/thumbnails/thumb-04.jpg',
-        alt: 'Campaign 04',
-        video: '/video/video-04.mp4'
+        id: "seea-case-04",
+        title: "Heritage Collection",
+        meta: "Editorial • Fashion",
+        description: "A narrativa por trás das marcas que buscam transcender o tempo através do visual.",
+        imageSrc: '/thumbnails/thumb-04.jpg',
+        videoSrc: '/video/video-04.mp4',
+        href: "#portfolio"
     },
     {
-        src: '/thumbnails/thumb-05.jpg',
-        alt: 'Campaign 05',
-        video: '/video/video-05.mp4'
+        id: "seea-case-05",
+        title: "Douglas Machado",
+        meta: "Imersão • Estratégia",
+        description: "Documentação do processo criativo e bastidores da autoridade corporativa.",
+        imageSrc: '/thumbnails/thumb-05.jpg',
+        videoSrc: '/video/video-05.mp4',
+        href: "#portfolio"
     },
     {
-        src: '/thumbnails/thumb-06.jpg',
-        alt: 'Campaign 06',
-        video: '/video/video-06.mp4'
-    },
-    {
-        src: '/thumbnails/thumb-07.jpg',
-        alt: 'Campaign 07',
-        video: '/video/video-07.mp4'
-    },
-    {
-        src: '/thumbnails/thumb-08.jpg',
-        alt: 'Campaign 08',
-        video: '/video/video-08.mp4'
-    },
-    {
-        src: '/thumbnails/thumb-09.jpg',
-        alt: 'Campaign 09',
-        video: '/video/video-09.mp4'
-    },
-    {
-        src: '/thumbnails/thumb-10.jpg',
-        alt: 'Campaign 10',
-        video: '/video/video-10.mp4'
-    },
-    {
-        src: '/thumbnails/thumb-01.jpg',
-        alt: 'Campaign 11',
-        video: '/video/video-11.mp4'
-    },
-    {
-        src: '/thumbnails/thumb-02.jpg',
-        alt: 'Campaign 12',
-        video: '/video/video-12.mp4'
-    },
+        id: "seea-case-06",
+        title: "Essência Pura",
+        meta: "Branding Visual",
+        description: "Minimalismo e intenção aplicados a cada frame para destacar o que é essencial.",
+        imageSrc: '/thumbnails/thumb-06.jpg',
+        videoSrc: '/video/video-06.mp4',
+        href: "#portfolio"
+    }
 ];
 
 
@@ -350,9 +344,28 @@ export default function ContentSections() {
 
 
 
-                {/* 4. NOSSO PORTFÓLIO ($50k GSAP Horizontal Scroll) */}
-                <section id="nosso-acervo" className="relative">
-                    <PremiumPortfolio items={PORTFOLIO_ITEMS} />
+                {/* 4. NOSSO ACERVO (FocusRail Imersivo) */}
+                <section id="nosso-acervo" className="relative pt-32 pb-20 bg-[var(--color-background)]">
+                    <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-20 xl:px-28 mb-12">
+                         <motion.p 
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            className="text-[0.62rem] font-bold font-sans uppercase tracking-[0.55em] text-[var(--color-category)] mb-6"
+                         >
+                            Nosso Acervo
+                         </motion.p>
+                         <h2 className="text-[clamp(2.5rem,5vw,5rem)] font-sans font-extralight tracking-tight text-[var(--color-text)] mb-2">
+                             PORTFÓLIO <span className="font-serif italic text-[var(--color-cta)]">seletivo</span>
+                         </h2>
+                         <div className="w-16 h-[1.5px] bg-[var(--color-cta)]/20 mt-8" />
+                    </div>
+                    
+                    <FocusRail 
+                        items={PORTFOLIO_ITEMS} 
+                        autoPlay={true} 
+                        interval={5000}
+                        loop={true} 
+                    />
                 </section>
 
         </div>
