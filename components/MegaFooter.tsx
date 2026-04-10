@@ -53,12 +53,14 @@ export default function MegaFooter() {
                                 viewport={{ once: true }}
                                 transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1] }}
                             >
-                                {/* Logo */}
-                                <img
-                                    src="/white.svg"
-                                    alt="SEEA Mídia"
-                                    className="h-10 w-auto mb-12 select-none"
-                                />
+                                <div className="relative h-10 w-32 mb-12">
+                                    <Image
+                                        src="/black.png"
+                                        alt="SEEA Mídia"
+                                        fill
+                                        className="object-contain select-none"
+                                    />
+                                </div>
 
                                 {/* Red double-bar */}
                                 <div className="flex flex-col gap-[6px] mb-12">

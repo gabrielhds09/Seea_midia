@@ -115,11 +115,13 @@ export default function OverlayNav() {
             >
 
                 {/* Logo Area */}
-                <div ref={logoRef} className="z-50 nav-logo opacity-0 will-change-[transform,opacity,clip-path]">
-                    <img
-                        src={scrolled ? "/black.svg" : "/black.svg"} 
+                <div ref={logoRef} className="z-50 nav-logo opacity-0 will-change-[transform,opacity,clip-path] relative h-8 sm:h-10 w-24 sm:w-32">
+                    <Image
+                        src="/black.png" 
                         alt="SEEA"
-                        className="h-8 sm:h-10 w-auto object-contain transition-all duration-500 origin-bottom"
+                        fill
+                        className="object-contain transition-all duration-500 origin-bottom"
+                        priority
                     />
                 </div>
 

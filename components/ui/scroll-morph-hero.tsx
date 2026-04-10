@@ -60,8 +60,13 @@ function FlipCard({ src, index, total, progress, containerSize, cardSize }: Flip
         // Extrai o número do vídeo: /video/video-XX.mp4 -> XX
         const match = src.match(/video-(\d+)/i);
         const num = match ? match[1] : "01";
+        
+        // Fallback for missing assets (Verified in filesystem: 11 and 12 are missing)
+        if (num === "11" || num === "12") return `/thumbnails/thumb-01.jpg`;
+        
         // thumb-13 is uppercase .JPG in filesystem
         if (num === "13") return `/thumbnails/thumb-13.JPG`;
+        
         return `/thumbnails/thumb-${num}.jpg`;
     }, [src]);
 
