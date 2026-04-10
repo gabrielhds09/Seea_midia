@@ -40,12 +40,15 @@ export default function TestimonialsMinimalist() {
                     transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                     className="text-center mb-16"
                 >
+                    <p className="text-[0.62rem] font-bold font-sans uppercase tracking-[0.55em] text-[var(--color-category)] mb-8">
+                        Experiências
+                    </p>
                     <h2
-                        className="font-extralight font-sans tracking-tight text-[var(--color-stone-black)]"
-                        style={{ fontSize: 'clamp(2.2rem, 6vw, 5rem)', lineHeight: 0.95, letterSpacing: '-0.03em' }}
+                        className="font-extralight font-sans tracking-tight text-[var(--color-text)]"
+                        style={{ fontSize: 'clamp(2.5rem, 6.5vw, 5.5rem)', lineHeight: 0.95 }}
                     >
                         O que{' '}
-                        <span className="serif-luxury font-normal text-[var(--color-heritage-purple)]" style={{ fontSize: '1.02em' }}>dizem.</span>
+                        <span className="font-serif italic font-normal text-[var(--color-category)] lowercase" style={{ fontSize: '1.02em', marginLeft: '0.1em' }}>dizem.</span>
                     </h2>
                 </motion.div>
 

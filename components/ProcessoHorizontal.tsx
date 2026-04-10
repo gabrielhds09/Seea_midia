@@ -66,11 +66,11 @@ export default function ProcessoHorizontal() {
         
         {/* Left Content - REVERTED TO EDITORIAL STICKY PANEL */}
         <div className="lg:w-[40%] lg:sticky lg:top-32 lg:h-fit self-start">
-           <div className="flex items-center gap-3 mb-6">
-              <span className="text-[0.65rem] font-bold tracking-[0.4em] text-[var(--color-heritage-purple)] uppercase font-sans">
+           <div className="flex items-center gap-4 mb-6">
+              <span className="text-[0.62rem] font-bold font-sans uppercase tracking-[0.55em] text-[var(--color-category)]">
                 Metodologia Proprietária
               </span>
-              <div className="w-12 h-[1px] bg-[var(--color-heritage-purple)]/20" />
+              <div className="w-12 h-[1px] bg-[var(--color-category)]/20" />
            </div>
            
            <h2 className="text-4xl md:text-6xl font-sans font-extralight text-[var(--color-stone-black)] leading-[1.1] tracking-tighter mb-10">
@@ -116,13 +116,13 @@ export default function ProcessoHorizontal() {
                     
                     {/* Phase Header */}
                     <div className="flex justify-between items-start mb-12 relative z-10">
-                       <div className="flex flex-col gap-1">
-                          <span className="text-[0.6rem] font-bold tracking-[0.4em] text-[var(--color-heritage-purple)]/60 uppercase">
+                       <div className="flex flex-col gap-2">
+                          <span className="text-[0.55rem] font-bold font-sans uppercase tracking-[0.4em] text-[var(--color-category)]/50">
                             Fase {phase.number}
                           </span>
-                          <h3 className="text-3xl md:text-4xl font-sans font-bold text-[var(--color-stone-black)] tracking-tighter leading-tight whitespace-pre-line">
+                          <h3 className="text-3xl md:text-4xl font-sans font-light text-[var(--color-stone-black)] tracking-tighter leading-tight whitespace-pre-line">
                             {phase.title.split('\n').map((line, lid) => (
-                              <span key={lid} className={lid === 1 ? "font-serif italic font-normal text-[var(--color-heritage-purple)]" : ""}>
+                              <span key={lid} className={lid === 1 ? "font-serif italic font-normal text-[var(--color-category)]" : ""}>
                                 {line}{lid === 0 ? " " : ""}
                               </span>
                             ))}

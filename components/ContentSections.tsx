@@ -131,7 +131,7 @@ export default function ContentSections() {
         <div className="text-[var(--color-text)] relative overflow-hidden bg-[var(--color-background)]">
             {/* ═══ SECTION: ABOUT / INTRO ═══ */}
 
-                {/* 1. VISÃO ALÉM DO AGORA — Redesign Editorial & Humanização */}
+                {/* 1. VISÃO ALÉM DO AGORA — Seção Textual Editorial */}
                 <section id="perspectiva" className="relative overflow-hidden py-32 md:py-56 px-6 sm:px-12 lg:px-20 xl:px-28 bg-[var(--color-background)]">
                     <div className="absolute inset-0 bg-[var(--color-background)]" />
                     
@@ -139,36 +139,26 @@ export default function ContentSections() {
                     <div className="absolute top-0 left-0 right-0 h-[0.5px]" style={{ background: 'linear-gradient(90deg, transparent 0%, var(--color-heritage-purple-light) 30%, var(--color-background-darker) 70%, transparent 100%)' }} />
 
                     <div className="relative z-10 max-w-7xl mx-auto">
-                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
-                            
-                            {/* Left: Editorial Content */}
-                            <div className="lg:col-span-7">
-                                {/* Label */}
-                                <p className="text-[0.62rem] font-bold font-sans uppercase tracking-[0.55em] text-[var(--color-category)] mb-12">
-                                    Perspectiva
-                                </p>
+                        <div className="max-w-4xl">
+                            {/* Label */}
+                            <p className="text-[0.62rem] font-bold font-sans uppercase tracking-[0.55em] text-[var(--color-category)] mb-12">
+                                Perspectiva
+                            </p>
 
-                                {/* Headline */}
-                                <div className="mb-14 headline-reveal">
-                                    <div className="overflow-hidden mb-1">
-                                        <h2 className="text-[clamp(2.5rem,6vw,5.5rem)] leading-[1.02] font-extralight font-sans tracking-[-0.03em] text-[var(--color-text)] apple-mask-reveal">
-                                            <span>VISÃO ALÉM </span>
-                                            <span className="font-serif italic font-normal serif-luxury text-[var(--color-heritage-purple)]/70" style={{ fontSize: '1.08em', marginLeft: '0.1em' }}>do</span>
-                                        </h2>
-                                    </div>
-                                    <div className="overflow-hidden">
-                                        <h2 className="text-[clamp(1.75rem,8vw,5.5rem)] leading-[1.02] font-extralight font-sans tracking-[-0.03em] apple-mask-reveal">
-                                            <span className="text-[var(--color-text)]">AGORA</span>
-                                            <span className="text-[var(--color-cta)]">.</span>
-                                        </h2>
-                                    </div>
-                                </div>
+                            {/* Headline: RESTORED ORIGINAL */}
+                            <div className="mb-14 headline-reveal">
+                                <h2 className="text-[clamp(2.5rem,6.5vw,6rem)] leading-[0.95] font-extralight font-sans tracking-tight text-[var(--color-text)] apple-mask-reveal">
+                                    <span>VISÃO ALÉM </span>
+                                    <span className="font-serif italic font-normal serif-luxury text-[var(--color-category)] lowercase" style={{ fontSize: '1.08em', marginLeft: '0.15em', marginRight: '0.15em' }}>do</span>
+                                    <span> AGORA.</span>
+                                </h2>
+                            </div>
 
-                                <div className="space-y-10 max-w-2xl">
+                            <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
+                                <div className="md:col-span-8 space-y-10">
                                     <BrandAccent />
-                                    
                                     <p className="text-xl sm:text-2xl font-light font-sans leading-[1.7] text-[var(--color-text)]/80 tracking-tight">
-                                        {"Muitos profissionais de alto nível caem na armadilha da rotina: a excelência se torna hábito e deixa de ser notada por quem está imerso nela. Você faz muito, mas o mundo vê pouco.".split(" ").map((word, i) => (
+                                        {"Nosso diferencial está no olhar treinado para identificar detalhes e histórias que merecem ser contadas. Um olhar que não se limita ao conteúdo, mas ao próprio cliente.".split(" ").map((word, i) => (
                                             <motion.span
                                                 key={i}
                                                 className="inline-block mr-[0.25em]"
@@ -181,63 +171,10 @@ export default function ContentSections() {
                                             </motion.span>
                                         ))}
                                     </p>
-
-                                    <div className="pt-8 border-t border-[var(--color-category)]/10">
-                                        <p className="text-lg font-light font-sans leading-[1.8] text-[var(--color-text)]/55">
-                                            Não inventamos personagens. Revelamos a autoridade que já existe na sua rotina, transformando momentos comuns em narrativas que posicionam, conectam e vendem.
-                                        </p>
-                                    </div>
+                                    <p className="text-lg font-light font-sans leading-[1.8] text-[var(--color-text)]/55 max-w-2xl">
+                                        Muitos profissionais de alto nível caem na armadilha da rotina: a excelência se torna hábito e deixa de ser notada por quem está imerso nela. Você faz muito, mas o mundo vê pouco.
+                                    </p>
                                 </div>
-                            </div>
-
-                            {/* Right: Humanization Frame (Editorial Split) */}
-                            <div className="lg:col-span-5 relative">
-                                <motion.div 
-                                    className="relative aspect-[4/5] md:aspect-[3/4] overflow-hidden rounded-[2rem] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.15)] ring-1 ring-white/10"
-                                    initial={{ opacity: 0, scale: 0.95, y: 30 }}
-                                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                                    transition={{ duration: 1.4, ease: [0.19, 1, 0.22, 1] }}
-                                >
-                                    {/* Video Loading State / Background */}
-                                    <div className="absolute inset-0 bg-[#111] animate-pulse" />
-                                    
-                                    <video
-                                        autoPlay
-                                        muted
-                                        loop
-                                        playsInline
-                                        className="absolute inset-0 w-full h-full object-cover"
-                                    >
-                                        <source src="/video/bastidores.mp4" type="video/mp4" />
-                                    </video>
-
-                                    {/* Overlay Gradient for depth */}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
-                                    
-                                    {/* Subtle Label */}
-                                    <div className="absolute bottom-8 left-8">
-                                        <p className="text-[0.55rem] font-bold font-sans uppercase tracking-[0.4em] text-white/40 mb-1">Bastidores</p>
-                                        <p className="text-[0.7rem] font-serif italic text-white/80 tracking-widest leading-none">Making-of Cinematic</p>
-                                    </div>
-                                </motion.div>
-
-                                {/* Floating Detail Item (Editorial Flair) */}
-                                <motion.div 
-                                    className="absolute -bottom-10 -left-10 md:-left-20 w-32 h-32 md:w-48 md:h-48 rounded-full border border-[var(--color-cta)]/10 flex items-center justify-center backdrop-blur-sm z-20 pointer-events-none"
-                                    initial={{ rotate: 0 }}
-                                    whileInView={{ rotate: 360 }}
-                                    transition={{ duration: 20, ease: "linear", repeat: Infinity }}
-                                >
-                                    <div className="w-1 h-1 bg-[var(--color-cta)] rounded-full" />
-                                    <svg className="absolute inset-0 w-full h-full fill-[var(--color-cta)]/30" viewBox="0 0 100 100">
-                                        <path id="circlePath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none" />
-                                        <text fontSize="6" fontWeight="bold">
-                                            <textPath href="#circlePath" spacing="auto" startOffset="0%">
-                                                AUTORIDADE • INTENCIONALIDADE • LEGADO • 
-                                            </textPath>
-                                        </text>
-                                    </svg>
-                                </motion.div>
                             </div>
                         </div>
                     </div>
@@ -245,7 +182,7 @@ export default function ContentSections() {
 
 
 
-                {/* 2. SEEA — THE CINEMATIC MANIFESTO (Editorial Redesign) */}
+                {/* 2. SEEA — THE CINEMATIC MANIFESTO (Humanizado) */}
                 <section id="o-conceito" className="relative flex flex-col justify-center py-32 md:py-64 bg-[var(--color-background)] overflow-hidden isolate transition-colors duration-1000">
 
                     {/* 1. Background Atmosphere: Layered Ghost Typography & Grain */}
@@ -273,40 +210,30 @@ export default function ContentSections() {
                     </div>
 
                     <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-12 lg:px-20 xl:px-28 w-full">
-                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 items-end">
+                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 items-center">
                             
                             {/* 2. Manifesto Text: Left Column */}
                             <div className="lg:col-span-7">
                                 <motion.p
-                                    className="text-[0.65rem] font-bold font-sans uppercase tracking-[0.8em] text-[var(--color-category)] mb-12 flex items-center gap-4"
+                                    className="text-[0.62rem] font-bold font-sans uppercase tracking-[0.55em] text-[var(--color-category)] mb-12 flex items-center gap-4"
                                     initial={{ opacity: 0, x: -20 }}
                                     whileInView={{ opacity: 1, x: 0 }}
                                     transition={{ duration: 1 }}
                                 >
                                     <span className="w-8 h-[1px] bg-[var(--color-category)]/30" />
-                                    Manifesto
+                                    O Conceito
                                 </motion.p>
 
                                 <div className="space-y-6 mb-16">
                                     <h2 className="font-extralight font-sans tracking-tight text-[var(--color-text)] headline-reveal">
                                         <div className="overflow-hidden">
                                             <motion.span
-                                                className="block text-[clamp(2.5rem,6vw,5rem)] leading-[1.05] apple-mask-reveal"
-                                                initial={{ y: "40%", opacity: 0 }}
-                                                whileInView={{ y: 0, opacity: 1 }}
-                                                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                                            >
-                                                A ESSÊNCIA DA
-                                            </motion.span>
-                                        </div>
-                                        <div className="overflow-hidden py-2">
-                                            <motion.span
-                                                className="block text-[clamp(3rem,10vw,8.5rem)] leading-[0.9] font-serif italic text-[var(--color-category)] relative text-luxury-glow apple-mask-reveal"
+                                                className="block text-[clamp(3rem,10vw,8.5rem)] leading-[0.9] font-serif italic text-[var(--color-category)] relative text-luxury-glow apple-mask-reveal lowercase"
                                                 initial={{ y: "40%", skewY: 4, opacity: 0 }}
                                                 whileInView={{ y: 0, skewY: 0, opacity: 1 }}
-                                                transition={{ duration: 1.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                                                transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
                                             >
-                                                Autoridade Silenciosa
+                                                o conceito seea
                                             </motion.span>
                                         </div>
                                     </h2>
@@ -319,7 +246,7 @@ export default function ContentSections() {
                                         whileInView={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 1, delay: 0.3 }}
                                     >
-                                        "Nosso diferencial está no olhar treinado para identificar detalhes e histórias que transcendem o tempo."
+                                        Identificamos para quem você precisa falar e como comunicar de forma intencional e verdadeira. Cada trajetória é única e carrega valor.
                                     </motion.p>
                                     
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -349,50 +276,42 @@ export default function ContentSections() {
                                 </div>
                             </div>
 
-                            {/* 3. Lume Lens: Right Column (Moving Parallax Frame) */}
+                            {/* 3. Humanization Frame: Right Column (Moving Parallax Frame) */}
                             <div className="lg:col-span-5 relative mt-20 lg:mt-0">
                                 <motion.div 
-                                    className="relative w-full aspect-square md:aspect-[1/1] rounded-full p-4 border border-white/5 bg-white/[0.02] backdrop-blur-3xl overflow-hidden"
-                                    initial={{ opacity: 0, rotate: -5, scale: 0.9 }}
-                                    whileInView={{ opacity: 1, rotate: 0, scale: 1 }}
-                                    transition={{ duration: 1.8, ease: [0.19, 1, 0.22, 1] }}
+                                    className="relative aspect-[4/5] md:aspect-[3/4] overflow-hidden rounded-[2rem] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.15)] ring-1 ring-white/10"
+                                    initial={{ opacity: 0, scale: 0.95, y: 30 }}
+                                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                                    transition={{ duration: 1.4, ease: [0.19, 1, 0.22, 1] }}
                                 >
-                                    <div className="relative w-full h-full rounded-full overflow-hidden">
-                                        <video
-                                            autoPlay
-                                            muted
-                                            loop
-                                            playsInline
-                                            className="absolute inset-0 w-full h-full object-cover scale-110"
-                                        >
-                                            <source src="/video/video-13.MP4" type="video/mp4" />
-                                        </video>
-                                        <div className="absolute inset-0 bg-black/20 mix-blend-overlay" />
-                                    </div>
-
-                                    {/* Rotating Text around Lens */}
-                                    <motion.div 
-                                        className="absolute inset-0 pointer-events-none"
-                                        animate={{ rotate: -360 }}
-                                        transition={{ duration: 30, ease: "linear", repeat: Infinity }}
+                                    <video
+                                        autoPlay
+                                        muted
+                                        loop
+                                        playsInline
+                                        className="absolute inset-0 w-full h-full object-cover"
                                     >
-                                        <svg className="w-full h-full fill-white/10" viewBox="0 0 100 100">
-                                            <path id="lensPath" d="M 50, 50 m -45, 0 a 45,45 0 1,1 90,0 a 45,45 0 1,1 -90,0" fill="none" />
-                                            <text fontSize="4" className="font-sans tracking-[0.6em] uppercase">
-                                                <textPath href="#lensPath">
-                                                    CINEMATOGRAFIA DE ALTO IMPACTO • SEEA CONCEITO • DESIGN HERITAGE • 
-                                                </textPath>
-                                            </text>
-                                        </svg>
-                                    </motion.div>
+                                        <source src="/video/bastidores.mp4" type="video/mp4" />
+                                    </video>
+                                    <div className="absolute inset-0 bg-black/20 mix-blend-overlay" />
                                 </motion.div>
 
-                                {/* Decorative Dots */}
-                                <div className="absolute -top-10 -right-10 flex gap-2">
-                                    <div className="w-1 h-1 rounded-full bg-[var(--color-cta)]" />
-                                    <div className="w-1 h-1 rounded-full bg-[var(--color-cta)]/40" />
-                                    <div className="w-1 h-1 rounded-full bg-[var(--color-cta)]/20" />
-                                </div>
+                                {/* Floating Detail Item (Editorial Flair) */}
+                                <motion.div 
+                                    className="absolute -bottom-10 -left-10 md:-left-20 w-32 h-32 md:w-44 md:h-44 rounded-full border border-[var(--color-cta)]/10 flex items-center justify-center backdrop-blur-sm z-20 pointer-events-none"
+                                    initial={{ rotate: 0 }}
+                                    whileInView={{ rotate: 360 }}
+                                    transition={{ duration: 25, ease: "linear", repeat: Infinity }}
+                                >
+                                    <svg className="absolute inset-0 w-full h-full fill-[var(--color-cta)]/30" viewBox="0 0 100 100">
+                                        <path id="circlePathSmall" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="none" />
+                                        <text fontSize="5" fontWeight="bold" className="uppercase tracking-[0.2em]">
+                                            <textPath href="#circlePathSmall">
+                                                AUTORIDADE • INTENCIONALIDADE • LEGADO • 
+                                            </textPath>
+                                        </text>
+                                    </svg>
+                                </motion.div>
                             </div>
 
                         </div>
