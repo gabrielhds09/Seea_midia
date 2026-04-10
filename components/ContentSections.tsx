@@ -384,7 +384,7 @@ export default function ContentSections() {
         </div>
 
         {/* Bloco 3: Seções após a Metodologia (overflow-hidden safe) */}
-        <div className="text-[var(--color-text)] relative overflow-hidden bg-[var(--color-background)]">
+        <div className="text-[var(--color-text)] relative z-20 overflow-hidden bg-[var(--color-background)]">
 
                 {/* 6. PROVA SOCIAL (Testimonials) - Validation */}
                 <section id="depoimentos">

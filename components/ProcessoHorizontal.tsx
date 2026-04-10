@@ -61,7 +61,7 @@ export default function ProcessoHorizontal() {
   }, [])
 
   return (
-    <div ref={containerRef} className="relative min-h-screen bg-[var(--color-marble-white)] px-6 lg:px-24 pt-16 md:pt-24 pb-0 md:pb-12">
+    <div ref={containerRef} className="relative min-h-screen bg-[var(--color-marble-white)] px-6 lg:px-24 pt-16 md:pt-24 pb-[30vh] md:pb-12 z-0">
       
       {/* SEEA Atmospheric Background */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -125,9 +125,9 @@ function ProcessPhaseCard({ phase, index, isMobile, scrollYProgress }: {
   const cardScale = useTransform(scrollYProgress, [entryStart, entryEnd], [0.85, 1]);
   const cardOpacity = useTransform(scrollYProgress, [entryStart, entryStart + 0.1], [0, 1]);
   
-  // Exit logic for section end
-  const exitOpacity = useTransform(scrollYProgress, [0.85, 0.95], [1, 0]);
-  const exitScale = useTransform(scrollYProgress, [0.85, 0.95], [1, 0.9]);
+  // Exit logic for section end: Triggering EVEN EARLIER to prevent absolute overlap
+  const exitOpacity = useTransform(scrollYProgress, [0.7, 0.85], [1, 0]);
+  const exitScale = useTransform(scrollYProgress, [0.7, 0.85], [1, 0.8]);
 
   return (
     <CardSticky
