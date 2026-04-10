@@ -62,7 +62,8 @@ function FlipCard({ src, index, total, progress, containerSize, cardSize }: Flip
         const num = match ? match[1] : "01";
         
         // Fallback for missing assets (Verified in filesystem: 11 and 12 are missing)
-        if (num === "11" || num === "12") return `/thumbnails/thumb-01.jpg`;
+        if (num === "11") return `/thumbnails/thumb-07.jpg`; 
+        if (num === "12") return `/thumbnails/thumb-05.jpg`;
         
         // thumb-13 is uppercase .JPG in filesystem
         if (num === "13") return `/thumbnails/thumb-13.JPG`;
@@ -137,11 +138,11 @@ function FlipCard({ src, index, total, progress, containerSize, cardSize }: Flip
 
 // --- Constants (Normalized for case sensitivity) ---
 const VIDEOS = [
-    "/video/video-01.mp4", "/video/video-02.mp4", "/video/video-03.mp4", "/video/video-04.mp4",
-    "/video/video-05.mp4", "/video/video-06.mp4", "/video/video-07.mp4", "/video/video-08.mp4",
-    "/video/video-09.mp4", "/video/video-10.mp4", "/video/video-11.mp4", "/video/video-12.mp4",
-    "/video/video-13.MP4", "/video/video-01.mp4", "/video/video-02.mp4", 
-    "/video/video-03.mp4", "/video/video-04.mp4"
+    "/video/video-01.mp4", "/video/video-07.mp4", "/video/video-03.mp4", "/video/video-11.mp4",
+    "/video/video-05.mp4", "/video/video-12.mp4", "/video/video-09.mp4", "/video/video-13.MP4",
+    "/video/video-02.mp4", "/video/video-08.mp4", "/video/video-04.mp4", "/video/video-10.mp4",
+    "/video/video-06.mp4", "/video/video-03.mp4", "/video/video-12.mp4", "/video/video-07.mp4",
+    "/video/video-01.mp4"
 ].slice(0, 17);
 
 export default function UnifiedHeroMorph() {

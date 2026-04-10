@@ -190,6 +190,32 @@ export const CircularTestimonials = ({
               style={getImageStyle(index)}
             />
           ))}
+          <div className="arrow-buttons">
+            <button
+              className="arrow-button prev-button"
+              onClick={handlePrev}
+              style={{
+                backgroundColor: hoverPrev ? colorArrowHoverBg : colorArrowBg,
+              }}
+              onMouseEnter={() => setHoverPrev(true)}
+              onMouseLeave={() => setHoverPrev(false)}
+              aria-label="Previous testimonial"
+            >
+              <FaArrowLeft size={22} color={colorArrowFg} />
+            </button>
+            <button
+              className="arrow-button next-button"
+              onClick={handleNext}
+              style={{
+                backgroundColor: hoverNext ? colorArrowHoverBg : colorArrowBg,
+              }}
+              onMouseEnter={() => setHoverNext(true)}
+              onMouseLeave={() => setHoverNext(false)}
+              aria-label="Next testimonial"
+            >
+              <FaArrowRight size={22} color={colorArrowFg} />
+            </button>
+          </div>
         </div>
         {/* Content */}
         <div className="testimonial-content">
@@ -244,32 +270,6 @@ export const CircularTestimonials = ({
               </motion.p>
             </motion.div>
           </AnimatePresence>
-          <div className="arrow-buttons">
-            <button
-              className="arrow-button prev-button"
-              onClick={handlePrev}
-              style={{
-                backgroundColor: hoverPrev ? colorArrowHoverBg : colorArrowBg,
-              }}
-              onMouseEnter={() => setHoverPrev(true)}
-              onMouseLeave={() => setHoverPrev(false)}
-              aria-label="Previous testimonial"
-            >
-              <FaArrowLeft size={28} color={colorArrowFg} />
-            </button>
-            <button
-              className="arrow-button next-button"
-              onClick={handleNext}
-              style={{
-                backgroundColor: hoverNext ? colorArrowHoverBg : colorArrowBg,
-              }}
-              onMouseEnter={() => setHoverNext(true)}
-              onMouseLeave={() => setHoverNext(false)}
-              aria-label="Next testimonial"
-            >
-              <FaArrowRight size={28} color={colorArrowFg} />
-            </button>
-          </div>
         </div>
       </div>
       <style jsx>{`
@@ -320,20 +320,28 @@ export const CircularTestimonials = ({
           line-height: 1.75;
         }
         .arrow-buttons {
+          position: absolute;
+          bottom: 1.5rem;
+          left: 1.5rem;
           display: flex;
-          gap: 1.5rem;
-          padding-top: 3rem;
+          gap: 0.75rem;
+          z-index: 50;
         }
         .arrow-button {
-          width: 2.7rem;
-          height: 2.7rem;
+          width: 2.8rem;
+          height: 2.8rem;
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
           cursor: pointer;
-          transition: background-color 0.3s;
-          border: none;
+          transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          backdrop-blur: md;
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        .arrow-button:hover {
+          transform: scale(1.1);
         }
         .word {
           display: inline-block;
