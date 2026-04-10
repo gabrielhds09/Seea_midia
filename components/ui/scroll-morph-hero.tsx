@@ -20,9 +20,11 @@ function FlipCard({ src, index, total, progress, containerSize, cardSize }: Flip
 
     const isMobile = containerSize.width < 768;
     
-    // 1. Phase 1: Circle (UX Expansion for Breathing Room)
-    // Mobile: Expandimos o raio para 52% da largura para afastar do texto
-    const circleRadius = isMobile ? containerSize.width * 0.52 : 420;
+    // 1. Phase 1: Circle (Dimension-Relative Radius for Perfect Balance)
+    // Usamos o menor valor entre largura e altura para manter o círculo perfeito em qualquer monitor
+    const circleRadius = isMobile 
+        ? containerSize.width * 0.52 
+        : Math.min(containerSize.width * 0.42, containerSize.height * 0.48, 540);
     const circleAngle = (index / total) * 360;
     const circleRad = (circleAngle * Math.PI) / 180;
     const circleX = Math.cos(circleRad) * circleRadius;
@@ -46,11 +48,11 @@ function FlipCard({ src, index, total, progress, containerSize, cardSize }: Flip
     const finalX = stripeX * (isMobile ? 1.25 : 1.15);
     const finalY = containerSize.height * (isMobile ? 0.42 : 0.45);
 
-    const x = useTransform(progress, [0, 0.5, 0.6, 1], [circleX, arcX, arcX, finalX]);
-    const y = useTransform(progress, [0, 0.5, 0.6, 1], [circleY, arcY, arcY, finalY]);
-    const rotate = useTransform(progress, [0, 0.5, 0.6, 1], [circleRot, arcRot, arcRot, 0]);
-    const scale = useTransform(progress, [0, 0.5, 0.6, 1], [1, isMobile ? 1.05 : 1.8, isMobile ? 1.05 : 1.8, 0.9]);
-    const opacity = useTransform(progress, [0, 0.6, 0.9, 1], [1, 1, 0.15, 0.05]);
+    const x = useTransform(progress, [0, 0.4, 0.55, 1], [circleX, arcX, arcX, finalX]);
+    const y = useTransform(progress, [0, 0.4, 0.55, 1], [circleY, arcY, arcY, finalY]);
+    const rotate = useTransform(progress, [0, 0.4, 0.55, 1], [circleRot, arcRot, arcRot, 0]);
+    const scale = useTransform(progress, [0, 0.4, 0.55, 1], [1, isMobile ? 1.05 : 1.8, isMobile ? 1.05 : 1.8, 0.9]);
+    const opacity = useTransform(progress, [0, 0.45, 0.85, 1], [1, 1, 0.15, 0.05]);
 
     useEffect(() => {
         if (videoRef.current) videoRef.current.currentTime = 0.2;
@@ -78,7 +80,7 @@ function FlipCard({ src, index, total, progress, containerSize, cardSize }: Flip
                 whileHover={{ rotateY: 180 }}
             >
                 <div className="absolute inset-0 h-full w-full overflow-hidden rounded-lg shadow-xl bg-[var(--color-marble-white)] border border-stone-200/50" style={{ backfaceVisibility: "hidden" }}>
-                    <video ref={videoRef} src={src} className="h-full w-full object-cover" muted loop playsInline preload="metadata" />
+                    <video ref={videoRef} src={src} className="h-full w-full object-cover" muted loop playsInline preload="auto" />
                     <div className="absolute inset-0 bg-stone-900/5 transition-opacity group-hover:opacity-0" />
                 </div>
                 <div className="absolute inset-0 h-full w-full overflow-hidden rounded-lg shadow-xl bg-[var(--color-marble-white)] flex items-center justify-center p-2 border border-[var(--color-gold-precision)]/20" style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}>
@@ -95,8 +97,8 @@ const VIDEOS = [
     "/video/video-05.mp4", "/video/video-06.mp4", "/video/video-07.mp4", "/video/video-08.mp4",
     "/video/video-09.mp4", "/video/video-10.mp4", "/video/video-11.mp4", "/video/video-12.mp4",
     "/video/video-13.MP4", "/video/video-01.mp4", "/video/video-02.mp4", "/video/video-03.mp4",
-    "/video/video-04.mp4", "/video/video-13.MP4", "/video/video-02.mp4", "/video/video-03.mp4"
-];
+    "/video/video-04.mp4", "/video/video-13.MP4"
+].slice(0, 17);
 
 export default function UnifiedHeroMorph() {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -120,13 +122,13 @@ export default function UnifiedHeroMorph() {
 
     // --- Responsive Scaling (UX Pro Max Skill) ---
     const cardSize = useMemo(() => {
-        if (isMobile) return { width: 56, height: 78 }; // ~25% menor no mobile
-        return { width: 75, height: 105 }; // Escala desktop premium
+        if (isMobile) return { width: 56, height: 78 }; 
+        return { width: 85, height: 120 }; // Leve aumento para preencher melhor monitores desktop
     }, [isMobile]);
 
     const visibleVideos = useMemo(() => {
         if (!isMobile) return VIDEOS;
-        return VIDEOS.slice(0, 13); // Mantendo 13 para impacto, mas reduzindo escala individual
+        return VIDEOS.slice(0, 10); // Reduzido para 10 conforme solicitado pelo usuário
     }, [isMobile]);
 
     const total = visibleVideos.length;
@@ -137,25 +139,64 @@ export default function UnifiedHeroMorph() {
         <section ref={containerRef} className="relative h-[300vh] bg-[var(--color-marble-white)]">
             <motion.div style={{ backgroundColor: bgGradient }} className="sticky top-0 h-screen w-full overflow-hidden flex flex-col items-center justify-center">
                 
-                {/* Stage 1: UM TIME QUE (Com Glow de Legibilidade) */}
+                {/* Step 0: Initial Logo Reveal (Inside the Circle) */}
+                <motion.div
+                    style={{ 
+                        opacity: useTransform(smoothProgress, [0, 0.18, 0.25], [1, 1, 0]),
+                        scale: useTransform(smoothProgress, [0, 0.28], [1, 0.85]),
+                        filter: useTransform(smoothProgress, [0.18, 0.28], ["blur(0px)", "blur(10px)"]),
+                        y: useTransform(smoothProgress, [0, 0.25], [0, -30])
+                    }}
+                    className="absolute z-30 flex flex-col items-center pointer-events-none"
+                >
+                    <img
+                        src="/black.svg"
+                        alt="SEEA Mídia"
+                        className="w-[180px] sm:w-[240px] h-auto object-contain mb-12"
+                    />
+                    
+                    {/* Integrated Scroll Indicator with Pulsing Inducer */}
+                    <motion.div 
+                        style={{ opacity: useTransform(smoothProgress, [0, 0.08], [1, 0]) }}
+                        className="flex flex-col items-center gap-2"
+                    >
+                        <span className="text-[0.6rem] font-bold tracking-[0.4em] uppercase text-stone-400">Rolar para vivenciar</span>
+                        {/* Pulsing Dot — Using Heritage Red for 'Recording' feel */}
+                        <motion.div
+                            className="w-2 h-2 bg-heritage-red rounded-full shadow-[0_0_8px_rgba(237,28,36,0.6)]"
+                            animate={{ opacity: [1, 0.4, 1], scale: [1, 0.9, 1] }}
+                            transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+                        />
+                        <motion.div 
+                            animate={{ height: [40, 60, 40], opacity: [0.3, 0.8, 0.3] }}
+                            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                            className="w-[1px] bg-gradient-to-b from-stone-400 to-transparent" 
+                        />
+                    </motion.div>
+                </motion.div>
+
+                {/* Stage 1: UM TIME QUE (Storytelling transition) */}
                 <motion.div 
-                    style={{ opacity: useTransform(smoothProgress, [0, 0.25, 0.35], [1, 1, 0]), scale: useTransform(smoothProgress, [0, 0.35], [1, 0.95]) }}
+                    style={{ 
+                        opacity: useTransform(smoothProgress, [0.25, 0.35, 0.45, 0.52], [0, 1, 1, 0]), 
+                        scale: useTransform(smoothProgress, [0.25, 0.35, 0.52], [0.95, 1, 1.05]),
+                        y: useTransform(smoothProgress, [0.25, 0.52], [20, -20])
+                    }}
                     className="absolute z-10 flex flex-col items-center text-center pointer-events-none drop-shadow-[0_0_25px_rgba(255,255,255,0.8)]"
                 >
-                    <h1 className="text-[clamp(1.6rem,5.5vw,4.5rem)] font-light tracking-tight text-stone-900">
-                        UM <span className="serif-luxury italic font-normal text-[var(--color-heritage-purple)]">TIME</span> QUE
+                    <h1 className="text-[clamp(1.6rem,5.5vw,4.5rem)] font-light tracking-tight text-stone-900 uppercase">
+                        UM <span className="serif-luxury italic font-normal text-[var(--color-heritage-purple)] capitalize">time</span> QUE
                     </h1>
                     <div className="mt-8 flex flex-col items-center gap-2">
-                        <span className="text-[0.6rem] font-bold tracking-[0.4em] uppercase text-stone-400">Rolar para vivenciar</span>
-                        <div className="w-[1px] h-10 bg-gradient-to-b from-stone-400 to-transparent" />
+                        <div className="w-16 h-[0.5px] bg-stone-300" />
                     </div>
                 </motion.div>
 
                 {/* Stage 2: Enxerga cada PROJETO */}
                 <motion.div 
                     style={{ 
-                        opacity: useTransform(smoothProgress, [0.35, 0.45, 0.6, 0.7], [0, 1, 1, 0]),
-                        y: useTransform(smoothProgress, [0.35, 0.7], [20, -40]) 
+                        opacity: useTransform(smoothProgress, [0.55, 0.65, 0.78, 0.85], [0, 1, 1, 0]),
+                        y: useTransform(smoothProgress, [0.55, 0.85], [20, -40]) 
                     }}
                     className="absolute z-10 top-[22%] flex flex-col items-center text-center pointer-events-none px-6"
                 >
@@ -170,8 +211,8 @@ export default function UnifiedHeroMorph() {
                 {/* Stage 3: Como uma HISTÓRIA. */}
                 <motion.div 
                     style={{ 
-                        opacity: useTransform(smoothProgress, [0.75, 0.85], [0, 1]),
-                        y: useTransform(smoothProgress, [0.75, 1], [40, 0])
+                        opacity: useTransform(smoothProgress, [0.88, 0.97], [0, 1]),
+                        y: useTransform(smoothProgress, [0.88, 1], [40, 0])
                     }}
                     className="absolute z-10 flex flex-col items-center text-center pointer-events-none px-4"
                 >
@@ -185,7 +226,7 @@ export default function UnifiedHeroMorph() {
                     </h2>
                     <div className="mt-12 flex items-center gap-4">
                          <div className="w-12 h-[0.5px] bg-stone-300" />
-                         <span className="text-[0.55rem] font-bold tracking-[0.5em] text-stone-400 uppercase">SEEA MÍDIA</span>
+                         <span className="hidden md:block text-[0.62rem] font-bold tracking-[0.55em] text-cta uppercase underline-offset-4 decoration-cta/30">SEEA MÍDIA</span>
                          <div className="w-12 h-[0.5px] bg-stone-300" />
                     </div>
                 </motion.div>

@@ -15,6 +15,7 @@ export type FocusRailItem = {
   videoSrc?: string;
   href?: string;
   meta?: string;
+  priority?: boolean;
 };
 
 interface FocusRailProps {
@@ -33,9 +34,9 @@ function wrap(min: number, max: number, v: number) {
 
 const BASE_SPRING = {
   type: "spring" as const,
-  stiffness: 140, // Reduzido (era 260) para movimento mais cadenciado/luxuoso
-  damping: 32, // Aumentado (era 28) para evitar oscilações
-  mass: 1.2, // Um pouco mais de peso
+  stiffness: 100, // Mais suave para reduzir oscilações de layout
+  damping: 35,
+  mass: 1.5,
 };
 
 const TAP_SPRING = {
@@ -126,7 +127,7 @@ export function FocusRail({
   return (
     <div
       className={cn(
-        "group relative flex h-[750px] w-full flex-col overflow-hidden bg-[var(--color-background)] text-[var(--color-text)] outline-none select-none overflow-x-hidden",
+        "group relative flex h-[620px] md:h-[750px] w-full flex-col overflow-hidden bg-[var(--color-background)] text-[var(--color-text)] outline-none select-none overflow-x-hidden",
         className
       )}
       onMouseEnter={() => setIsHovering(true)}
@@ -135,30 +136,22 @@ export function FocusRail({
       onKeyDown={onKeyDown}
       onWheel={onWheel}
     >
-      {/* Background Atmosphere - Heritage Style */}
-      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+      {/* Background Atmosphere - Optimized (No real-time filters) */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
         <AnimatePresence mode="popLayout">
           <motion.div
-            key={`bg-${activeItem.id}`}
-            initial={{ opacity: 0, scale: 1.1 }}
-            animate={{ opacity: 0.1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute inset-0"
-          >
-             <Image
-              src={activeItem.imageSrc}
-              alt=""
-              fill
-              className="object-cover blur-[100px] saturate-150"
-              priority
-            />
-            {/* Heritage Overlays */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-background)] via-transparent to-[var(--color-background)]" />
-            <div className="absolute inset-0 bg-radial-[at_50%_50%] from-transparent to-[var(--color-background)]" />
-          </motion.div>
+            key={`bg-color-${activeItem.id}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.15 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.5 }}
+            className="absolute inset-0 bg-[var(--color-heritage-purple)]"
+          />
         </AnimatePresence>
         
+        {/* Heritage Gradient Overlay (Deep depth without blur) */}
+        <div className="absolute inset-0 bg-radial-[at_50%_50%] from-transparent via-[var(--color-background)]/40 to-[var(--color-background)]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-background)] via-transparent to-[var(--color-background)]" />
         {/* Ghost Typography - SEEA Identity */}
         <div className="absolute inset-0 flex items-center justify-center opacity-[0.02] select-none pointer-events-none">
             <span className="text-[40vw] font-serif italic text-[var(--color-category)]">seea</span>
@@ -211,7 +204,7 @@ export function FocusRail({
                   scale: scale,
                   rotateY: rotateY,
                   opacity: opacity,
-                  filter: `blur(${blur}px) brightness(${brightness})`,
+                  brightness: brightness, // Propriedade personalizada ou via filter sem blur
                 }}
                 transition={{
                   ...BASE_SPRING,
@@ -219,7 +212,8 @@ export function FocusRail({
                 }}
                 style={{ 
                   transformStyle: "preserve-3d",
-                  willChange: "transform, opacity, filter" 
+                  willChange: "transform, opacity",
+                  filter: `brightness(${brightness})`, // Removido o blur reativo
                 }}
                 onClick={() => {
                   if (offset !== 0) setActive((p) => p + offset);
@@ -244,6 +238,7 @@ export function FocusRail({
                       fill
                       className="object-cover pointer-events-none"
                       sizes="(max-width: 768px) 70vw, 30vw"
+                      priority={item.priority}
                     />
                   )}
                 </div>

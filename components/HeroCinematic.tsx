@@ -4,6 +4,7 @@ import React, { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Image from 'next/image'
 import HeroBackgroundCanvas from './HeroBackgroundCanvas'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -239,7 +240,15 @@ export default function HeroCinematic() {
 
                     {/* Top Logo / Rule container */}
                     <div className="flex justify-between items-center mb-10 sm:mb-14">
-                        <img src="/white.svg" alt="SEEA" className="h-6 sm:h-8 w-auto opacity-90" />
+                        <div className="relative h-6 sm:h-8 w-20 sm:w-28 opacity-90">
+                            <Image 
+                                src="/white.svg" 
+                                alt="SEEA" 
+                                fill
+                                className="object-contain"
+                                priority
+                            />
+                        </div>
                         <div
                             ref={ruleRef}
                             className="flex-1 h-[0.5px] ml-10 origin-left"

@@ -190,7 +190,7 @@ export default function OverlayNav() {
                                     <motion.a
                                         href={item.href}
                                         className="group relative inline-block font-sans font-extralight uppercase tracking-[-0.04em] text-background/30 hover:text-cta transition-colors duration-600"
-                                        style={{ fontSize: 'clamp(3rem, 9vw, 6.5rem)' }}
+                                        style={{ fontSize: 'clamp(2.5rem, 9vw, 6.5rem)' }}
                                         onClick={() => setIsOpen(false)}
                                         whileHover={{ x: 15 }}
                                     >

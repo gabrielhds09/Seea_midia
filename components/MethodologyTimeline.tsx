@@ -152,7 +152,7 @@ function TimelineItem({ step, index }: { step: typeof PROCESS_STEPS[0], index: n
             </div>
 
             {/* Content Card */}
-            <div className={`w-full md:w-1/2 pl-10 pr-3 md:px-0 ${isEven ? 'md:pr-32 md:text-right text-center' : 'md:pl-32 md:text-left text-center'}`}>
+            <div className={`w-full md:w-1/2 pl-12 pr-4 md:px-0 ${isEven ? 'md:pr-32 md:text-right text-center' : 'md:pl-32 md:text-left text-center'}`}>
 
                 <div className={`relative group p-6 md:p-10 rounded-[1.5rem] md:rounded-[2.5rem] bg-white/20 backdrop-blur-[40px] border border-white/40 hover:border-[var(--color-category)]/30 transition-all duration-700 hover:-translate-y-3 shadow-[0_20px_50px_rgba(0,0,0,0.02)] hover:shadow-[0_40px_80px_rgba(67,24,70,0.06)]`}>
 

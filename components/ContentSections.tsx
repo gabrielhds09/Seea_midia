@@ -22,7 +22,8 @@ const PORTFOLIO_ITEMS: FocusRailItem[] = [
         description: "Captura da essência vibrante e movimento orgânico durante a temporada de 2024.",
         imageSrc: '/thumbnails/thumb-01.jpg',
         videoSrc: '/video/video-01.mp4',
-        href: "#portfolio"
+        href: "#portfolio",
+        priority: true
     },
     {
         id: "seea-case-02",
@@ -31,7 +32,8 @@ const PORTFOLIO_ITEMS: FocusRailItem[] = [
         description: "Reposicionamento visual para o Shopping Cidade Jardim com foco em autoridade silenciosa.",
         imageSrc: '/thumbnails/thumb-02.jpg',
         videoSrc: '/video/video-02.mp4',
-        href: "#portfolio"
+        href: "#portfolio",
+        priority: true
     },
     {
         id: "seea-case-03",
@@ -151,7 +153,7 @@ export default function ContentSections() {
                                 </h2>
                             </div>
                             <div className="overflow-hidden">
-                                <h2 className="text-[clamp(2rem,6vw,5.5rem)] leading-[1.04] font-extralight font-sans tracking-[-0.03em] apple-mask-reveal">
+                                <h2 className="text-[clamp(1.75rem,8vw,5.5rem)] leading-[1.04] font-extralight font-sans tracking-[-0.03em] apple-mask-reveal">
                                     <span className="text-[var(--color-text)]">AGORA</span>
                                     <span className="text-[var(--color-cta)]">.</span>
                                 </h2>
@@ -220,7 +222,7 @@ export default function ContentSections() {
                     <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
                         {/* Ghost "S" */}
                         <motion.div
-                            className="absolute -left-[5%] top-[10%] text-[45vw] font-black text-[#431846]/[0.015] leading-none tracking-tighter will-change-transform"
+                            className="absolute -left-[5%] top-[10%] text-[60vw] md:text-[45vw] font-black text-[#431846]/[0.015] leading-none tracking-tighter will-change-transform"
                             style={{ y: '-20%', translateZ: 0 }}
                             animate={{ y: '20%' }}
                             transition={{ duration: 15, ease: "linear", repeat: Infinity, repeatType: "reverse" }}
@@ -279,7 +281,7 @@ export default function ContentSections() {
                                     </div>
                                     <div className="overflow-hidden py-4 -ml-1 md:-ml-3">
                                         <motion.span
-                                            className="block text-[clamp(5.5rem,13vw,11rem)] leading-[0.85] font-serif italic text-[var(--color-category)] relative text-luxury-glow apple-mask-reveal"
+                                            className="block text-[clamp(4rem,15vw,11rem)] leading-[0.85] font-serif italic text-[var(--color-category)] relative text-luxury-glow apple-mask-reveal"
                                             initial={{ y: "20%", skewY: 5, opacity: 0 }}
                                             whileInView={{ y: 0, skewY: 0, opacity: 1 }}
                                             viewport={{ once: true }}

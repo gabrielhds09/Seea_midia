@@ -75,7 +75,7 @@ export default function TeamMinimalist() {
         const handleScroll = () => {
             const scrollLeft = container.scrollLeft
             // Approximate card width + gap for index calculation
-            const cardWidth = isMobile ? 140 + 16 : 400 + 24
+            const cardWidth = isMobile ? 300 + 16 : 400 + 24
             const newIndex = Math.round(scrollLeft / cardWidth)
             setActiveIndex(Math.min(newIndex, TEAM_MEMBERS.length - 1))
         }
@@ -91,7 +91,7 @@ export default function TeamMinimalist() {
         const interval = setInterval(() => {
             if (!scrollRef.current) return
 
-            const cardWidth = isMobile ? 140 + 16 : 400 + 24
+            const cardWidth = isMobile ? 300 + 16 : 400 + 24
             const maxScroll = scrollRef.current.scrollWidth - scrollRef.current.clientWidth
             const currentScroll = scrollRef.current.scrollLeft
 

@@ -37,7 +37,7 @@ function StatItem({ value, suffix, label }: { value: number; suffix: string; lab
     }, [isInView, value])
 
     return (
-        <div className="flex flex-col py-6 border-l border-[var(--color-secondary)]/10 pl-8 first:border-0 first:pl-0">
+        <div className="flex flex-col py-6 border-l border-[var(--color-secondary)]/10 pl-8 first:border-0 first:pl-0 md:border-l md:pl-8 md:first:border-0 md:first:pl-0 border-l-0 pl-0">
             <div className="flex items-baseline gap-1">
                 <p
                     ref={ref}
@@ -120,7 +120,7 @@ export default function AboutSEEA() {
                                     </p>
 
                                     {/* Stats — Horizontal grid */}
-                                    <div className="flex gap-12 lg:gap-24 flex-wrap border-t border-[var(--color-secondary)]/10 pt-12">
+                                    <div className="flex gap-8 sm:gap-12 lg:gap-24 flex-wrap border-t border-[var(--color-secondary)]/10 pt-12">
                                         {STATS.map(s => (
                                             <StatItem key={s.label} {...s} />
                                         ))}
