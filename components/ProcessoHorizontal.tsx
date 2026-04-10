@@ -69,7 +69,7 @@ export default function ProcessoHorizontal() {
         <div className="absolute bottom-[20%] right-[-5%] w-[40%] h-[40%] bg-[var(--color-gold-precision)]/[0.02] rounded-full blur-[120px]" />
       </div>
 
-      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 lg:gap-24 relative z-10">
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8 lg:gap-24 relative z-10">
         
         {/* Left Content - REVERTED TO EDITORIAL STICKY PANEL */}
         <div className="lg:w-[40%] lg:sticky lg:top-32 lg:h-fit self-start">
@@ -80,12 +80,12 @@ export default function ProcessoHorizontal() {
               <div className="w-12 h-[1px] bg-[var(--color-category)]/20" />
            </div>
            
-           <h2 className="text-4xl md:text-6xl font-sans font-extralight text-[var(--color-stone-black)] leading-[1.1] tracking-tighter mb-10">
+           <h2 className="text-4xl md:text-6xl font-sans font-extralight text-[var(--color-stone-black)] leading-[1.1] tracking-tighter mb-6 md:mb-10">
              NOSSO <span className="font-serif italic text-[var(--color-heritage-purple)]">processo</span> <br />
              <span className="uppercase font-bold tracking-tight">na prática.</span>
            </h2>
            
-           <p className="text-[var(--color-stone-black)]/60 font-sans font-light text-base md:text-xl leading-[1.7] max-w-sm mb-12">
+           <p className="text-[var(--color-stone-black)]/60 font-sans font-light text-base md:text-xl leading-[1.7] max-w-sm mb-6 md:mb-12">
              Da convivência à escala. Uma jornada esculpida com precisão onde cada detalhe é transformado em autoridade real.
            </p>
 
@@ -101,58 +101,72 @@ export default function ProcessoHorizontal() {
         <div className="lg:w-[60%] perspective-1000">
            {isReady && (
              <ContainerScroll className="min-h-[180vh] lg:min-h-[220vh] space-y-0"> {/* Mobile-first: 180vh for tight stacking */}
-               {PROCESS_PHASES.map((phase, index) => (
-                 <CardSticky
-                   key={phase.id}
-                   index={index}
-                   incrementY={isMobile ? 18 : 32}
-                   incrementZ={10}
-                   style={{ 
-                     top: (index * (isMobile ? 15 : 32)) + (isMobile ? 100 : 32), // Adjusted for mobile header clearance
-                     zIndex: 10 + index, 
-                   }}
-                   className="w-full rounded-[2.5rem] border border-[var(--color-heritage-purple)]/10 bg-white shadow-[0_32px_120px_-30px_rgba(67,24,70,0.15)] p-8 md:p-14 overflow-hidden relative min-h-[380px] md:min-h-[460px] flex flex-col justify-center"
-                 >
-                    {/* JOINING DECK EDGES: Higher contrast tiered markers */}
-                    <div className="absolute inset-x-0 top-0 h-[3px] bg-white z-20 pointer-events-none" />
-                    <div className="absolute inset-x-0 top-0 h-[1.5px] bg-gradient-to-r from-transparent via-[var(--color-gold-precision)]/50 to-transparent z-30" />
-                    
-                    {/* Shadow valley for layer definition */}
-                    <div className="absolute inset-x-0 top-0 h-[2px] bg-black/5 blur-[1px] z-10" />
-                    
-                    {/* Phase Header */}
-                    <div className="flex justify-between items-start mb-12 relative z-10">
-                       <div className="flex flex-col gap-2">
-                          <span className="text-[0.55rem] font-bold font-sans uppercase tracking-[0.4em] text-[var(--color-category)]/50">
-                            Fase {phase.number}
-                          </span>
-                          <h3 className="text-3xl md:text-4xl font-sans font-light text-[var(--color-stone-black)] tracking-tighter leading-tight whitespace-pre-line">
-                            {phase.title.split('\n').map((line, lid) => (
-                              <span key={lid} className={lid === 1 ? "font-serif italic font-normal text-[var(--color-category)]" : ""}>
-                                {line}{lid === 0 ? " " : ""}
-                              </span>
-                            ))}
-                          </h3>
-                       </div>
-                       <span className="text-4xl md:text-5xl font-serif italic text-[var(--color-gold-precision)] opacity-80 select-none">
-                         {phase.number}
-                       </span>
-                    </div>
+               {PROCESS_PHASES.map((phase, index) => {
+                 // Calculate card movement relative to container scroll
+                 const cardStart = index * 0.15;
+                 const cardEnd = cardStart + 0.4;
+                 
+                 // Dynamic transforms for mobile-first cine-stack
+                 const cardY = useTransform(scrollYProgress, [cardStart, cardEnd], [isMobile ? 120 : 0, 0]);
+                 const cardScale = useTransform(scrollYProgress, [cardStart, cardEnd], [0.95, 1]);
+                 const cardOpacity = useTransform(scrollYProgress, [0, cardStart, cardStart + 0.1], [1, 1, 1]); // Keep opaque for stacking
+                 
+                 return (
+                   <CardSticky
+                     key={phase.id}
+                     index={index}
+                     incrementY={isMobile ? 18 : 32}
+                     incrementZ={10}
+                     style={{ 
+                       top: (index * (isMobile ? 18 : 32)) + (isMobile ? 110 : 32), 
+                       zIndex: 10 + index,
+                       y: cardY,
+                       scale: cardScale,
+                       opacity: cardOpacity
+                     }}
+                     className="w-full rounded-[2.5rem] border border-[var(--color-heritage-purple)]/10 bg-white shadow-[0_32px_120px_-30px_rgba(67,24,70,0.15)] p-8 md:p-14 overflow-hidden relative min-h-[380px] md:min-h-[460px] flex flex-col justify-center"
+                   >
+                      {/* JOINING DECK EDGES: Higher contrast tiered markers */}
+                      <div className="absolute inset-x-0 top-0 h-[3px] bg-white z-20 pointer-events-none" />
+                      <div className="absolute inset-x-0 top-0 h-[1.5px] bg-gradient-to-r from-transparent via-[var(--color-gold-precision)]/50 to-transparent z-30" />
+                      
+                      {/* Shadow valley for layer definition */}
+                      <div className="absolute inset-x-0 top-0 h-[2px] bg-black/5 blur-[1px] z-10" />
+                      
+                      {/* Phase Header */}
+                      <div className="flex justify-between items-start mb-12 relative z-10">
+                         <div className="flex flex-col gap-2">
+                            <span className="text-[0.55rem] font-bold font-sans uppercase tracking-[0.4em] text-[var(--color-category)]/50">
+                              Fase {phase.number}
+                            </span>
+                            <h3 className="text-3xl md:text-4xl font-sans font-light text-[var(--color-stone-black)] tracking-tighter leading-tight whitespace-pre-line">
+                              {phase.title.split('\n').map((line, lid) => (
+                                <span key={lid} className={lid === 1 ? "font-serif italic font-normal text-[var(--color-category)]" : ""}>
+                                  {line}{lid === 0 ? " " : ""}
+                                </span>
+                              ))}
+                            </h3>
+                         </div>
+                         <span className="text-4xl md:text-5xl font-serif italic text-[var(--color-gold-precision)] opacity-80 select-none">
+                           {phase.number}
+                         </span>
+                      </div>
 
-                    {/* Description & Icon */}
-                    <div className="flex flex-col md:flex-row gap-8 items-start relative z-10">
-                       <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-[var(--color-heritage-purple)]/5 flex items-center justify-center text-[var(--color-heritage-purple)] shrink-0 border border-[var(--color-heritage-purple)]/10 shadow-sm">
-                          <phase.icon size={26} strokeWidth={1.2} />
-                       </div>
-                       <p className="text-[var(--color-stone-black)]/70 font-sans font-light text-base md:text-lg leading-[1.8] max-w-sm">
-                         {phase.description}
-                       </p>
-                    </div>
+                      {/* Description & Icon */}
+                      <div className="flex flex-col md:flex-row gap-8 items-start relative z-10">
+                         <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-[var(--color-heritage-purple)]/5 flex items-center justify-center text-[var(--color-heritage-purple)] shrink-0 border border-[var(--color-heritage-purple)]/10 shadow-sm">
+                            <phase.icon size={26} strokeWidth={1.2} />
+                         </div>
+                         <p className="text-[var(--color-stone-black)]/70 font-sans font-light text-base md:text-lg leading-[1.8] max-w-sm">
+                           {phase.description}
+                         </p>
+                      </div>
 
-                    {/* Liquid Aesthetic Polish */}
-                    <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.04] to-transparent pointer-events-none" />
-                 </CardSticky>
-               ))}
+                      {/* Liquid Aesthetic Polish */}
+                      <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.04] to-transparent pointer-events-none" />
+                   </CardSticky>
+                 )
+               })}
              </ContainerScroll>
            )}
         </div>

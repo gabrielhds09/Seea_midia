@@ -194,26 +194,20 @@ export const CircularTestimonials = ({
             <button
               className="arrow-button prev-button"
               onClick={handlePrev}
-              style={{
-                backgroundColor: hoverPrev ? colorArrowHoverBg : colorArrowBg,
-              }}
               onMouseEnter={() => setHoverPrev(true)}
               onMouseLeave={() => setHoverPrev(false)}
               aria-label="Previous testimonial"
             >
-              <FaArrowLeft size={22} color={colorArrowFg} />
+              <FaArrowLeft size={24} color={colorArrowFg} />
             </button>
             <button
               className="arrow-button next-button"
               onClick={handleNext}
-              style={{
-                backgroundColor: hoverNext ? colorArrowHoverBg : colorArrowBg,
-              }}
               onMouseEnter={() => setHoverNext(true)}
               onMouseLeave={() => setHoverNext(false)}
               aria-label="Next testimonial"
             >
-              <FaArrowRight size={22} color={colorArrowFg} />
+              <FaArrowRight size={24} color={colorArrowFg} />
             </button>
           </div>
         </div>
@@ -321,26 +315,31 @@ export const CircularTestimonials = ({
         }
         .arrow-buttons {
           position: absolute;
-          bottom: 1.5rem;
-          left: 1.5rem;
+          inset: 0;
           display: flex;
-          gap: 0.75rem;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0 1rem;
           z-index: 50;
+          pointer-events: none;
         }
         .arrow-button {
-          width: 2.8rem;
-          height: 2.8rem;
+          width: 3.2rem;
+          height: 3.2rem;
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
           cursor: pointer;
           transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          backdrop-blur: md;
-          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          background-color: transparent;
+          backdrop-blur: sm;
+          pointer-events: auto;
+          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
         .arrow-button:hover {
+          background-color: rgba(255, 255, 255, 0.05);
           transform: scale(1.1);
         }
         .word {
