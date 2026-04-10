@@ -116,14 +116,17 @@ function ProcessPhaseCard({ phase, index, isMobile, scrollYProgress }: {
   isMobile: boolean,
   scrollYProgress: MotionValue<number>
 }) {
-  // Dynamic transforms for mobile-first cine-stack (Now starting earlier)
-  const entryStart = isMobile ? index * 0.12 : index * 0.15;
-  const entryEnd = entryStart + 0.3;
+  // Dynamic transforms: Tightened for faster response on mobile
+  const entryStart = isMobile 
+    ? (index === 0 ? 0 : index * 0.1) 
+    : index * 0.15;
+  const entryEnd = entryStart + (isMobile ? 0.25 : 0.3);
   
-  // Transition logic: Stay visible, then start rising
-  const cardY = useTransform(scrollYProgress, [entryStart, entryEnd], [400, 0]);
-  const cardScale = useTransform(scrollYProgress, [entryStart, entryEnd], [0.85, 1]);
-  const cardOpacity = useTransform(scrollYProgress, [entryStart, entryStart + 0.1], [0, 1]);
+  // Transition logic: Reducing initial Y offset to avoid whitespace gaps
+  const initialY = isMobile ? 200 : 400;
+  const cardY = useTransform(scrollYProgress, [entryStart, entryEnd], [initialY, 0]);
+  const cardScale = useTransform(scrollYProgress, [entryStart, entryEnd], [0.88, 1]);
+  const cardOpacity = useTransform(scrollYProgress, [entryStart, entryStart + (isMobile ? 0.05 : 0.1)], [0, 1]);
   
   // Exit logic for section end: Triggering EVEN EARLIER to prevent absolute overlap
   const exitOpacity = useTransform(scrollYProgress, [0.7, 0.85], [1, 0]);
