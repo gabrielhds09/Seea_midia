@@ -69,38 +69,30 @@ export default function ProcessoHorizontal() {
         <div className="absolute bottom-[20%] right-[-5%] w-[40%] h-[40%] bg-[var(--color-gold-precision)]/[0.02] rounded-full blur-[120px]" />
       </div>
 
-      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8 lg:gap-24 relative z-10">
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-0 lg:gap-24 relative z-10">
         
-        {/* Left Content - REVERTED TO EDITORIAL STICKY PANEL */}
-        <div className="lg:w-[40%] lg:sticky lg:top-32 lg:h-fit self-start">
-           <div className="flex items-center gap-4 mb-6">
-              <span className="text-[0.62rem] font-bold font-sans uppercase tracking-[0.55em] text-[var(--color-category)]">
+        {/* Left Content - STICKY ANCHOR ON MOBILE */}
+        <div className="lg:w-[40%] sticky top-0 lg:top-32 lg:h-fit self-start z-50 bg-[var(--color-marble-white)]/90 backdrop-blur-md lg:bg-transparent pb-6 lg:pb-0">
+           <div className="flex items-center gap-4 mb-4 lg:mb-6">
+              <span className="text-[0.55rem] lg:text-[0.62rem] font-bold font-sans uppercase tracking-[0.55em] text-[var(--color-category)]">
                 Metodologia Proprietária
               </span>
-              <div className="w-12 h-[1px] bg-[var(--color-category)]/20" />
+              <div className="w-8 h-[1px] bg-[var(--color-category)]/20" />
            </div>
            
-           <h2 className="text-4xl md:text-6xl font-sans font-extralight text-[var(--color-stone-black)] leading-[1.1] tracking-tighter mb-6 md:mb-10">
-             NOSSO <span className="font-serif italic text-[var(--color-heritage-purple)]">processo</span> <br />
+           <h2 className="text-3xl md:text-6xl font-sans font-extralight text-[var(--color-stone-black)] leading-[1.1] tracking-tighter mb-4 lg:mb-10">
+             NOSSO <span className="font-serif italic text-[var(--color-heritage-purple)]">processo</span> <br className="hidden lg:block" />
              <span className="uppercase font-bold tracking-tight">na prática.</span>
            </h2>
            
-           <p className="text-[var(--color-stone-black)]/60 font-sans font-light text-base md:text-xl leading-[1.7] max-w-sm mb-6 md:mb-12">
+           <p className="hidden lg:block text-[var(--color-stone-black)]/60 font-sans font-light text-xl leading-[1.7] max-w-sm mb-12">
              Da convivência à escala. Uma jornada esculpida com precisão onde cada detalhe é transformado em autoridade real.
            </p>
-
-           {/* Precision Vertical Progress */}
-           <div className="h-40 w-[1px] bg-[var(--color-heritage-purple)]/10 overflow-hidden relative">
-              <motion.div 
-                style={{ scaleY: smoothProgress, transformOrigin: "top" }}
-                className="absolute inset-0 bg-[var(--color-gold-precision)]"
-              />
-           </div>
         </div>
 
         <div className="lg:w-[60%] perspective-1000">
            {isReady && (
-             <ContainerScroll className="min-h-[180vh] lg:min-h-[220vh] space-y-0"> {/* Mobile-first: 180vh for tight stacking */}
+             <ContainerScroll className="min-h-[160vh] lg:min-h-[220vh] space-y-0 relative z-10"> {/* 160vh: Faster track to prevent trailing whitespace */}
                {PROCESS_PHASES.map((phase, index) => (
                  <ProcessPhaseCard 
                     key={phase.id} 
@@ -124,28 +116,32 @@ function ProcessPhaseCard({ phase, index, isMobile, scrollYProgress }: {
   isMobile: boolean,
   scrollYProgress: MotionValue<number>
 }) {
-  // Calculate card movement relative to container scroll
-  const cardStart = index * 0.15;
-  const cardEnd = cardStart + 0.35; // Slightly faster entrance
+  // Dynamic transforms for mobile-first cine-stack (Now starting earlier)
+  const entryStart = isMobile ? index * 0.12 : index * 0.15;
+  const entryEnd = entryStart + 0.3;
   
-  // Dynamic transforms for mobile-first cine-stack
-  const cardY = useTransform(scrollYProgress, [cardStart, cardEnd], [isMobile ? 160 : 60, 0]);
-  const cardScale = useTransform(scrollYProgress, [cardStart, cardEnd], [0.92, 1]);
-  const cardOpacity = useTransform(scrollYProgress, [cardStart, cardEnd], [0.3, 1]);
+  // Transition logic: Stay visible, then start rising
+  const cardY = useTransform(scrollYProgress, [entryStart, entryEnd], [400, 0]);
+  const cardScale = useTransform(scrollYProgress, [entryStart, entryEnd], [0.85, 1]);
+  const cardOpacity = useTransform(scrollYProgress, [entryStart, entryStart + 0.1], [0, 1]);
   
+  // Exit logic for section end
+  const exitOpacity = useTransform(scrollYProgress, [0.85, 0.95], [1, 0]);
+  const exitScale = useTransform(scrollYProgress, [0.85, 0.95], [1, 0.9]);
+
   return (
     <CardSticky
       index={index}
-      incrementY={isMobile ? 18 : 32}
+      incrementY={isMobile ? 12 : 32} // Tighter on mobile
       incrementZ={10}
       style={{ 
-        top: (index * (isMobile ? 18 : 32)) + (isMobile ? 110 : 32), 
+        top: (index * (isMobile ? 12 : 32)) + (isMobile ? 160 : 32), // More space for sticky header
         zIndex: 10 + index,
         y: cardY,
         scale: cardScale,
-        opacity: cardOpacity
+        opacity: isMobile ? exitOpacity : cardOpacity, // On mobile, we fade out at the end
       }}
-      className="w-full rounded-[2.5rem] border border-[var(--color-heritage-purple)]/10 bg-white shadow-[0_32px_120px_-30px_rgba(67,24,70,0.15)] p-8 md:p-14 overflow-hidden relative min-h-[380px] md:min-h-[460px] flex flex-col justify-center"
+      className="w-full rounded-[2.5rem] border border-[var(--color-heritage-purple)]/10 bg-white shadow-[0_32px_120px_-30px_rgba(67,24,70,0.15)] p-8 md:p-14 overflow-hidden relative min-h-[360px] md:min-h-[460px] flex flex-col justify-center"
     >
        {/* JOINING DECK EDGES: Higher contrast tiered markers */}
        <div className="absolute inset-x-0 top-0 h-[3px] bg-white z-20 pointer-events-none" />
