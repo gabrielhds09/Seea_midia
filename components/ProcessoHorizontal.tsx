@@ -61,7 +61,7 @@ export default function ProcessoHorizontal() {
   }, [])
 
   return (
-    <div ref={containerRef} className="relative min-h-screen bg-[var(--color-marble-white)] px-6 lg:px-24 py-16 md:py-24 mb-6 md:mb-12">
+    <div ref={containerRef} className="relative min-h-screen bg-[var(--color-marble-white)] px-6 lg:px-24 pt-16 md:pt-24 pb-0 md:pb-12">
       
       {/* SEEA Atmospheric Background */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -98,21 +98,20 @@ export default function ProcessoHorizontal() {
            </div>
         </div>
 
-        {/* Right Content - THE JOINING DECK (BARALHO ADITIVO) */}
         <div className="lg:w-[60%] perspective-1000">
            {isReady && (
-             <ContainerScroll className="min-h-[350vh] lg:min-h-[220vh] space-y-0"> {/* Extended mobile track for stack logic */}
+             <ContainerScroll className="min-h-[180vh] lg:min-h-[220vh] space-y-0"> {/* Mobile-first: 180vh for tight stacking */}
                {PROCESS_PHASES.map((phase, index) => (
                  <CardSticky
                    key={phase.id}
                    index={index}
-                   incrementY={isMobile ? 20 : 32}
+                   incrementY={isMobile ? 18 : 32}
                    incrementZ={10}
                    style={{ 
-                     top: (index * (isMobile ? 20 : 32)) + (isMobile ? 80 : 32), // Sequential stacking at the top
-                     zIndex: 10 + index, // Additive layering
+                     top: (index * (isMobile ? 15 : 32)) + (isMobile ? 100 : 32), // Adjusted for mobile header clearance
+                     zIndex: 10 + index, 
                    }}
-                   className="w-full rounded-[2.5rem] border border-[var(--color-heritage-purple)]/10 bg-white shadow-[0_32px_120px_-30px_rgba(67,24,70,0.1)] p-8 md:p-14 overflow-hidden relative min-h-[420px] md:min-h-[460px] flex flex-col justify-center"
+                   className="w-full rounded-[2.5rem] border border-[var(--color-heritage-purple)]/10 bg-white shadow-[0_32px_120px_-30px_rgba(67,24,70,0.15)] p-8 md:p-14 overflow-hidden relative min-h-[380px] md:min-h-[460px] flex flex-col justify-center"
                  >
                     {/* JOINING DECK EDGES: Higher contrast tiered markers */}
                     <div className="absolute inset-x-0 top-0 h-[3px] bg-white z-20 pointer-events-none" />
