@@ -35,7 +35,10 @@ const PHRASES = [
             { text: ' APENAS VÊEM', type: 'caps' },
             { text: '.', type: 'caps' },
         ]
-    },const PHRASE_SHOW = 1200
+    },
+];
+
+const PHRASE_SHOW = 1200;
 const FADE_TIME = 600
 const MIN_DISPLAY_TIME = 3500 // Min visual time for branding
 
