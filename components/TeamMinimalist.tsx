@@ -134,11 +134,11 @@ export default function TeamMinimalist() {
     }
 
     return (
-        <section className="relative w-full py-20 md:py-32 overflow-hidden bg-[var(--color-background)]">
+        <section className="relative w-full py-16 md:py-24 lg:py-32 overflow-hidden bg-[var(--color-background)]">
             {/* Top hairline */}
             <div className="absolute top-0 left-0 right-0 h-[0.5px]" style={{ background: 'linear-gradient(90deg, transparent, rgba(17,17,17,0.08), transparent)' }} />
 
-            <div className="max-w-[1600px] mx-auto px-6 relative z-10">
+            <div className="max-w-[1600px] mx-auto px-6 sm:px-12 lg:px-20 relative z-10">
                 {/* Header & Controls */}
                 <div className="mb-16 md:mb-24 flex flex-col md:flex-row items-center justify-between gap-8">
                     <div className="text-center md:text-left">

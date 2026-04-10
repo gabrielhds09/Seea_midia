@@ -42,7 +42,7 @@ export default function MegaFooter() {
             <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-20 xl:px-28 relative z-10">
 
                 {/* Main Content */}
-                <div className="pt-32 pb-24">
+                <div className="pt-16 md:pt-32 pb-24">
                     <div className="grid lg:grid-cols-12 gap-24">
 
                         {/* Left — Brand + CTA */}

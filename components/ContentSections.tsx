@@ -94,7 +94,7 @@ export const BrandAccent = ({ className = "" }: { className?: string }) => (
 
 // Shared Section Wrapper for consistent padding/layout
 const Section = ({ children, className = '', id }: { children: React.ReactNode; className?: string, id?: string }) => (
-    <section id={id} className={`px-6 py-32 sm:px-12 lg:px-24 border-b border-[var(--color-secondary)]/10 ${className}`}>
+    <section id={id} className={`px-6 py-20 sm:py-24 lg:py-32 sm:px-12 lg:px-24 border-b border-[var(--color-secondary)]/10 ${className}`}>
         <div className="mx-auto max-w-7xl">
             {children}
         </div>
@@ -132,7 +132,7 @@ export default function ContentSections() {
             {/* ═══ SECTION: ABOUT / INTRO ═══ */}
 
                 {/* 1. VISÃO ALÉM DO AGORA — Seção Textual Editorial */}
-                <section id="perspectiva" className="relative overflow-hidden py-32 md:py-56 px-6 sm:px-12 lg:px-20 xl:px-28 bg-[var(--color-background)]">
+                <section id="perspectiva" className="relative overflow-hidden py-24 md:py-40 lg:py-56 px-6 sm:px-12 lg:px-20 xl:px-28 bg-[var(--color-background)]">
                     <div className="absolute inset-0 bg-[var(--color-background)]" />
                     
                     {/* Subtle horizontal rule glow */}
@@ -177,6 +177,9 @@ export default function ContentSections() {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </section>
+
                     {/* 2. SEEA — THE CINEMATIC MANIFESTO (Mobile UX Optimized) */}
                 <section id="o-conceito" className="relative flex flex-col justify-center bg-[var(--color-background)] overflow-visible isolate transition-colors duration-1000">
 
@@ -204,22 +207,8 @@ export default function ContentSections() {
                         </motion.div>
                     </div>
 
-                    {/* STICKY MEDIA CONTAINER (Mobile Specific) */}
-                    <div className="lg:hidden sticky top-0 h-[50vh] w-full z-0 overflow-hidden">
-                        <video
-                            autoPlay
-                            muted
-                            loop
-                            playsInline
-                            className="absolute inset-0 w-full h-full object-cover"
-                        >
-                            <source src="/video/bastidores.mp4" type="video/mp4" />
-                        </video>
-                        <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-background)] via-transparent to-[var(--color-background)] opacity-90" />
-                        <div className="absolute inset-0 bg-black/10 mix-blend-overlay" />
-                    </div>
 
-                    <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-12 lg:px-20 xl:px-28 w-full py-24 lg:py-64">
+                    <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-12 lg:px-20 xl:px-28 w-full py-16 lg:py-64">
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 items-center">
                             
                             {/* 2. Manifesto Text: Left Column */}
@@ -250,6 +239,20 @@ export default function ContentSections() {
                                             </motion.span>
                                         </div>
                                     </h2>
+
+                                    {/* Mobile Inline Video (Abaixo do Título) */}
+                                    <div className="lg:hidden relative w-full aspect-video rounded-3xl overflow-hidden shadow-[0_24px_50px_-12px_rgba(0,0,0,0.5)] my-12 border border-white/10">
+                                        <video
+                                            autoPlay
+                                            muted
+                                            loop
+                                            playsInline
+                                            className="absolute inset-0 w-full h-full object-cover"
+                                        >
+                                            <source src="/video/bastidores.mp4" type="video/mp4" />
+                                        </video>
+                                        <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-background)]/40 via-transparent to-transparent" />
+                                    </div>
                                 </div>
 
                                 <div className="max-w-xl space-y-12 mb-20 lg:mb-0">
@@ -337,7 +340,7 @@ export default function ContentSections() {
 
 
                 {/* 4. NOSSO ACERVO (FocusRail Imersivo) */}
-                <section id="nosso-acervo" className="relative pt-32 pb-20 bg-[var(--color-background)]">
+                <section id="nosso-acervo" className="relative pt-24 md:pt-32 pb-16 md:pb-20 bg-[var(--color-background)]">
                     <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-20 xl:px-28 mb-12">
                          <motion.p 
                             initial={{ opacity: 0, y: 20 }}

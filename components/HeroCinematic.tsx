@@ -41,7 +41,7 @@ export default function HeroCinematic() {
         const ctx = gsap.context(() => {
             // Smart Intro detection
             const hasSeen = typeof window !== 'undefined' && sessionStorage.getItem('seea_intro_seen')
-            const introDelay = hasSeen ? 8.0 : 10.5
+            const introDelay = hasSeen ? 2.5 : 4.5
 
             const tl = gsap.timeline({
                 delay: introDelay,
@@ -236,11 +236,11 @@ export default function HeroCinematic() {
                 </div>
 
                 {/* ── Layout Grid ── */}
-                <div className="relative z-[2] w-full px-6 sm:px-12 lg:px-20 xl:px-28 pt-[18vh] sm:pt-[22vh] pb-16">
+                <div className="relative z-[2] w-full px-6 sm:px-12 lg:px-20 xl:px-28 pt-[12vh] sm:pt-[18vh] lg:pt-[22vh] pb-16">
 
                     {/* Top Logo / Rule container */}
-                    <div className="flex justify-between items-center mb-10 sm:mb-14">
-                        <div className="relative h-6 sm:h-8 w-20 sm:w-28 opacity-90">
+                    <div className="flex justify-between items-center mb-8 sm:mb-14">
+                        <div className="relative h-5 sm:h-8 w-16 sm:w-28 opacity-90">
                             <Image 
                                 src="/black.png" 
                                 alt="SEEA" 
@@ -251,7 +251,7 @@ export default function HeroCinematic() {
                         </div>
                         <div
                             ref={ruleRef}
-                            className="flex-1 h-[0.5px] ml-10 origin-left"
+                            className="flex-1 h-[0.5px] ml-6 sm:ml-10 origin-left"
                             style={{
                                 background: 'linear-gradient(90deg, var(--color-secondary) 0%, transparent 100%)',
                             }}

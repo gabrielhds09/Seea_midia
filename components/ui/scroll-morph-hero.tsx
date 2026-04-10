@@ -34,9 +34,9 @@ function FlipCard({ src, index, total, progress, containerSize, cardSize }: Flip
 
     // 2. Phase 2: Arc
     const baseRadius = containerSize.width * (isMobile ? 1.05 : 1.25);
-    const arcApexY = containerSize.height * (isMobile ? 0.35 : 0.28);
+    const arcApexY = containerSize.height * (isMobile ? 0.32 : 0.28);
     const arcCenterY = arcApexY + baseRadius;
-    const spreadAngle = isMobile ? 120 : 135;
+    const spreadAngle = isMobile ? 135 : 135;
     const startAngle = -90 - (spreadAngle / 2);
     const currentArcAngle = startAngle + (index * (spreadAngle / (total - 1)));
     const arcRad = (currentArcAngle * Math.PI) / 180;
@@ -47,7 +47,7 @@ function FlipCard({ src, index, total, progress, containerSize, cardSize }: Flip
     // 3. Phase 3: Final Dispersal
     const stripeX = (index / (total - 1)) * containerSize.width - containerSize.width / 2;
     const finalX = stripeX * (isMobile ? 1.25 : 1.15);
-    const finalY = containerSize.height * (isMobile ? 0.42 : 0.45);
+    const finalY = containerSize.height * (isMobile ? 0.45 : 0.45);
 
     const x = useTransform(progress, [0, 0.4, 0.55, 1], [circleX, arcX, arcX, finalX]);
     const y = useTransform(progress, [0, 0.4, 0.55, 1], [circleY, arcY, arcY, finalY]);
@@ -170,7 +170,7 @@ export default function UnifiedHeroMorph() {
 
     const visibleVideos = useMemo(() => {
         if (!isMobile) return VIDEOS;
-        return VIDEOS.slice(0, 10);
+        return VIDEOS.slice(0, 12);
     }, [isMobile]);
 
     const total = visibleVideos.length;

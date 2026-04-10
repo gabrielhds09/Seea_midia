@@ -61,7 +61,7 @@ export default function AboutSEEA() {
     return (
         <section
             ref={containerRef}
-            className="relative w-full py-40 md:py-64 px-6 sm:px-12 lg:px-20 xl:px-28 overflow-hidden bg-[var(--color-background)]"
+            className="relative w-full py-24 md:py-32 lg:py-64 px-6 sm:px-12 lg:px-20 xl:px-28 overflow-hidden bg-[var(--color-background)]"
         >
             {/* Top hairline */}
             <div className="absolute top-0 left-0 right-0 h-[0.5px]" style={{ background: 'linear-gradient(90deg, transparent, var(--color-cta)/15, var(--color-background-darker)/4, transparent)' }} />

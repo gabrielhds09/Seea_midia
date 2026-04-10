@@ -28,7 +28,7 @@ const TESTIMONIALS = [
 export default function TestimonialsMinimalist() {
     return (
         <section
-            className="relative w-full min-h-screen bg-[var(--color-background)] flex flex-col items-center justify-center px-6 sm:px-12 py-32 overflow-hidden"
+            className="relative w-full min-h-[60vh] md:min-h-[80vh] bg-[var(--color-background)] flex flex-col items-center justify-center px-6 sm:px-12 py-12 md:py-20 lg:py-24 overflow-hidden"
         >
             <div className="max-w-7xl w-full mx-auto relative z-10 flex flex-col items-center justify-center">
 

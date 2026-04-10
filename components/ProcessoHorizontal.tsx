@@ -54,7 +54,7 @@ export default function ProcessoHorizontal() {
   useEffect(() => { setIsReady(true) }, [])
 
   return (
-    <div ref={containerRef} className="relative min-h-screen bg-[var(--color-marble-white)] px-6 lg:px-24 py-24 mb-12">
+    <div ref={containerRef} className="relative min-h-screen bg-[var(--color-marble-white)] px-6 lg:px-24 py-16 md:py-24 mb-6 md:mb-12">
       
       {/* SEEA Atmospheric Background */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
