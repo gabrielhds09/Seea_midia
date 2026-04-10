@@ -1,7 +1,6 @@
-"use client";
-
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import { motion, useTransform, useScroll, useSpring, MotionValue } from "framer-motion";
+import Image from "next/image";
 
 // --- Types ---
 interface FlipCardProps {
@@ -17,11 +16,11 @@ interface FlipCardProps {
 function FlipCard({ src, index, total, progress, containerSize, cardSize }: FlipCardProps) {
     const videoRef = useRef<HTMLVideoElement>(null);
     const [isHovered, setIsHovered] = useState(false);
+    const [videoLoaded, setVideoLoaded] = useState(false);
 
     const isMobile = containerSize.width < 768;
     
-    // 1. Phase 1: Circle (Dimension-Relative Radius for Perfect Balance)
-    // Usamos o menor valor entre largura e altura para manter o círculo perfeito em qualquer monitor
+    // 1. Phase 1: Circle
     const circleRadius = isMobile 
         ? containerSize.width * 0.52 
         : Math.min(containerSize.width * 0.42, containerSize.height * 0.48, 540);
@@ -31,7 +30,7 @@ function FlipCard({ src, index, total, progress, containerSize, cardSize }: Flip
     const circleY = Math.sin(circleRad) * circleRadius;
     const circleRot = circleAngle + 90;
 
-    // 2. Phase 2: Arc (Responsive Jewelry Display)
+    // 2. Phase 2: Arc
     const baseRadius = containerSize.width * (isMobile ? 1.05 : 1.25);
     const arcApexY = containerSize.height * (isMobile ? 0.35 : 0.28);
     const arcCenterY = arcApexY + baseRadius;
@@ -54,8 +53,21 @@ function FlipCard({ src, index, total, progress, containerSize, cardSize }: Flip
     const scale = useTransform(progress, [0, 0.4, 0.55, 1], [1, isMobile ? 1.05 : 1.8, isMobile ? 1.05 : 1.8, 0.9]);
     const opacity = useTransform(progress, [0, 0.45, 0.85, 1], [1, 1, 0.15, 0.05]);
 
+    // Thumbnail Mapping Logic
+    const thumbSrc = useMemo(() => {
+        // Extrai o número do vídeo: /video/video-XX.mp4 -> XX
+        const match = src.match(/video-(\d+)/i);
+        const num = match ? match[1] : "01";
+        // thumb-13 is uppercase .JPG in filesystem
+        if (num === "13") return `/thumbnails/thumb-13.JPG`;
+        return `/thumbnails/thumb-${num}.jpg`;
+    }, [src]);
+
     useEffect(() => {
-        if (videoRef.current) videoRef.current.currentTime = 0.2;
+        if (videoRef.current) {
+            videoRef.current.currentTime = 0.2;
+            videoRef.current.onloadeddata = () => setVideoLoaded(true);
+        }
     }, [src]);
 
     useEffect(() => {
@@ -79,10 +91,35 @@ function FlipCard({ src, index, total, progress, containerSize, cardSize }: Flip
                 transition={{ duration: 0.8 }}
                 whileHover={{ rotateY: 180 }}
             >
+                {/* FRONT FACE: DUAL MEDIA (Image + Video) */}
                 <div className="absolute inset-0 h-full w-full overflow-hidden rounded-lg shadow-xl bg-[var(--color-marble-white)] border border-stone-200/50" style={{ backfaceVisibility: "hidden" }}>
-                    <video ref={videoRef} src={src} className="h-full w-full object-cover" muted loop playsInline preload="auto" />
-                    <div className="absolute inset-0 bg-stone-900/5 transition-opacity group-hover:opacity-0" />
+                    
+                    {/* Fallback Image Layer (Instant Load) */}
+                    <div className="absolute inset-0 z-0">
+                        <Image
+                            src={thumbSrc}
+                            alt="Project Thumbnail"
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 768px) 100px, 200px"
+                        />
+                    </div>
+
+                    {/* Video Layer (Fade in when ready) */}
+                    <video 
+                        ref={videoRef} 
+                        src={src} 
+                        className={`absolute inset-0 z-10 h-full w-full object-cover transition-opacity duration-700 ${videoLoaded ? 'opacity-100' : 'opacity-0'}`}
+                        muted 
+                        loop 
+                        playsInline 
+                        preload="auto" 
+                    />
+                    
+                    <div className="absolute inset-0 z-20 bg-stone-900/5 transition-opacity group-hover:opacity-0" />
                 </div>
+
+                {/* BACK FACE: LEGACY INFO */}
                 <div className="absolute inset-0 h-full w-full overflow-hidden rounded-lg shadow-xl bg-[var(--color-marble-white)] flex items-center justify-center p-2 border border-[var(--color-gold-precision)]/20" style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}>
                     <p className="text-[8px] font-sans font-bold uppercase tracking-widest text-[#431846]">Impacto</p>
                 </div>
@@ -91,20 +128,19 @@ function FlipCard({ src, index, total, progress, containerSize, cardSize }: Flip
     );
 }
 
-// --- Constants ---
+// --- Constants (Normalized for case sensitivity) ---
 const VIDEOS = [
     "/video/video-01.mp4", "/video/video-02.mp4", "/video/video-03.mp4", "/video/video-04.mp4",
     "/video/video-05.mp4", "/video/video-06.mp4", "/video/video-07.mp4", "/video/video-08.mp4",
     "/video/video-09.mp4", "/video/video-10.mp4", "/video/video-11.mp4", "/video/video-12.mp4",
-    "/video/video-13.MP4", "/video/video-01.mp4", "/video/video-02.mp4", "/video/video-03.mp4",
-    "/video/video-04.mp4", "/video/video-13.MP4"
+    "/video/video-13.MP4", "/video/video-01.mp4", "/video/video-02.mp4", 
+    "/video/video-03.mp4", "/video/video-04.mp4"
 ].slice(0, 17);
 
 export default function UnifiedHeroMorph() {
     const containerRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
     
-    // Snappiness Adjustment: Mais stiffness e menos damping para resposta imediata
     const smoothProgress = useSpring(scrollYProgress, { stiffness: 70, damping: 30 });
 
     const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
@@ -120,15 +156,14 @@ export default function UnifiedHeroMorph() {
 
     const isMobile = containerSize.width > 0 && containerSize.width < 768;
 
-    // --- Responsive Scaling (UX Pro Max Skill) ---
     const cardSize = useMemo(() => {
         if (isMobile) return { width: 56, height: 78 }; 
-        return { width: 85, height: 120 }; // Leve aumento para preencher melhor monitores desktop
+        return { width: 85, height: 120 };
     }, [isMobile]);
 
     const visibleVideos = useMemo(() => {
         if (!isMobile) return VIDEOS;
-        return VIDEOS.slice(0, 10); // Reduzido para 10 conforme solicitado pelo usuário
+        return VIDEOS.slice(0, 10);
     }, [isMobile]);
 
     const total = visibleVideos.length;
@@ -139,7 +174,7 @@ export default function UnifiedHeroMorph() {
         <section ref={containerRef} className="relative h-[300vh] bg-[var(--color-marble-white)]">
             <motion.div style={{ backgroundColor: bgGradient }} className="sticky top-0 h-screen w-full overflow-hidden flex flex-col items-center justify-center">
                 
-                {/* Step 0: Initial Logo Reveal (Inside the Circle) */}
+                {/* Step 0: Initial Logo Reveal (Updated to black.png) */}
                 <motion.div
                     style={{ 
                         opacity: useTransform(smoothProgress, [0, 0.18, 0.25], [1, 1, 0]),
@@ -149,19 +184,21 @@ export default function UnifiedHeroMorph() {
                     }}
                     className="absolute z-30 flex flex-col items-center pointer-events-none"
                 >
-                    <img
-                        src="/black.svg"
-                        alt="SEEA Mídia"
-                        className="w-[180px] sm:w-[240px] h-auto object-contain mb-12"
-                    />
+                    <div className="relative w-[180px] sm:w-[240px] h-32 mb-12">
+                        <Image
+                            src="/black.png"
+                            alt="SEEA Mídia"
+                            fill
+                            className="object-contain"
+                            priority
+                        />
+                    </div>
                     
-                    {/* Integrated Scroll Indicator with Pulsing Inducer */}
                     <motion.div 
                         style={{ opacity: useTransform(smoothProgress, [0, 0.08], [1, 0]) }}
                         className="flex flex-col items-center gap-2"
                     >
                         <span className="text-[0.6rem] font-bold tracking-[0.4em] uppercase text-stone-400">Rolar para vivenciar</span>
-                        {/* Pulsing Dot — Using Heritage Red for 'Recording' feel */}
                         <motion.div
                             className="w-2 h-2 bg-heritage-red rounded-full shadow-[0_0_8px_rgba(237,28,36,0.6)]"
                             animate={{ opacity: [1, 0.4, 1], scale: [1, 0.9, 1] }}
@@ -175,7 +212,7 @@ export default function UnifiedHeroMorph() {
                     </motion.div>
                 </motion.div>
 
-                {/* Stage 1: UM TIME QUE (Storytelling transition) */}
+                {/* Narrative Stages (Legacy Text Layers) */}
                 <motion.div 
                     style={{ 
                         opacity: useTransform(smoothProgress, [0.25, 0.35, 0.45, 0.52], [0, 1, 1, 0]), 
@@ -192,7 +229,6 @@ export default function UnifiedHeroMorph() {
                     </div>
                 </motion.div>
 
-                {/* Stage 2: Enxerga cada PROJETO */}
                 <motion.div 
                     style={{ 
                         opacity: useTransform(smoothProgress, [0.55, 0.65, 0.78, 0.85], [0, 1, 1, 0]),
@@ -208,7 +244,6 @@ export default function UnifiedHeroMorph() {
                     </p>
                 </motion.div>
 
-                {/* Stage 3: Como uma HISTÓRIA. */}
                 <motion.div 
                     style={{ 
                         opacity: useTransform(smoothProgress, [0.88, 0.97], [0, 1]),
@@ -231,7 +266,7 @@ export default function UnifiedHeroMorph() {
                     </div>
                 </motion.div>
 
-                {/* --- Cards Implementation (Reactive Pattern) --- */}
+                {/* --- Cards Implementation --- */}
                 {hasMounted && containerSize.width > 0 && (
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
                         <div className="relative w-full h-full flex items-center justify-center">

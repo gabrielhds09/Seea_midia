@@ -242,7 +242,7 @@ export default function HeroCinematic() {
                     <div className="flex justify-between items-center mb-10 sm:mb-14">
                         <div className="relative h-6 sm:h-8 w-20 sm:w-28 opacity-90">
                             <Image 
-                                src="/white.svg" 
+                                src="/black.png" 
                                 alt="SEEA" 
                                 fill
                                 className="object-contain"
