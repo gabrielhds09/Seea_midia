@@ -38,9 +38,9 @@ const PHRASES = [
     },
 ];
 
-const PHRASE_SHOW = 1200;
-const FADE_TIME = 600
-const MIN_DISPLAY_TIME = 3500 // Min visual time for branding
+const PHRASE_SHOW = 1000;
+const FADE_TIME = 400
+const MIN_DISPLAY_TIME = 4000 // Min visual time for branding (4s total)
 
 // Assets to preload for a "Zero-Blank-Frame" experience
 const CRITICAL_ASSETS = [
@@ -107,22 +107,22 @@ export default function Preloader() {
             const handleBeforeUnload = () => window.scrollTo(0, 0);
             window.addEventListener('pagehide', handleBeforeUnload);
 
-            const tl = gsap.timeline({ delay: 0.3 })
+            const tl = gsap.timeline({ delay: 0.1 })
 
             tl.from(logoRef.current!, {
                 opacity: 0,
-                y: 35,
-                scale: 1.05,
-                duration: 2.2,
+                y: 25,
+                scale: 1.02,
+                duration: 1.8,
                 ease: 'expo.out',
             })
 
             if (lineRef.current) {
                 tl.from(lineRef.current, {
                     scaleX: 0,
-                    duration: 1.6,
+                    duration: 1.2,
                     ease: 'power3.inOut',
-                }, '-=1.4')
+                }, '-=1.2')
             }
         }, containerRef)
 
@@ -143,23 +143,25 @@ export default function Preloader() {
     // Phrase rotation
     useEffect(() => {
         if (!visible || exiting) return
-        const initialDelay = isReturning ? 800 : 1500
+        const initialDelay = isReturning ? 400 : 600
         const t0 = setTimeout(() => setPhraseVisible(true), initialDelay)
+        
         const interval = setInterval(() => {
             setPhraseVisible(false)
             setTimeout(() => {
                 setActivePhrase((prev) => prev < PHRASES.length - 1 ? prev + 1 : prev)
                 setPhraseVisible(true)
             }, FADE_TIME)
-        }, PHRASE_SHOW + FADE_TIME)
+        }, PHRASE_SHOW + FADE_TIME + 200) // Small gap to breath
+
         return () => { clearTimeout(t0); clearInterval(interval) }
     }, [visible, exiting, isReturning])
 
     // Coordinated Exit
     useEffect(() => {
         if (assetsLoaded) {
-            // Stay at least MIN_DISPLAY_TIME to show phrases
-            const minimumTimer = isReturning ? 2000 : MIN_DISPLAY_TIME;
+            // Stay exactly 4s to allow phrases to run
+            const minimumTimer = isReturning ? 1500 : MIN_DISPLAY_TIME;
             const timer = setTimeout(() => {
                 setExiting(true)
                 sessionStorage.setItem('seea_intro_seen', 'true')
