@@ -177,13 +177,8 @@ export default function ContentSections() {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </section>
-
-
-
-                {/* 2. SEEA — THE CINEMATIC MANIFESTO (Humanizado) */}
-                <section id="o-conceito" className="relative flex flex-col justify-center py-32 md:py-64 bg-[var(--color-background)] overflow-hidden isolate transition-colors duration-1000">
+                    {/* 2. SEEA — THE CINEMATIC MANIFESTO (Mobile UX Optimized) */}
+                <section id="o-conceito" className="relative flex flex-col justify-center bg-[var(--color-background)] overflow-visible isolate transition-colors duration-1000">
 
                     {/* 1. Background Atmosphere: Layered Ghost Typography & Grain */}
                     <div className="absolute inset-0 pointer-events-none opacity-[0.03] contrast-125 brightness-110">
@@ -209,11 +204,29 @@ export default function ContentSections() {
                         </motion.div>
                     </div>
 
-                    <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-12 lg:px-20 xl:px-28 w-full">
+                    {/* STICKY MEDIA CONTAINER (Mobile Specific) */}
+                    <div className="lg:hidden sticky top-0 h-[50vh] w-full z-0 overflow-hidden">
+                        <video
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
+                            className="absolute inset-0 w-full h-full object-cover"
+                        >
+                            <source src="/video/bastidores.mp4" type="video/mp4" />
+                        </video>
+                        <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-background)] via-transparent to-[var(--color-background)] opacity-90" />
+                        <div className="absolute inset-0 bg-black/10 mix-blend-overlay" />
+                    </div>
+
+                    <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-12 lg:px-20 xl:px-28 w-full py-24 lg:py-64">
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 items-center">
                             
                             {/* 2. Manifesto Text: Left Column */}
-                            <div className="lg:col-span-7">
+                            <div className="lg:col-span-7 relative">
+                                {/* Glassmorphism Card for Mobile Context */}
+                                <div className="lg:hidden absolute -inset-6 bg-[var(--color-background)]/60 backdrop-blur-xl rounded-[2rem] -z-10 shadow-xl border border-white/5" />
+
                                 <motion.p
                                     className="text-[0.62rem] font-bold font-sans uppercase tracking-[0.55em] text-[var(--color-category)] mb-12 flex items-center gap-4"
                                     initial={{ opacity: 0, x: -20 }}
@@ -228,7 +241,7 @@ export default function ContentSections() {
                                     <h2 className="font-extralight font-sans tracking-tight text-[var(--color-text)] headline-reveal">
                                         <div className="overflow-hidden">
                                             <motion.span
-                                                className="block text-[clamp(3rem,10vw,8.5rem)] leading-[0.9] font-serif italic text-[var(--color-category)] relative text-luxury-glow apple-mask-reveal lowercase"
+                                                className="block text-[clamp(2.5rem,10vw,8.5rem)] leading-[0.9] font-serif italic text-[var(--color-category)] relative text-luxury-glow apple-mask-reveal lowercase"
                                                 initial={{ y: "40%", skewY: 4, opacity: 0 }}
                                                 whileInView={{ y: 0, skewY: 0, opacity: 1 }}
                                                 transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
@@ -239,9 +252,9 @@ export default function ContentSections() {
                                     </h2>
                                 </div>
 
-                                <div className="max-w-xl space-y-12">
+                                <div className="max-w-xl space-y-12 mb-20 lg:mb-0">
                                     <motion.p
-                                        className="text-[1.4rem] md:text-[1.8rem] font-light leading-[1.6] text-[var(--color-text)]/80 italic font-serif"
+                                        className="text-[1.3rem] md:text-[1.8rem] font-light leading-[1.6] text-[var(--color-text)]/80 italic font-serif"
                                         initial={{ opacity: 0, y: 20 }}
                                         whileInView={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 1, delay: 0.3 }}
@@ -251,7 +264,7 @@ export default function ContentSections() {
                                     
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                                         <motion.div 
-                                            className="space-y-3"
+                                            className="space-y-3 p-6 lg:p-0 rounded-2xl bg-white/5 lg:bg-transparent backdrop-blur-sm lg:backdrop-blur-none border border-white/5 lg:border-none"
                                             initial={{ opacity: 0 }}
                                             whileInView={{ opacity: 1 }}
                                             transition={{ duration: 1, delay: 0.5 }}
@@ -262,7 +275,7 @@ export default function ContentSections() {
                                             </p>
                                         </motion.div>
                                         <motion.div 
-                                            className="space-y-3"
+                                            className="space-y-3 p-6 lg:p-0 rounded-2xl bg-white/5 lg:bg-transparent backdrop-blur-sm lg:backdrop-blur-none border border-white/5 lg:border-none"
                                             initial={{ opacity: 0 }}
                                             whileInView={{ opacity: 1 }}
                                             transition={{ duration: 1, delay: 0.6 }}
@@ -276,8 +289,8 @@ export default function ContentSections() {
                                 </div>
                             </div>
 
-                            {/* 3. Humanization Frame: Right Column (Moving Parallax Frame) */}
-                            <div className="lg:col-span-5 relative mt-20 lg:mt-0">
+                            {/* 3. Humanization Frame: Right Column (Moving Parallax Frame) - DESKTOP ONLY */}
+                            <div className="hidden lg:block lg:col-span-5 relative mt-20 lg:mt-0">
                                 <motion.div 
                                     className="relative aspect-[4/5] md:aspect-[3/4] overflow-hidden rounded-[2rem] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.15)] ring-1 ring-white/10"
                                     initial={{ opacity: 0, scale: 0.95, y: 30 }}
